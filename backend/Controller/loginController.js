@@ -3,7 +3,8 @@ const studentModel=require('../Model/studentModel')
 const teacherModel=require('../Model/teacherModel')
 const adminModel=require('../Model/adminModel')
 const bcrypt=require('bcrypt')
-
+const dotenv=require('dotenv');
+dotenv.config({path: '../.env'});
 const jwtKey=process.env.JWT_KEY;
 
 async function loginUser(req,res){
