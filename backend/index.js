@@ -15,9 +15,11 @@ const studentRouter=require('./Routes/studentRoutes');
 const teacherRoutes=require('./Routes/teacherRoutes');
 const adminRoutes=require('./Routes/adminRoutes');
 const loginRoutes=require('./Routes/loginRoutes');
+const quizRoute = require("./Routes/quizRoutes");
 
 
 app.use("/student",studentRouter);
+app.use("/quiz",quizRoute);
 app.use("/teacher",teacherRoutes);
 app.use("/admin",adminRoutes);
 app.use("/login",adminRoutes);

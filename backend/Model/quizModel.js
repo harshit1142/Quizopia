@@ -9,17 +9,35 @@ const quizSchema= new mongoose.Schema({
     description:{
         type:String
     },
-    question:{
-        type:Array
+    branch:{
+      type: String
+    },
+    graduationYear:{
+      type: Number
+    },
+    date: {
+      type: Date
+    },
+    duration : {
+      type: Date
     }
+    ,
+    question:[{
+        ques:{
+            type:String
+        },
+        option:[String],
+        answer:{
+            type:String
+        },
+        score:{
+            type:Number
+        }
+    }]
+    
 })
 
-// quizSchema.pre('save',async function(){
-//     this.confirmPassword=undefined;
-//     const salt=await bcrypt.genSalt(10);
-//     const hashPass=await bcrypt.hash(this.password,salt);
-//     this.password=hashPass;
-// })
+
 
 const quizModel=mongoose.model("quizModel",quizSchema);
 

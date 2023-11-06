@@ -26,7 +26,7 @@ const studentSchema= new mongoose.Schema({
         type:String,
         default:"Student"
     },
-    Branch:{
+    branch:{
         type:String,
         require:true
     },

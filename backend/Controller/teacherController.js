@@ -37,6 +37,14 @@ async function deleteTeacher(req,res){
      })
 }
 
+async function getQuiz(req,res){
+    const id= req.params.id;
+    const data=await teacherModel.find({_id:id}).populate({path:'quiz',model:'quizModel'});
+    res.json({
+        message:"All quizes ",
+        data:data
+    })
+}
 
 
-module.exports={getTeacher,postTeacher,patchTeacher,deleteTeacher};
+module.exports={getTeacher,postTeacher,patchTeacher,deleteTeacher,getQuiz};

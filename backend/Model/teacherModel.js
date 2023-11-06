@@ -32,7 +32,11 @@ const teacherSchema= new mongoose.Schema({
     accepted:{
         type:Boolean,
         default:false
-    }  
+    },
+    quiz:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'quizModel'
+    }] 
 })
 
 teacherSchema.pre('save',async function(){

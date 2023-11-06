@@ -11,4 +11,5 @@ dotenv.config({path: '../.env'});
       console.log(error);
     }
 }
+
 module.exports=DB;

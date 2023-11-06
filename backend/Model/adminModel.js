@@ -21,6 +21,10 @@ const adminSchema= new mongoose.Schema({
         validate:function(){
             return this.password===this.confirmPassword;
         }
+    },
+    role:{
+        type:String,
+        default:"Admin"
     }
 })
 
