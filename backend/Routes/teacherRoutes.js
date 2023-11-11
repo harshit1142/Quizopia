@@ -13,6 +13,7 @@ teacherRoute
 .patch(patchTeacher)
 .delete(deleteTeacher);
 
+
 teacherRoute
 .route("/:id")
 .get(getQuiz)

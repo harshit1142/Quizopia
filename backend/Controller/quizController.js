@@ -4,7 +4,6 @@ const teacherModel = require("../Model/teacherModel");
 
 async function getquiz(req,res)
 {
-   
     const data=await quizModel.find({}).exec();
     res.json({
         message:"Quizes ",

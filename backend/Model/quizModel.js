@@ -20,8 +20,7 @@ const quizSchema= new mongoose.Schema({
     },
     duration : {
       type: Date
-    }
-    ,
+    },
     question:[{
         ques:{
             type:String
