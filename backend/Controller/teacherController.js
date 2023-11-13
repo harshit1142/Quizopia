@@ -13,6 +13,7 @@ async function postTeacher(req,res){
     const body=req.body;
     const add=await teacherModel.create(body);
     res.json({
+        status:201,
         message:"Successfully Done",
         data:add
     })

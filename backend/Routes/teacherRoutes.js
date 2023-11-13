@@ -9,7 +9,7 @@ const teacherRoute=express.Router();
 teacherRoute
 .route("/")
 .get(getTeacher)
-.post(postTeacher)
+.post(patchTeacher,postTeacher)
 .patch(patchTeacher)
 .delete(deleteTeacher);
 
@@ -17,5 +17,8 @@ teacherRoute
 teacherRoute
 .route("/:id")
 .get(getQuiz)
+
+
+
 
 module.exports=teacherRoute;
