@@ -18,4 +18,7 @@ teacherRoute
 .route("/:id")
 .get(getQuiz)
 
+
+
+
 module.exports=teacherRoute;

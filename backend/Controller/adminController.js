@@ -13,6 +13,7 @@ async function postadmin(req,res){
     const body=req.body;
     const add=await adminModel.create(body);
     res.json({
+        status:201,
         message:"Successfully Done",
         data:add
     })

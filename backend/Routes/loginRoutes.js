@@ -7,7 +7,7 @@ const loginRoutes=express.Router();
 
 loginRoutes
 .route("/")
-.get(loginUser)
+.post(loginUser)
 
 
 

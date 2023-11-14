@@ -8,18 +8,18 @@ dotenv.config({path: '../.env'});
 const jwtKey=process.env.JWT_KEY;
 
 async function loginUser(req,res){
-    const {email,password}=req.body;
-    const user1=await studentModel.findOne({email:email}).exec();
-    const user2=await teacherModel.findOne({email:email}).exec();
-    const user3=await adminModel.findOne({email:email}).exec();
-    if(user1)
+    const {role,email,password}=req.body;
+    if(role==="student")
     {
+        const user1=await studentModel.findOne({email:email}).exec();
         const match = await bcrypt.compare(password, user1.password);
         if(match){
             const id=user1['_id']
-           const token=jwt.sign({payload:id},jwtKey);
-           res.cookie('isLogin',token,{httpOnly:true});
+            const token=jwt.sign({payload:id},jwtKey);
+            const expirationTime = new Date(new Date().getTime() + 60000);
+           res.cookie('isStudent',token,{httpOnly:true,expirationTime:expirationTime});
             res.json({
+                status:200,
                 meassage:"Login successfully",
                 data:user1
             })
@@ -28,14 +28,17 @@ async function loginUser(req,res){
             res.send("Invalid Password");
         }
     }
-    else if(user2)
+    else if(role==="teacher")
     {
+        const user2=await teacherModel.findOne({email:email}).exec();
         const match = await bcrypt.compare(password, user2.password);
         if(match){
             const id=user2['_id']
-           const token=jwt.sign({payload:id},jwtKey);
-           res.cookie('isLogin',token,{httpOnly:true});
+            const token=jwt.sign({payload:id},jwtKey);
+          const expirationTime = new Date(new Date().getTime() + 60000);
+           res.cookie('isTeacher',token,{httpOnly:true,expirationTime:expirationTime});
             res.json({
+                status:200,
                 meassage:"Login successfully",
                 data:user2
             })
@@ -44,14 +47,17 @@ async function loginUser(req,res){
             res.send("Invalid Password");
         }
     }
-    else if(user3)
+    else if(role==="admin")
     {
+        const user3=await adminModel.findOne({email:email}).exec();
         const match = await bcrypt.compare(password, user3.password);
         if(match){
             const id=user3['_id']
            const token=jwt.sign({payload:id},jwtKey);
-           res.cookie('isLogin',token,{httpOnly:true});
+           const expirationTime = new Date(new Date().getTime() + 60000);
+           res.cookie('isAdmin',token,{httpOnly:true,expirationTime:expirationTime});
             res.json({
+                status:200,
                 meassage:"Login successfully",
                 data:user3
             })

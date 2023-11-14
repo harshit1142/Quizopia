@@ -10,12 +10,19 @@ async function getTeacher(req,res)
 }
 
 async function postTeacher(req,res){
-    const body=req.body;
-    const add=await teacherModel.create(body);
-    res.json({
-        message:"Successfully Done",
-        data:add
-    })
+    try {
+        const body=req.body;
+        const add=await teacherModel.create(body);
+        res.json({
+            status:201,
+            message:"Successfully Done",
+            data:add
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.send({message:error});
+    }
 }
 
 async function patchTeacher(req,res){

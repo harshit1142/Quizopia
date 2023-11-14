@@ -4,6 +4,15 @@ const DB=require('./db');
 app.use(express.json());
 const cookies = require("cookie-parser");
 
+app.use((req,res,next)=>{
+    res.setHeader("Access-Control-Allow-Origin","http://localhost:3000");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+})
+
 app.use(cookies());
 
 app.listen(4000,()=>{
@@ -18,12 +27,54 @@ const loginRoutes=require('./Routes/loginRoutes');
 const quizRoute = require("./Routes/quizRoutes");
 
 
+app.use("/login",loginRoutes);
 app.use("/student",studentRouter);
-app.use("/quiz",quizRoute);
 app.use("/teacher",teacherRoutes);
 app.use("/admin",adminRoutes);
-app.use("/login",adminRoutes);
+app.use("/quiz",quizRoute);
 
 
 
-// app.use("",(req,res)=>res.sendFile("/404.html",{root:__dirname}))
+
+
+ function protectStudent(req,res,next){
+    try {
+        const token=req.cookies.isStudent;
+        if(token){
+           next();
+        }else{
+           res.send({message:"Invaild Auth"});
+        }
+        
+    } catch (error) {
+        res.send(message=error.message);
+    }
+}
+
+async function protectTeacher(req,res,next){
+    try {
+        const token=req.cookies.isTeacher;
+        if(token){
+           next();
+        }else{
+           res.send(message="Invalid Auth");
+        }
+        
+    } catch (error) {
+        res.send(message=error.message);
+    }
+}
+
+async function protectAdmin(req,res,next){
+    try {
+        const token=req.cookies.isAdmin;
+        if(token){
+           next();
+        }else{
+           res.send(message="Invalid Auth");
+        }
+        
+    } catch (error) {
+        res.send(message=error.message);
+    }
+}

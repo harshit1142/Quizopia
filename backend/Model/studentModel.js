@@ -31,7 +31,7 @@ const studentSchema= new mongoose.Schema({
         require:true
     },
     graduationYear:{
-        type:Number,
+        type:String,
         require:true
     }  
 })
