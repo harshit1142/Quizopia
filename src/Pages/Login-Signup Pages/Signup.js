@@ -302,7 +302,7 @@ export default function Signup() {
                     </div>
                     <div id="item1" className="item">
                         {/* <!-- <label htmlFor="name">Name:</label> --> */}
-                        <input type="text" placeholder="Name" id="name" name='name' value={teacher.name} onChange={teacherChange} className="inputbar" required />
+                        <input type="text" placeholder="Name" id="name" name='name' value={admin.name} onChange={adminChange} className="inputbar" required />
 
                     </div>
                     <div id="item10" className="item">
@@ -310,12 +310,12 @@ export default function Signup() {
                     </div>
                     <div id="item2" className="item">
                         {/* <!-- <label htmlFor="email">Email:</label> --> */}
-                        <input type="email" placeholder="Email" id="email" name='email' value={teacher.email} onChange={teacherChange} className="inputbar" required />
+                        <input type="email" placeholder="Email" id="email" name='email' value={admin.email} onChange={adminChange} className="inputbar" required />
                         <span className="icon"><ion-icon name="mail"></ion-icon></span>
                     </div>
                     <div id="item3" className="item">
                         {/* <!-- <label htmlFor="name">Password:</label> --> */}
-                        <input type="password" placeholder="Password" id="password" name='password' value={teacher.password} onChange={teacherChange} className="inputbar" required />
+                        <input type="password" placeholder="Password" id="password" name='password' value={admin.password} onChange={adminChange} className="inputbar" required />
                         <span className="icon"><ion-icon name="lock-closed"></ion-icon></span>
                     </div>
                     <div id="item11" className="item">
@@ -323,7 +323,7 @@ export default function Signup() {
                     </div>
                     <div id="item4" className="item">
                         {/* <!-- <label htmlFor="name">Confirm Password:</label> --> */}
-                        <input type="password" placeholder="Confirm Password" id="cnfrm-password" name='confirmPassword' value={teacher.confirmPassword} onChange={teacherChange} className="inputbar" required />
+                        <input type="password" placeholder="Confirm Password" id="cnfrm-password" name='confirmPassword' value={admin.confirmPassword} onChange={adminChange} className="inputbar" required />
                     </div>
                     <div id="item6" className="item">
                         <p id="message"></p>
@@ -350,7 +350,7 @@ export default function Signup() {
                     </div>
                     <div id="item1" className="item">
                         {/* <!-- <label htmlFor="name">Name:</label> --> */}
-                        <input type="text" placeholder="Name" id="name" name='name' value={admin.name} onChange={adminChange} className="inputbar" required />
+                        <input type="text" placeholder="Name" id="name" name='name' value={teacher.name} onChange={teacherChange} className="inputbar" required />
 
                     </div>
                     <div id="item10" className="item">
@@ -358,12 +358,12 @@ export default function Signup() {
                     </div>
                     <div id="item2" className="item">
                         {/* <!-- <label htmlFor="email">Email:</label> --> */}
-                        <input type="email" placeholder="Email" id="email" name='email' value={admin.email} onChange={adminChange} className="inputbar" required />
+                        <input type="email" placeholder="Email" id="email" name='email' value={teacher.email} onChange={teacherChange} className="inputbar" required />
                         <span className="icon"><ion-icon name="mail"></ion-icon></span>
                     </div>
                     <div id="item3" className="item">
                         {/* <!-- <label htmlFor="name">Password:</label> --> */}
-                        <input type="password" placeholder="Password" id="password" name='password' value={admin.password} onChange={adminChange} className="inputbar" required />
+                        <input type="password" placeholder="Password" id="password" name='password' value={teacher.password} onChange={teacherChange} className="inputbar" required />
                         <span className="icon"><ion-icon name="lock-closed"></ion-icon></span>
                     </div>
                     <div id="item11" className="item">
@@ -371,12 +371,12 @@ export default function Signup() {
                     </div>
                     <div id="item4" className="item">
                         {/* <!-- <label htmlFor="name">Confirm Password:</label> --> */}
-                        <input type="password" placeholder="Confirm Password" id="cnfrm-password" name='confirmPassword' value={admin.confirmPassword} onChange={adminChange} className="inputbar" required />
+                        <input type="password" placeholder="Confirm Password" id="cnfrm-password" name='confirmPassword' value={teacher.confirmPassword} onChange={teacherChange} className="inputbar" required />
                     </div>
 
                     <div id="item5" className="item">
                         {/* <!-- <label htmlFor="name">Graduation Year:</label> --> */}
-                        <input type="text" placeholder="Subject" id="subject" name='subject' value={admin.subject} onChange={adminChange} className="inputbar" required />
+                        <input type="text" placeholder="Subject" id="subject" name='subject' value={teacher.subject} onChange={teacherChange} className="inputbar" required />
                     </div>
 
                     <div id="item6" className="item">

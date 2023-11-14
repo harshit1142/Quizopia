@@ -9,7 +9,7 @@ const teacherRoute=express.Router();
 teacherRoute
 .route("/")
 .get(getTeacher)
-.post(patchTeacher,postTeacher)
+.post(postTeacher)
 .patch(patchTeacher)
 .delete(deleteTeacher);
 
