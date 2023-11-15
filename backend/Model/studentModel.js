@@ -31,9 +31,13 @@ const studentSchema= new mongoose.Schema({
         require:true
     },
     graduationYear:{
-        type:String,
+        type:Number,
         require:true
-    }  
+    },
+    quiz:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'quizModel'
+    }]  
 })
 
 studentSchema.pre('save',async function(){

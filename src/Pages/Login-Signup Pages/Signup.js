@@ -15,7 +15,7 @@ export default function Signup() {
         confirmPassword:"",
         role:"Student",
         branch:"",
-        graduationYear:""
+        graduationYear:Number
     })
     const [teacher,setTeacher]=useState({
         name:"",
@@ -272,7 +272,7 @@ export default function Signup() {
 
                     <div id="item6" className="item">
                         {/* <!-- <label htmlFor="name">Graduation Year:</label> --> */}
-                        <input type="date" placeholder="Select Year" name='graduationYear' onChange={studentChange} value={student.graduationYear} id="year" className="inputbar" required />
+                        <input type="number" min="1999" max="2040" placeholder="Select Year" name='graduationYear' onChange={studentChange} value={student.graduationYear} id="year" className="inputbar" required />
                     </div>
 
                     <div id="item7" className="item">
