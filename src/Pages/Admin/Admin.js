@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './styles.css'
 import img from './admin.png'
 import { useState } from 'react'
+import List from '../../Components/List';
+import List2 from '../../Components/List2';
+import StudentList from '../../Components/StudentList';
 
 
 export default function Admin() {
   const [curr,setCurr]=useState("dash");
+
+  const [teacher,setTeacher]=useState([]);
+  const [student,setStudent]=useState([]);
+  
+    const fetchTeacher=async ()=>{
+          const response= await fetch("http://localhost:4000/teacher");
+                        const res=await response.json();
+                        setTeacher(res.data);                  
+    }
+    const fetchStudent=async ()=>{
+          const response= await fetch("http://localhost:4000/student");
+                        const res=await response.json();
+                        setStudent(res.data);                  
+    }
+
+useEffect(()=>{
+     fetchTeacher();
+     fetchStudent();
+},[])
+
 
   return (
     <>
@@ -53,12 +76,12 @@ export default function Admin() {
             { curr==="dash"?
               <section className="main-content">
                 <div className="card-box">
-                    <a  className="cards cards-admin">
+                    <a onClick={()=>setCurr("total_teacher")} className="cards cards-admin">
                         <div className="btn-content">Total Teacher <span className="icon"><i
                                     className='fas fa-chalkboard-teacher'></i></span>
                         </div>
                     </a>
-                    <a  className="cards cards-admin">
+                    <a onClick={()=>setCurr("total_student")} className="cards cards-admin">
                         <div className="btn-content">Total Student <span className="icon"><i
                                     className='fas fa-user-graduate'></i></span>
                         </div>
@@ -76,30 +99,31 @@ export default function Admin() {
             :curr==="teacher"?
              <section class="main-content">
                 <div class="card-box">
-                    <a  class="cards cards-adminteacher">
+                    <a onClick={()=>setCurr("total_teacher")} class="cards cards-adminteacher">
                         <div class="btn-content">Total Teacher <span class="icon"><i
                                     class='fas fa-chalkboard-teacher'></i></span></div>
                     </a>
-                    <a  class="cards cards-adminteacher">
+                    <a onClick={()=>setCurr("teacher_req")} class="cards cards-adminteacher">
                         <div class="btn-content">Total Teacher Requests Pending <span class="icon"><i
                                     class='fas fa-circle-notch'></i></span></div>
                     </a>
                 </div>
+                
             </section>
             :curr==="student"?
              <section class="main-content">
                 <div class="card-box">
-                    <a  class="cards cards-adminstudent">
+                    <a onClick={()=>setCurr("total_student")} class="cards cards-adminstudent">
                         <div class="btn-content">Total Student <span class="icon"><i
                                     class='fas fa-user-graduate'></i></span></div>
                     </a>
-                    <a  class="cards cards-adminstudent">
+                    {/* <a onClick={()=>setCurr("")} class="cards cards-adminstudent">
                         <div class="btn-content">Student Marks <span class="icon"><i
                                     class='fas fa-sort-numeric-down'></i></span></div>
-                    </a>
+                    </a> */}
                 </div>
             </section>
-            :
+            :curr==="courses"?
             <section class="main-content">
                 <div class="addquestion-container">
                     <div class="heading-addquestion item">ADD COURSE</div>
@@ -117,7 +141,58 @@ export default function Admin() {
 
                </div>
             </section>
-            }
+            :""}
+            {curr==="total_teacher"?
+             <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Subject</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   {teacher.filter((tea)=>tea.accepted===true).map((ele,ind)=><List list={ele} ind={ind} key={ele._id} />)}
+                </tbody>
+                </table>
+            :
+            ""}
+            {curr==="teacher_req"?
+             <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Accept</th>
+                    <th scope="col">Decline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {teacher.filter((tea)=>tea.accepted===false).map((ele,ind)=><List2 list={ele} ind={ind} key={ele._id} />)}
+                </tbody>
+                </table>
+            :
+            ""}
+            {curr==="total_student"?
+             <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Graduation Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {student.map((ele,ind)=><StudentList list={ele} ind={ind} key={ele._id} />)}
+                </tbody>
+                </table>
+            :
+            ""}
         </div>
 
     </div>

@@ -10,8 +10,6 @@ teacherRoute
 .route("/")
 .get(getTeacher)
 .post(postTeacher)
-
-
 .patch(patchTeacher)
 .delete(deleteTeacher);
 
