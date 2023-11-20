@@ -12,7 +12,6 @@ async function getStudent(req,res)
 async function postStudent(req,res){
     const body=req.body;
     const add=await studentModel.create(body);
-    console.log(add);
     res.status(201).json({
         status:201,
         message:"Successfully Done",

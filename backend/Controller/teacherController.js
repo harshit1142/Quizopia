@@ -26,10 +26,10 @@ async function postTeacher(req,res){
 }
 
 async function patchTeacher(req,res){
-    const {email,name}=req.body;
-    const userData=await teacherModel.findOneAndUpdate({email:email},{name:name});
+    const {email}=req.body;
+    const userData=await teacherModel.findOneAndUpdate({email:email},{accepted:true});
     res.json({
-        message:"Updated",
+        message:"Teacher Accepted",
         data:userData
     })
 
@@ -39,19 +39,12 @@ async function deleteTeacher(req,res){
      const {email}=req.body;
      const userData=await teacherModel.deleteOne({email:email});
      res.json({
-        message:"Deleted",
+        message:"Teacher Removed...",
         data:userData
      })
 }
 
-async function getQuiz(req,res){
-    const id= req.params.id;
-    const data=await teacherModel.find({_id:id}).populate({path:'quiz',model:'quizModel'});
-    res.json({
-        message:"All quizes ",
-        data:data
-    })
-}
 
 
-module.exports={getTeacher,postTeacher,patchTeacher,deleteTeacher,getQuiz};
+
+module.exports={getTeacher,postTeacher,patchTeacher,deleteTeacher};

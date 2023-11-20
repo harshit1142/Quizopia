@@ -32,7 +32,17 @@ const quizSchema= new mongoose.Schema({
         score:{
             type:Number
         }
-    }]
+    }],
+    attempt:{
+      type:Boolean,
+      default:false
+    },
+    totalMarks:{
+      type:Number
+    },
+    marks:{
+      type:Number
+    }
     
 })
 
