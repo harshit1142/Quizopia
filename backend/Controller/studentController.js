@@ -2,11 +2,17 @@ const studentModel =require("../Model/studentModel")
 
 async function getStudent(req,res)
 {
+    const token=req.cookies.isAdmin;
+    if(token || req.cookies.isTeacher)
+    {
     const data=await studentModel.find({}).exec();
     res.json({
         message:"Students",
         data:data
     })
+}else{
+        res.send({message:"Invalid Auth"});
+    }
 }
 
 async function postStudent(req,res){
