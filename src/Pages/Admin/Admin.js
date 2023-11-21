@@ -14,7 +14,7 @@ export default function Admin() {
   const [student,setStudent]=useState([]);
   
     const fetchTeacher=async ()=>{
-          const response= await fetch("http://localhost:4000/teacher");
+          const response= await fetch("http://localhost:4000/teacher",{withCredentials: true});
                         const res=await response.json();
                         setTeacher(res.data);                  
     }
@@ -29,6 +29,10 @@ useEffect(()=>{
      fetchStudent();
 },[])
 
+  function handleLogout(){
+
+  }
+
 
   return (
     <>
@@ -38,7 +42,7 @@ useEffect(()=>{
                 <div className="quiz-heading">QUIZOPIA</div>
                 {/* <!-- <div className="button-bar"><button>bar</button></div> --> */}
             </div>
-            <div className="logout-btn"><button><a id="logout-text" >Logout  <i className='fas fa-user-cog logout-icon'></i></a></button></div>
+            <div className="logout-btn"><button><a onClick={()=>handleLogout} >Logout  <i className='fas fa-user-cog logout-icon'></i></a></button></div>
         </nav>
         <div className="page-content">
             <div className="sidebar">
@@ -153,7 +157,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                   {teacher.filter((tea)=>tea.accepted===true).map((ele,ind)=><List list={ele} ind={ind} key={ele._id} />)}
+                   {teacher!=null && teacher.filter((tea)=>tea.accepted===true).map((ele,ind)=><List list={ele} ind={ind} key={ele._id} /> )}
                 </tbody>
                 </table>
             :
@@ -171,7 +175,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                    {teacher.filter((tea)=>tea.accepted===false).map((ele,ind)=><List2 list={ele} ind={ind} key={ele._id} />)}
+                    {teacher!=null && teacher.filter((tea)=>tea.accepted===false).map((ele,ind)=><List2 list={ele} ind={ind} key={ele._id} />)}
                 </tbody>
                 </table>
             :
@@ -188,7 +192,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                    {student.map((ele,ind)=><StudentList list={ele} ind={ind} key={ele._id} />)}
+                    {student!=null && student.map((ele,ind)=><StudentList list={ele} ind={ind} key={ele._id} />)}
                 </tbody>
                 </table>
             :

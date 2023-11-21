@@ -2,9 +2,10 @@ const teacherModel =require("../Model/teacherModel")
 
 async function getTeacher(req,res)
 {
-    // const token=req.cookies.isAdmin;
-    // if(token)
-    // {
+    const token=req.cookies.isAdmin;
+    console.log(req.cookies);
+    if(token)
+    {
         try {
                 const data=await teacherModel.find({}).exec();
                 res.json({
@@ -16,9 +17,9 @@ async function getTeacher(req,res)
                 console.log(error);
                 res.send({message:error});
             }
-    // }else{
-    //     res.send({message:"Invalid Auth"});
-    // }
+    }else{
+        res.send({message:"Invalid Auth"});
+    }
     
 }
 
