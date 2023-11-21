@@ -49,26 +49,26 @@ useEffect(()=>{
                 <div className="option-bar">
                     <a  className="icon-link">
                         <div className="option-iconbox">
-                            <span className="icon"><ion-icon name="mail"></ion-icon></span>
+                            <span className="icon-sidebar"><ion-icon name="mail"></ion-icon></span>
                             <div className="options" onClick={()=>setCurr("dash")}>Dashboard </div>
                         </div>
                     </a>
                     <a  className="icon-link">
                         <div className="option-iconbox">
-                            <span className="icon"><i className='fas fa-chalkboard-teacher'></i></span>
+                            <span className="icon-sidebar"><i className='fas fa-chalkboard-teacher'></i></span>
                             <div className="options" onClick={()=>setCurr("teacher")}>Teacher</div>
                         </div>
                     </a>
                     <a  className="icon-link">
                         <div className="option-iconbox">
-                            <span className="icon"><i className='fas fa-user-graduate'></i></span>
+                            <span className="icon-sidebar"><i className='fas fa-user-graduate'></i></span>
                             <div className="options" onClick={()=>setCurr("student")}>Student</div>
                         </div>
                     </a>
                     <a  className="icon-link">
                         <div className="option-iconbox">
-                            <span className="icon"><i className='fa fa-tasks'></i></span>
-                            <div className="options" onClick={()=>setCurr("courses")}>Courses</div>
+                            <span className="icon-sidebar"><i className='fa fa-tasks'></i></span>
+                            <div className="options" onClick={()=>setCurr("notice")}>Notice</div>
                         </div>
                     </a>
                 </div>
@@ -86,55 +86,55 @@ useEffect(()=>{
                                     className='fas fa-user-graduate'></i></span>
                         </div>
                     </a>
-                    <a  className="cards cards-admin">
-                        <div className="btn-content">Total Courses <span className="icon"><i className='fa fa-tasks'></i></span>
+                    <a onClick={()=>setCurr("notice")} className="cards cards-admin">
+                        <div className="btn-content">Notice<span className="icon"><i className='fa fa-tasks'></i></span>
                         </div>
                     </a>
-                    <a  className="cards cards-admin">
-                        <div className="btn-content">Total Questions <span className="icon"><i
+                    {/* <a  className="cards cards-admin">
+                        <div className="btn-content">Quizes<span className="icon"><i
                                     className='fa fa-question'></i></span></div>
-                    </a>
+                    </a> */}
                 </div>
             </section>
             :curr==="teacher"?
-             <section class="main-content">
-                <div class="card-box">
-                    <a onClick={()=>setCurr("total_teacher")} class="cards cards-adminteacher">
-                        <div class="btn-content">Total Teacher <span class="icon"><i
-                                    class='fas fa-chalkboard-teacher'></i></span></div>
+             <section className="main-content">
+                <div className="card-box">
+                    <a onClick={()=>setCurr("total_teacher")} className="cards cards-adminteacher">
+                        <div className="btn-content">Total Teacher <span className="icon"><i
+                                    className='fas fa-chalkboard-teacher'></i></span></div>
                     </a>
-                    <a onClick={()=>setCurr("teacher_req")} class="cards cards-adminteacher">
-                        <div class="btn-content">Total Teacher Requests Pending <span class="icon"><i
-                                    class='fas fa-circle-notch'></i></span></div>
+                    <a onClick={()=>setCurr("teacher_req")} className="cards cards-adminteacher">
+                        <div className="btn-content">Total Teacher Requests Pending <span className="icon"><i
+                                    className='fas fa-circle-notch'></i></span></div>
                     </a>
                 </div>
                 
             </section>
             :curr==="student"?
-             <section class="main-content">
-                <div class="card-box">
-                    <a onClick={()=>setCurr("total_student")} class="cards cards-adminstudent">
-                        <div class="btn-content">Total Student <span class="icon"><i
-                                    class='fas fa-user-graduate'></i></span></div>
+             <section className="main-content">
+                <div className="card-box">
+                    <a onClick={()=>setCurr("total_student")} className="cards cards-adminstudent">
+                        <div className="btn-content">Total Student <span className="icon"><i
+                                    className='fas fa-user-graduate'></i></span></div>
                     </a>
-                    {/* <a onClick={()=>setCurr("")} class="cards cards-adminstudent">
-                        <div class="btn-content">Student Marks <span class="icon"><i
-                                    class='fas fa-sort-numeric-down'></i></span></div>
+                    {/* <a onClick={()=>setCurr("")} className="cards cards-adminstudent">
+                        <div className="btn-content">Student Marks <span className="icon"><i
+                                    className='fas fa-sort-numeric-down'></i></span></div>
                     </a> */}
                 </div>
             </section>
-            :curr==="courses"?
-            <section class="main-content">
-                <div class="addquestion-container">
-                    <div class="heading-addquestion item">ADD COURSE</div>
-                    <div class="question-box">
-                        <div class="item" id="item4">
-                            <div class="inp-boxheading"><label for="course">Course</label></div>
-                            <div class="inp-box"><input name="course" type="text" class="input-bar"
-                                    placeholder="Enter Course" /></div>
+            :curr==="notice"?
+            <section className="main-content">
+                <div className="addquestion-container">
+                    <div className="heading-addquestion item">Add Notice</div>
+                    <div className="question-box">
+                        <div className="item" id="item4">
+                            {/* <div className="inp-boxheading m-4"><label for="course">Notice</label></div> */}
+                            <div className="inp-box"><textarea name="course" type="text" className="input-bar"
+                                    placeholder="Enter Here!!" /></div>
                   
-                        <div class="item" id="item8">
-                            <button type="submit" class="btn-pink">ADD</button>
+                        <div className="item" id="item8">
+                            <button type="submit" className="btn-pink">ADD</button>
                         </div>
                     </div>
                     </div>
@@ -143,7 +143,7 @@ useEffect(()=>{
             </section>
             :""}
             {curr==="total_teacher"?
-             <table class="table">
+             <table className="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -159,7 +159,7 @@ useEffect(()=>{
             :
             ""}
             {curr==="teacher_req"?
-             <table class="table">
+             <table className="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -177,7 +177,7 @@ useEffect(()=>{
             :
             ""}
             {curr==="total_student"?
-             <table class="table">
+             <table className="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
