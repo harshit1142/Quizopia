@@ -111,10 +111,10 @@ export default function Signup() {
                         "content-type": "application/json"
                     },
                     body: JSON.stringify({
-                        name:teacher.name,
-                        email:teacher.email,
-                        password:teacher.password,
-                        confirmPassword:teacher.confirmPassword
+                        name:admin.name,
+                        email:admin.email,
+                        password:admin.password,
+                        confirmPassword:admin.confirmPassword
                     })
                 })
                 const res= await response.json();

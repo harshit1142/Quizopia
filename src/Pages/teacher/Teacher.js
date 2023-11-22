@@ -4,7 +4,10 @@ import img from '../Admin/admin.png'
 import { useState } from 'react'
 import StudentList from '../../Components/StudentList';
 
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
 export default function Teacher() {
+    const history=useHistory();
   const [curr,setCurr]=useState("dash");
 
   const [student,setStudent]=useState([]);
@@ -20,6 +23,12 @@ useEffect(()=>{
      fetchStudent();
 },[])
 
+   function handleLogout(){
+    alert("Logout Successfully !!!")
+       localStorage.removeItem("user");
+       history.push("/");
+  }
+
   return (
     <>
       <div class="wrapper">
@@ -28,7 +37,7 @@ useEffect(()=>{
                 <div class="quiz-heading">QUIZOPIA</div>
                 {/* <!-- <div class="button-bar"><button>bar</button></div> --> */}
             </div>
-            <div class="logout-btn"><button><a id="logout-text" href="login.html">Logout  <i class='fas fa-user-cog logout-icon'></i></a></button></div>
+           <a onClick={handleLogout}> <div class="logout-btn">Logout  <i class='fas fa-user-cog logout-icon'></i></div></a>
         </nav>
         <div class="page-content">
             <div class="sidebar">

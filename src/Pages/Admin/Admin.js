@@ -5,9 +5,12 @@ import { useState } from 'react'
 import List from '../../Components/List';
 import List2 from '../../Components/List2';
 import StudentList from '../../Components/StudentList';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 
 export default function Admin() {
+    const history=useHistory();
   const [curr,setCurr]=useState("dash");
 
   const [teacher,setTeacher]=useState([]);
@@ -30,7 +33,9 @@ useEffect(()=>{
 },[])
 
   function handleLogout(){
-
+    alert("Logout Successfully !!!")
+       localStorage.removeItem("user");
+       history.push("/");
   }
 
 
@@ -42,7 +47,7 @@ useEffect(()=>{
                 <div className="quiz-heading">QUIZOPIA</div>
                 {/* <!-- <div className="button-bar"><button>bar</button></div> --> */}
             </div>
-            <div className="logout-btn"><button><a onClick={()=>handleLogout} >Logout  <i className='fas fa-user-cog logout-icon'></i></a></button></div>
+           <a > <div className="logout-btn" onClick={handleLogout}>Logout  <i className='fas fa-user-cog logout-icon'></i></div> </a>
         </nav>
         <div className="page-content">
             <div className="sidebar">

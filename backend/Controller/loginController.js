@@ -60,7 +60,7 @@ async function loginUser(req,res){
             const id=user3['_id']
            const token=jwt.sign({payload:id},jwtKey);
            const expirationTime =(new Date()+ 6000000);
-           res.cookie("isAdmin",token,{httpOnly:true,expirationTime:expirationTime});
+           res.cookie("isAdmin",token,{httpOnly:true,expire:expirationTime});
             // localStorage.setItem("role", "Admin");
             res.json({
                 cookie:token,

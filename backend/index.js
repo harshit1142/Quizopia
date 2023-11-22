@@ -75,7 +75,8 @@ async function protectTeacher(req,res,next){
 
 async function protectAdmin(req,res,next){
     try {
-        const token=req.cookies.isAdmin;
+      const token=req.cookies.isAdmin;
+      console.log(token);
         if(token){
            next();
         }else{
@@ -83,6 +84,6 @@ async function protectAdmin(req,res,next){
         }
         
     } catch (error) {
-        res.send(message=error.message);
+        res.send(message=error);
     }
 }
