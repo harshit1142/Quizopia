@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import './styles.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-export default function Login() {
+export default function Login({update}) {
    const history=useHistory();
     const [data,setData]=useState({
         role:"",
@@ -19,10 +19,10 @@ export default function Login() {
         event.preventDefault();
         const response=await fetch("http://localhost:4000/login",{
             method:"POST",
-            withcredentials:true,
             headers: {
                         "content-type": "application/json"
                     },
+                    withCredentials:true,
                     body: JSON.stringify({
                         role:data.role,
                         email:data.email,
@@ -33,6 +33,7 @@ export default function Login() {
                 if(res.status===200)
                 {
                     alert("Logined Successfully!!");
+                    update(data);
                     if(data.role==="student") history.push("/student");
                     else if(data.role==="teacher") history.push("/teacher");
                     if(data.role==="admin") history.push("/admin");
@@ -71,7 +72,7 @@ export default function Login() {
                     </div>
                     <div id="item3" className="item">
                         {/* <!-- <label htmlFor="name">Password:</label> --> */}
-                        <input type="text" placeholder="Password" id="password" className="inputbar" name='password' value={data.password} onChange={handleChange} required autoComplete='off'/>
+                        <input type="text" placeholder="Password" id="password" className="inputbar" name='password' value={data.password} onChange={handleChange} required />
                         <span className="icon"><ion-icon name="lock-closed"></ion-icon></span>
                     </div>
                     <div id="item12" className="item">
