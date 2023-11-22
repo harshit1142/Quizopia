@@ -25,7 +25,11 @@ const adminSchema= new mongoose.Schema({
     role:{
         type:String,
         default:"Admin"
-    }
+    },
+     notice:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'adminNotice'
+    }] 
 })
 
 adminSchema.pre('save',async function(){

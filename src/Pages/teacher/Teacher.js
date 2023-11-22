@@ -3,12 +3,18 @@ import '../Admin/styles.css'
 import img from '../Admin/admin.png'
 import { useState } from 'react'
 import StudentList from '../../Components/StudentList';
+import Box from '../../Components/Box';
 
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function Teacher() {
+     const userId=JSON.parse(localStorage.getItem("user"))._id;
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
+    const [notice,setNotice]=useState("");
+    const [isfetch,setFetch]=useState(false);
+    const [allNotice,setAllNotice]=useState([]);
+    const [adminNotice,setAdminNotice]=useState([]);
 
   const [student,setStudent]=useState([]);
   
@@ -18,15 +24,52 @@ export default function Teacher() {
                         const res=await response.json();
                         setStudent(res.data);                  
     }
+    const fetchNotice=async ()=>{
+          const response= await fetch(`http://localhost:4000/teacher/notice/${userId}`);
+                        const res=await response.json();
+                        setAllNotice(res.data);                  
+    }
+    const fetchAdminNotice=async ()=>{
+          const response= await fetch(`http://localhost:4000/admin/notice`);
+                        const res=await response.json();
+                        setAdminNotice(res.data);                  
+    }
 
 useEffect(()=>{
      fetchStudent();
-},[])
+     fetchNotice();
+     fetchAdminNotice();
+},[isfetch])
 
    function handleLogout(){
     alert("Logout Successfully !!!")
        localStorage.removeItem("user");
        history.push("/");
+  }
+//  adminNotice.map((elee,pos)=>elee.notice.map((ele,ind)=>
+//  console.log(adminNotice[pos].name)
+
+//  ))
+
+   async function handleNotice(){
+     const response= await fetch(`http://localhost:4000/teacher/notice/${userId}`,{
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      title:notice
+                    })
+                })
+                const res= await response.json();
+                if(res.status===201)
+                {
+                    alert("Added Successfully!!");
+                    setFetch(!isfetch);
+                    setCurr("dash");
+                }else{
+                    alert("Error Occured");
+                }
   }
 
   return (
@@ -100,11 +143,15 @@ useEffect(()=>{
             :curr==="notice"?
             <section class="main-content">
                 <div class="card-box">
-                    <a  class="cards cards-teacherquestion">
+                    <a onClick={()=>setCurr("add_notice")} class="cards cards-teacherquestion">
                         <div class="btn-content">Add Notice <span class="icon"><i class='fa fa-plus'></i></span>
                         </div>
                     </a>
-                    <a href="" class="cards cards-teacherquestion">
+                    <a onClick={()=>setCurr("your_notice")} class="cards cards-teacherquestion">
+                        <div class="btn-content">Your Notice <span class="icon"><i class='fa fa-plus'></i></span>
+                        </div>
+                    </a>
+                    <a onClick={()=>setCurr("admin_notice")}  class="cards cards-teacherquestion">
                         <div class="btn-content">View Notice By Admin <span class="icon"><i class='fa fa-eye'></i></span>
                         </div>
                     </a>
@@ -125,8 +172,53 @@ useEffect(()=>{
                     {student.map((ele,ind)=><StudentList list={ele} ind={ind} key={ele._id} />)}
                 </tbody>
                 </table>
-            :
-            ""}
+            :curr==="your_notice"?
+               <table className="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Notice</th>
+                    <th scope="col">By</th>
+                    <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     {allNotice!=null && allNotice[0].notice.map((ele,ind)=> <Box key={ele._id} name={allNotice[0].name} ind={ind} list={ele} />)} 
+                 </tbody>
+                </table>
+            :curr==="admin_notice"?
+               <table className="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Notice</th>
+                    <th scope="col">By</th>
+                    <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     {adminNotice!=null && adminNotice.map((item,pos)=>item.notice.map((ele,ind)=> <Box key={ele._id} name={adminNotice[pos].name} ind={ind} list={ele} />))} 
+                 </tbody>
+                </table>
+            :""}
+            {curr==="add_notice"?
+              <section className="main-content">
+                <div className="addquestion-container">
+                    <div className="heading-addquestion item">Add Notice</div>
+                    <div className="question-box">
+                        <div className="item" id="item4">
+                           <div className="inp-box"><textarea  type="text" name="notice" value={notice} onChange={(e)=>setNotice(e.target.value)} className="input-bar"
+                                    placeholder="Enter Here!!" /></div>
+                  
+                        <div className="item" id="item8">
+                            <a onClick={()=>handleNotice()} className="btn-pink">ADD</a>
+                        </div>
+                    </div>
+                    </div>
+
+               </div>
+            </section> 
+            :""}
           </div>
         </div>
 

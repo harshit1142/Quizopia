@@ -8,20 +8,20 @@ export default function Home() {
     <>
       <header>
     {/* <nav>
-       <div class="logo">
-        <h1 class="">Logo Here</h1>
+       <div className="logo">
+        <h1 className="">Logo Here</h1>
        </div>
-       <div class ="menu">
-        <a href="./index.html" class="nav-link">Home</a>
-        <a href="#" class="nav-link">Home</a>
-        <a href="../contact.html" class="nav-link">Contact</a>
-        <a href="./about.html" class="nav-link">About</a>
+       <div className ="menu">
+        <a href="./index.html" className="nav-link">Home</a>
+        <a href="#" className="nav-link">Home</a>
+        <a href="../contact.html" className="nav-link">Contact</a>
+        <a href="./about.html" className="nav-link">About</a>
 
        </div>
-       <div class="hamburger">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+       <div className="hamburger">
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
        </div>
     </nav> */}
 
@@ -32,8 +32,8 @@ export default function Home() {
             </h3>
             <h1>Quize Site <span></span></h1>
             {/* <p>"india once is not enough"</p> */}
-            <Link to="/login" class="btnone">Login here</Link>
-            <Link to="/signup" class="btntwo">Register here</Link>
+            <Link to="/login" className="btnone">Login here</Link>
+            <Link to="/signup" className="btntwo">Register here</Link>
             
         </section>
        </main>

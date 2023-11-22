@@ -1,6 +1,7 @@
 const express=require("express");
 
-const {getTeacher,postTeacher,patchTeacher,deleteTeacher}=require("../Controller/teacherController")
+const {getTeacher,patchTeacher,deleteTeacher, postTeacher}=require("../Controller/teacherController");
+const { getNotice, postNotice, getAllNotice } = require("../Controller/teacherNoticeController");
 
 const teacherRoute=express.Router();
 
@@ -14,9 +15,14 @@ teacherRoute
 .delete(deleteTeacher);
 
 
-// teacherRoute
-// .route("/:id")
-// .get(getQuiz)
+teacherRoute
+.route("/notice/")
+.get(getAllNotice)
+
+teacherRoute
+.route("/notice/:id")
+.get(getNotice)
+.post(postNotice)
 
 
 

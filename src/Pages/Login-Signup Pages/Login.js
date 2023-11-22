@@ -33,7 +33,7 @@ export default function Login({update}) {
                 if(res.status===200)
                 {
                     alert("Logined Successfully!!");
-                    update(data);
+                    update(res.data);
                     if(data.role==="student") history.push("/student");
                     else if(data.role==="teacher") history.push("/teacher");
                     if(data.role==="admin") history.push("/admin");

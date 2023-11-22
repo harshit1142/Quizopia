@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 const ProtectedAdmin = ({ user, component: Component, ...rest }) => {
-    const auth=(user.role==="admin")?true:false;
+    const auth=(user.role==="Admin")?true:false;
   return (
     <Route
       {...rest}

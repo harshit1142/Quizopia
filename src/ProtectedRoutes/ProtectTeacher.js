@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 const ProtectedTeacher = ({ user, component: Component, ...rest }) => {
-     const auth=(user.role==="teacher")?true:false;
+     const auth=(user.role==="Teacher")?true:false;
   return (
     <Route
       {...rest}

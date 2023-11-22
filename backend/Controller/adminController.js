@@ -4,7 +4,7 @@ async function getadmin(req,res)
 {
     const data=await adminModel.find({}).exec();
     res.json({
-        message:"Students",
+        message:"All Admin",
         data:data
     })
 }

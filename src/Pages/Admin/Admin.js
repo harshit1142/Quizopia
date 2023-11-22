@@ -6,15 +6,20 @@ import List from '../../Components/List';
 import List2 from '../../Components/List2';
 import StudentList from '../../Components/StudentList';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Box from '../../Components/Box';
 
 
 
 export default function Admin() {
+    const user=JSON.parse(localStorage.getItem("user"));
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
-
+ const [isfetch,setFetch]=useState(false);
   const [teacher,setTeacher]=useState([]);
   const [student,setStudent]=useState([]);
+  const [allNotice,setAllNotice]=useState([]);
+ 
+  const [notice,setNotice]=useState("");
   
     const fetchTeacher=async ()=>{
           const response= await fetch("http://localhost:4000/teacher",{withCredentials: true});
@@ -26,16 +31,44 @@ export default function Admin() {
                         const res=await response.json();
                         setStudent(res.data);                  
     }
+    const fetchNotice=async ()=>{
+          const response= await fetch(`http://localhost:4000/admin/notice/${user._id}`);
+                        const res=await response.json();
+                        setAllNotice(res.data);                  
+    }
 
 useEffect(()=>{
      fetchTeacher();
      fetchStudent();
-},[])
-
+     fetchNotice();
+},[isfetch])
+ 
   function handleLogout(){
     alert("Logout Successfully !!!")
        localStorage.removeItem("user");
        history.push("/");
+  }
+
+ async function handleNotice(){
+     const response= await fetch(`http://localhost:4000/admin/notice/${user._id}`,{
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      title:notice
+                    })
+                })
+                const res= await response.json();
+                if(res.status===201)
+                {
+                    alert("Added Successfully!!");
+                    setFetch(!isfetch);
+                    setCurr("dash");
+                    
+                }else{
+                    alert("Error Occured");
+                }
   }
 
 
@@ -133,23 +166,53 @@ useEffect(()=>{
                 </div>
             </section>
             :curr==="notice"?
-            <section className="main-content">
+             <section class="main-content">
+                <div class="card-box">
+                    <a onClick={()=>setCurr("add_notice")} class="cards cards-teacherquestion">
+                        <div class="btn-content">Add Notice <span class="icon"><i class='fa fa-plus'></i></span>
+                        </div>
+                    </a>
+                    <a onClick={()=>setCurr("your_notice")}  class="cards cards-teacherquestion">
+                        <div class="btn-content">Your Notice <span class="icon"><i class='fa fa-plus'></i></span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            :curr==="add_notice"?
+               <section className="main-content">
                 <div className="addquestion-container">
                     <div className="heading-addquestion item">Add Notice</div>
                     <div className="question-box">
                         <div className="item" id="item4">
-                            {/* <div className="inp-boxheading m-4"><label for="course">Notice</label></div> */}
-                            <div className="inp-box"><textarea name="course" type="text" className="input-bar"
+                           <div className="inp-box"><textarea  type="text" name="notice" value={notice} onChange={(e)=>setNotice(e.target.value)} className="input-bar"
                                     placeholder="Enter Here!!" /></div>
                   
                         <div className="item" id="item8">
-                            <button type="submit" className="btn-pink">ADD</button>
+                            <a onClick={()=>handleNotice()} className="btn-pink">ADD</a>
                         </div>
                     </div>
                     </div>
 
                </div>
-            </section>
+            </section> 
+            :curr==="your_notice"?
+               <table className="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Notice</th>
+                    <th scope="col">By</th>
+                    <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     {allNotice!=null && allNotice[0].notice.map((ele,ind)=> <Box key={ele._id} name={allNotice[0].name} ind={ind} list={ele} />)} 
+                 </tbody>
+                </table>
+
+                
+                
+            
             :""}
             {curr==="total_teacher"?
              <table className="table">
@@ -202,6 +265,7 @@ useEffect(()=>{
                 </table>
             :
             ""}
+            
         </div>
 
     </div>

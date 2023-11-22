@@ -36,6 +36,10 @@ const teacherSchema= new mongoose.Schema({
     quiz:[{
         type:mongoose.Schema.ObjectId,
         ref:'quizModel'
+    }],
+    notice:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'teacherNotice'
     }] 
 })
 
