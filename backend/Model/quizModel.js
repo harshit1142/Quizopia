@@ -16,10 +16,10 @@ const quizSchema= new mongoose.Schema({
       type: Number
     },
     date: {
-      type: Date
+      type: String
     },
     duration : {
-      type: Date
+      type: String
     },
     question:[{
         ques:{

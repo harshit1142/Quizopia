@@ -10,6 +10,12 @@ const adminNoticeSchema= new mongoose.Schema({
     }
 })
 
+adminNoticeSchema.pre('save',async function(){
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' ,hour:'numeric',minute:'numeric',second:'numeric'};
+    var today=new Date();
+    this.date=today.toLocaleString("en-US",options);
+})
+
 const adminNotice=mongoose.model("adminNotice",adminNoticeSchema);
 
 module.exports=adminNotice;
