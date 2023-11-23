@@ -1,18 +1,32 @@
 import React from 'react'
 import { useState } from 'react'
 import img from '../Admin/admin.png'
+import NoticeList from '../../Components/NoticeList';
+import { useEffect } from 'react';
 
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function Student() {
+    const user=JSON.parse(localStorage.getItem("user"));
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
+  const [teacherNotice,setTeacherNotice]=useState([]);
   
   function handleLogout(){
     alert("Logout Successfully !!!")
        localStorage.removeItem("user");
        history.push("/");
   }
+ 
+   const fetchNotice=async ()=>{
+          const response= await fetch(`http://localhost:4000/teacher/notice`);
+                        const res=await response.json();
+                        setTeacherNotice(res.data);                  
+    }
+
+    useEffect(()=>{
+     fetchNotice();
+},[])
 
   return (
     <>
@@ -80,7 +94,21 @@ export default function Student() {
                     </a>
                 </div>
             </section>
-            :curr==="notice"?"":""}
+            :curr==="notice"?
+               <table className="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Notice</th>
+                    <th scope="col">By</th>
+                    <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     {teacherNotice!=null && teacherNotice.map((item,pos)=>item.notice.map((ele,ind)=> <NoticeList key={ele._id} name={teacherNotice[pos].name} ind={ind} list={ele} />))} 
+                 </tbody>
+                </table>
+            :""}
             </div>
 
     </div>

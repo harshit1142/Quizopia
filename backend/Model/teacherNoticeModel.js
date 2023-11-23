@@ -4,6 +4,12 @@ const teacherNoticeSchema= new mongoose.Schema({
     title:{
         type:String
     },
+    branch:{
+        type:String
+    },
+    year:{
+        type:Number
+    },
     date:{
         type:Date,
         default:new Date().getDate()

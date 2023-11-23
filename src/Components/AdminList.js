@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ({list,ind}) {
+export default function AdminList({list,ind}) {
    const style=(list.accepted==true)?"green":"red";
   async function handleAccept(){
                 

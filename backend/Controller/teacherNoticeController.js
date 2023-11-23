@@ -20,9 +20,11 @@ async function getAllNotice(req,res){
 
 async function postNotice(req,res){
     const id=req.params.id;
-    const {title}=req.body;
+    const {title,year,branch}=req.body;
     const notice=await teacherNotice.create({
-        title:title
+        title:title,
+        year:year,
+        branch:branch
     })
     const noticeId=new mongoose.Types.ObjectId(notice.id);
     await teacherModel.updateOne({

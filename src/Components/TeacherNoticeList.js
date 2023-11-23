@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Box({list,ind,name}) {
+export default function TeacherNoticeList({ind,list,name}){
   return (
          <>
          <tr >
@@ -8,6 +8,8 @@ export default function Box({list,ind,name}) {
                     <td>{list.title}</td>
                     <td>{name}</td>
                     <td>{list.date}</td>
+                    <td>{list.branch}</td>
+                    <td>{list.year}</td>
         </tr>
     </>
   )

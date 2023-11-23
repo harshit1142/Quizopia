@@ -3,20 +3,29 @@ import '../Admin/styles.css'
 import img from '../Admin/admin.png'
 import { useState } from 'react'
 import StudentList from '../../Components/StudentList';
-import Box from '../../Components/Box';
+import NoticeList from '../../Components/NoticeList';
 
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import TeacherNoticeList from '../../Components/TeacherNoticeList';
 
 export default function Teacher() {
-     const userId=JSON.parse(localStorage.getItem("user"))._id;
+    const userId=JSON.parse(localStorage.getItem("user"))._id;
     const history=useHistory();
-  const [curr,setCurr]=useState("dash");
-    const [notice,setNotice]=useState("");
+    const [curr,setCurr]=useState("dash");
+    const [notice,setNotice]=useState({
+        title:"",
+        year:"",
+        branch:""
+    });
     const [isfetch,setFetch]=useState(false);
     const [allNotice,setAllNotice]=useState([]);
     const [adminNotice,setAdminNotice]=useState([]);
 
   const [student,setStudent]=useState([]);
+
+   function handleChange(e){
+        setNotice({...notice,[e.target.name]:e.target.value});
+    }
   
 
     const fetchStudent=async ()=>{
@@ -58,7 +67,9 @@ useEffect(()=>{
                         "content-type": "application/json"
                     },
                     body: JSON.stringify({
-                      title:notice
+                      title:notice.title,
+                      year:notice.year,
+                      branch:notice.branch
                     })
                 })
                 const res= await response.json();
@@ -180,10 +191,12 @@ useEffect(()=>{
                     <th scope="col">Notice</th>
                     <th scope="col">By</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Graduation Year</th>
                     </tr>
                 </thead>
                 <tbody>
-                     {allNotice!=null && allNotice[0].notice.map((ele,ind)=> <Box key={ele._id} name={allNotice[0].name} ind={ind} list={ele} />)} 
+                     {allNotice!=null && allNotice[0].notice.map((ele,ind)=> <TeacherNoticeList key={ele._id} name={allNotice[0].name} ind={ind} list={ele} />)} 
                  </tbody>
                 </table>
             :curr==="admin_notice"?
@@ -197,7 +210,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                     {adminNotice!=null && adminNotice.map((item,pos)=>item.notice.map((ele,ind)=> <Box key={ele._id} name={adminNotice[pos].name} ind={ind} list={ele} />))} 
+                     {adminNotice!=null && adminNotice.map((item,pos)=>item.notice.map((ele,ind)=> <NoticeList key={ele._id} name={adminNotice[pos].name} ind={ind} list={ele} />))} 
                  </tbody>
                 </table>
             :""}
@@ -207,8 +220,25 @@ useEffect(()=>{
                     <div className="heading-addquestion item">Add Notice</div>
                     <div className="question-box">
                         <div className="item" id="item4">
-                           <div className="inp-box"><textarea  type="text" name="notice" value={notice} onChange={(e)=>setNotice(e.target.value)} className="input-bar"
-                                    placeholder="Enter Here!!" /></div>
+                           <div className="inp-box m-1"><textarea  type="text" name="title" value={notice.title} onChange={handleChange} className="input-bar"
+                                    placeholder="Enter Notice Here!!" /></div>
+                           <div id="item5" className="item">
+                        {/* <!-- <label htmlFor="name">Confirm Password:</label> --> */}
+                        <select name="branch" id="selectbranch" className="inputbar"  onChange={handleChange} value={notice.branch} required>
+                            <option value="selectbr">Select Branch</option>
+                            <option value="biotech">Biotechnology</option>
+                            <option value="ch">Chemical engineering</option>
+                            <option value="ce">Civil engineering</option>
+                            <option value="cse">Computer science and engineering</option>
+                            <option value="ee">Electrical engineering</option>
+                            <option value="ece">Electronics and communication engineering</option>
+                            <option value="me">Mechanical engineering</option>                           
+                            <option value="pie">Production and industrial engineering</option>
+                        </select>
+
+                    </div>
+                           <div className="inp-box m-1"><input  type="text" name="year" value={notice.year} onChange={handleChange} className="input-bar"
+                                    placeholder="Enter Graduation Year!!" /></div>
                   
                         <div className="item" id="item8">
                             <a onClick={()=>handleNotice()} className="btn-pink">ADD</a>

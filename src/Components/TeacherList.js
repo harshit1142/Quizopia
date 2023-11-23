@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function List({list,ind}) {
+export default function TeacherList({list,ind}) {
     const style=(list.accepted==true)?"green":"red";
   return (
     <>

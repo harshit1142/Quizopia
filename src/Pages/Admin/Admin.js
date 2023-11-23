@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import './styles.css'
 import img from './admin.png'
 import { useState } from 'react'
-import List from '../../Components/List';
-import List2 from '../../Components/List2';
+import TeacherList from '../../Components/TeacherList';
+import AdminList from '../../Components/AdminList';
 import StudentList from '../../Components/StudentList';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import Box from '../../Components/Box';
+import NoticeList from '../../Components/NoticeList';
 
 
 
@@ -206,7 +206,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                     {allNotice!=null && allNotice[0].notice.map((ele,ind)=> <Box key={ele._id} name={allNotice[0].name} ind={ind} list={ele} />)} 
+                     {allNotice!=null && allNotice[0].notice.map((ele,ind)=> <NoticeList key={ele._id} name={allNotice[0].name} ind={ind} list={ele} />)} 
                  </tbody>
                 </table>
 
@@ -225,7 +225,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                   {teacher!=null && teacher.filter((tea)=>tea.accepted===true).map((ele,ind)=><List list={ele} ind={ind} key={ele._id} /> )}
+                   {teacher!=null && teacher.filter((tea)=>tea.accepted===true).map((ele,ind)=><TeacherList list={ele} ind={ind} key={ele._id} /> )}
                 </tbody>
                 </table>
             :
@@ -243,7 +243,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                    {teacher!=null && teacher.filter((tea)=>tea.accepted===false).map((ele,ind)=><List2 list={ele} ind={ind} key={ele._id} />)}
+                    {teacher!=null && teacher.filter((tea)=>tea.accepted===false).map((ele,ind)=><AdminList list={ele} ind={ind} key={ele._id} />)}
                 </tbody>
                 </table>
             :
