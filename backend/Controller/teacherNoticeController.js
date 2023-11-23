@@ -43,4 +43,5 @@ async function postNotice(req,res){
 }
 
 
+
 module.exports={getNotice,postNotice,getAllNotice};

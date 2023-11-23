@@ -11,9 +11,14 @@ const teacherNoticeSchema= new mongoose.Schema({
         type:Number
     },
     date:{
-        type:Date,
-        default:new Date().getDate()
+        type:String
     }
+})
+
+teacherNoticeSchema.pre('save',async function(){
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' ,hour:'numeric',minute:'numeric',second:'numeric'};
+    var today=new Date();
+    this.date=today.toLocaleString("en-US",options);
 })
 
 const teacherNotice=mongoose.model("teacherNotice",teacherNoticeSchema);
