@@ -40,6 +40,59 @@ async function postTeacher(req,res){
         res.send({message:error});
     }
 }
+async function addTeacher(req,res){
+    try {
+        const id=req.params.id;
+        const add=await teacherModel.findOneAndUpdate({_id:id},{accepted:true});
+        res.json({
+            status:201,
+            message:"Teacher Added !!!",
+            data:add
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.send({message:error});
+    }
+}
+async function removeTeacher(req,res){
+    try {
+        const id=req.params.id;
+        const add=await teacherModel.findByIdAndUpdate({_id:id},{accepted:false});
+        res.json({
+            status:201,
+            message:"Teacher Removed !!!",
+            data:add
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.send({message:error});
+    }
+}
+async function deleteTeacher(req,res){
+    try {
+        const id=req.params.id.toString();
+         teacherModel.findByIdAndRemove({_id:id}, (err)=>{
+            if(err)
+            {
+                res.send({message:err});
+
+            }else{
+                res.json({
+                status:201,
+                message:"Teacher Deleted !!!",
+                data:add
+                })
+            }
+         });
+        
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
 
 async function patchTeacher(req,res){
     const {email}=req.body;
@@ -63,4 +116,4 @@ async function deleteTeacher(req,res){
 
 
 
-module.exports={getTeacher,postTeacher,patchTeacher,deleteTeacher};
+module.exports={getTeacher,postTeacher,patchTeacher,deleteTeacher,addTeacher,removeTeacher,deleteTeacher};

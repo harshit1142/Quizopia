@@ -1,13 +1,7 @@
 import React from 'react'
 
-export default function AdminList({list,ind}) {
+export default function AdminList({list,ind,add,remove}) {
    const style=(list.accepted==true)?"green":"red";
-  async function handleAccept(){
-                
-   }
-   async function handleDecline(){
-      
-   }
   return (
     <>
          <tr >
@@ -15,8 +9,9 @@ export default function AdminList({list,ind}) {
                     <td style={{color:style}}>{list.name}</td>
                     <td style={{color:style}}>{list.email}</td>
                     <td style={{color:style}}>{list.subject}</td>
-                    <td > <button onClick={()=>handleAccept()}>Accept</button> </td>
-                    <td onClick={()=>handleDecline()}>Decline</td>
+                    <td > <button onClick={add} style={{color:"green"}}>Accept</button> </td>
+                    {/* <td > <button onClick={remove} style={{color:"red"}}>Delete</button> </td> */}
+                   
                     
         </tr>
     </>

@@ -22,7 +22,7 @@ export default function Admin() {
   const [notice,setNotice]=useState("");
   
     const fetchTeacher=async ()=>{
-          const response= await fetch("http://localhost:4000/teacher",{withCredentials: true});
+          const response= await fetch("http://localhost:4000/teacher");
                         const res=await response.json();
                         setTeacher(res.data);                  
     }
@@ -70,6 +70,39 @@ useEffect(()=>{
                     alert("Error Occured");
                 }
   }
+  async function handleRemove(id){
+       const response= await fetch(`http://localhost:4000/teacher/remove/${id}`);
+                        const res=await response.json();
+                        if(res.status===201){
+                          alert("Removed!!");
+                          setFetch(!isfetch);
+                        }
+                        else{
+                          alert("Error Occured");
+                        }
+   }
+    async function handleAccept(id){
+                const response= await fetch(`http://localhost:4000/teacher/add/${id}`);
+                        const res=await response.json();
+                        if(res.status===201){
+                          alert("Accepted!!");
+                          setFetch(!isfetch);
+                        }
+                        else{
+                          alert("Error Occured");
+                        }
+   }
+   async function handleDecline(id){
+       const response= await fetch(`http://localhost:4000/teacher/delete/${id}`);
+                        const res=await response.json();
+                        if(res.status===201){
+                          alert("Deleted!!");
+                          setFetch(!isfetch);
+                        }
+                        else{
+                          alert("Error Occured");
+                        }
+   }
 
 
   return (
@@ -206,7 +239,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                     {allNotice!=null && allNotice[0].notice.map((ele,ind)=> <NoticeList key={ele._id} name={allNotice[0].name} ind={ind} list={ele} />)} 
+                     {allNotice!=null && allNotice[0].notice.map((ele,ind)=> <NoticeList key={ele._id} name={allNotice[0].name} ind={ind} list={ele}  />)} 
                  </tbody>
                 </table>
 
@@ -222,10 +255,11 @@ useEffect(()=>{
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Subject</th>
+                    <th scope="col">Remove</th>
                     </tr>
                 </thead>
                 <tbody>
-                   {teacher!=null && teacher.filter((tea)=>tea.accepted===true).map((ele,ind)=><TeacherList list={ele} ind={ind} key={ele._id} /> )}
+                   {teacher!=null && teacher.filter((tea)=>tea.accepted===true).map((ele,ind)=><TeacherList list={ele} ind={ind} key={ele._id} click={()=>handleRemove(ele._id)}/> )}
                 </tbody>
                 </table>
             :
@@ -239,11 +273,11 @@ useEffect(()=>{
                     <th scope="col">Email</th>
                     <th scope="col">Subject</th>
                     <th scope="col">Accept</th>
-                    <th scope="col">Decline</th>
+                    {/* <th scope="col">Decline</th> */}
                     </tr>
                 </thead>
                 <tbody>
-                    {teacher!=null && teacher.filter((tea)=>tea.accepted===false).map((ele,ind)=><AdminList list={ele} ind={ind} key={ele._id} />)}
+                    {teacher!=null && teacher.filter((tea)=>tea.accepted===false).map((ele,ind)=><AdminList list={ele} ind={ind} key={ele._id} add={()=>handleAccept(ele._id)} remove={()=>handleDecline(ele._id)}/>)}
                 </tbody>
                 </table>
             :
