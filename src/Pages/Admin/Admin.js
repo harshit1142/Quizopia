@@ -119,7 +119,7 @@ useEffect(()=>{
             <div className="sidebar">
                 <div className="pic-headbox">
                     <div className="pic"><img src={img} alt="" height="70px" width="70px" /></div>
-                    <div className="admin-head">ADMIN</div>
+                    <div className="admin-head">{user.name}</div>
                 </div>
                 <div className="option-bar">
                     <a  className="icon-link">

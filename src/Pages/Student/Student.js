@@ -50,7 +50,7 @@ export default function Student() {
                 <div class="sidebar">
                     <div class="pic-headbox">
                         <div class="pic"><img src={img} alt="" height="70px" width="70px" /></div>
-                        <div class="admin-head">STUDENT</div>
+                        <div class="admin-head">{user.name}</div>
                     </div>
                     <div class="option-bar">
                         <a onClick={()=>setCurr("dash")} class="icon-link">
