@@ -15,9 +15,19 @@ async function getquiz(req,res){
     })
 }
 
+async function getAllquiz(req,res){
+    const data=await teacherModel.find({}).populate({path:'quiz',model:'quizModel'});
+    res.json({
+        message:"All quizes ",
+        data:data
+    })
+}
+
+
+
 async function postquiz(req,res){
     const id=req.params.id;
-    const {title,description,branch,graduationYear,date,duration,question}=req.body;
+    const {title,description,branch,graduationYear,date,duration,question,totalMarks}=req.body;
     const quiz=await quizModel.create({
         title:title,
         description:description,
@@ -25,7 +35,8 @@ async function postquiz(req,res){
         graduationYear:graduationYear,
         date:date,
         duration:duration,
-        question:question
+        question:question,
+        totalMarks:totalMarks
     })
     const quizId=new mongoose.Types.ObjectId(quiz.id);
     await teacherModel.updateOne({
@@ -83,4 +94,4 @@ async function getStudentQuiz(req,res)
     })
 }
 
-module.exports={getquiz,postquiz,deletequiz,getStudentQuiz};
+module.exports={getquiz,postquiz,deletequiz,getStudentQuiz,getAllquiz};

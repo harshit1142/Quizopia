@@ -15,11 +15,11 @@ const teacherNoticeSchema= new mongoose.Schema({
     }
 })
 
-teacherNoticeSchema.pre('save',async function(){
-    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' ,hour:'numeric',minute:'numeric',second:'numeric'};
-    var today=new Date();
-    this.date=today.toLocaleString("en-US",options);
-})
+// teacherNoticeSchema.pre('save',async function(){
+//     var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' ,hour:'numeric',minute:'numeric',second:'numeric'};
+//     var today=new Date();
+//     this.date=today.toLocaleString("en-US",options);
+// })
 
 const teacherNotice=mongoose.model("teacherNotice",teacherNoticeSchema);
 

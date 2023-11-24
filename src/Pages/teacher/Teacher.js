@@ -4,9 +4,9 @@ import img from '../Admin/admin.png'
 import { useState } from 'react'
 import StudentList from '../../Components/StudentList';
 import NoticeList from '../../Components/NoticeList';
-
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import TeacherNoticeList from '../../Components/TeacherNoticeList';
+import QuizList from '../../Components/QuizList';
 
 export default function Teacher() {
     const userId=JSON.parse(localStorage.getItem("user"))._id;
@@ -20,6 +20,7 @@ export default function Teacher() {
     const [isfetch,setFetch]=useState(false);
     const [allNotice,setAllNotice]=useState([]);
     const [adminNotice,setAdminNotice]=useState([]);
+    const [quiz,setQuiz]=useState([]);
 
   const [student,setStudent]=useState([]);
 
@@ -43,11 +44,17 @@ export default function Teacher() {
                         const res=await response.json();
                         setAdminNotice(res.data);                  
     }
+    const fetchQuiz=async ()=>{
+          const response= await fetch(`http://localhost:4000/quiz/teacher/${userId}`);
+                        const res=await response.json();
+                        setQuiz(res.data);                  
+    }
 
 useEffect(()=>{
      fetchStudent();
      fetchNotice();
      fetchAdminNotice();
+     fetchQuiz();
 },[isfetch])
 
    function handleLogout(){
@@ -57,6 +64,8 @@ useEffect(()=>{
   }
 //  adminNotice.map((elee,pos)=>elee.notice.map((ele,ind)=>
 //  console.log(adminNotice[pos].name)
+ 
+//    console.log(quiz[0].quiz);
 
 //  ))
 
@@ -141,11 +150,11 @@ useEffect(()=>{
              curr==="quiz"?
              <section class="main-content">
                 <div class="card-box">
-                    <a  class="cards cards-teacherexam">
+                    <a onClick={()=>setCurr("add_quiz")} class="cards cards-teacherexam">
                         <div class="btn-content">Add Quiz <span class="icon"><i class='fa fa-plus'></i></span>
                         </div>
                     </a>
-                    <a  class="cards cards-teacherexam">
+                    <a onClick={()=>setCurr("view_quiz")} class="cards cards-teacherexam">
                         <div class="btn-content">View Quiz <span class="icon"><i class='fa fa-eye'></i></span>
                         </div>
                     </a>
@@ -246,6 +255,13 @@ useEffect(()=>{
                     </div>
                     </div>
 
+               </div>
+            </section> 
+            :""}
+            {curr==="add_quiz"?"":curr==="view_quiz"?
+            <section class="main-content">
+                <div class="card-box m-3">
+              {quiz!=null && quiz[0].quiz.map((item,pos)=> <QuizList list={item} ind={pos} key={item._id} name={quiz[0].name}/>) }
                </div>
             </section> 
             :""}

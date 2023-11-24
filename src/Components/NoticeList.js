@@ -8,6 +8,8 @@ export default function NoticeList({list,ind,name}) {
                     <td>{list.title}</td>
                     <td>{name}</td>
                     <td>{list.date}</td>
+                    <td>{list.branch}</td>
+                    <td>{list.year}</td>
         </tr>
     </>
   )

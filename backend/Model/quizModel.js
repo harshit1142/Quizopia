@@ -41,12 +41,18 @@ const quizSchema= new mongoose.Schema({
       type:Number
     },
     marks:{
-      type:Number
+      type:Number,
+      default:0
     }
     
 })
 
-
+quizSchema.pre("save",async function(){
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' ,hour:'numeric',minute:'numeric',second:'numeric'};
+    var today=this.date;
+    this.date=today.toLocaleString("en-US",options);
+    
+})
 
 const quizModel=mongoose.model("quizModel",quizSchema);
 

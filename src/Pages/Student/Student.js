@@ -3,14 +3,15 @@ import { useState } from 'react'
 import img from '../Admin/admin.png'
 import NoticeList from '../../Components/NoticeList';
 import { useEffect } from 'react';
-
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import QuizList from '../../Components/QuizList';
 
 export default function Student() {
     const user=JSON.parse(localStorage.getItem("user"));
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
   const [teacherNotice,setTeacherNotice]=useState([]);
+  const [quiz,setQuiz]=useState([]);
   
   function handleLogout(){
     alert("Logout Successfully !!!")
@@ -23,9 +24,16 @@ export default function Student() {
                         const res=await response.json();
                         setTeacherNotice(res.data);                  
     }
+    const fetchQuiz=async ()=>{
+          const response= await fetch(`http://localhost:4000/quiz/teacher`);
+                        const res=await response.json();
+                        setQuiz(res.data);                  
+    }
+   
 
     useEffect(()=>{
      fetchNotice();
+      fetchQuiz();
 },[])
 
   return (
@@ -51,7 +59,7 @@ export default function Student() {
                                 <div class="options">Dashboard </div>
                             </div>
                         </a>
-                        <a onClick={()=>setCurr("quiz")} class="icon-link">
+                        <a onClick={()=>setCurr("view_quiz")} class="icon-link">
                             <div class="option-iconbox">
                                 <span class="icon-sidebar"><i class='fa fa-exclamation-circle'></i></span>
                                 <div class="options">Quiz</div>
@@ -74,21 +82,21 @@ export default function Student() {
                 {curr==="dash"?
                 <section class="main-content">
                     <div class="card-box">
-                        <a  onClick={()=>setCurr("quiz")} class="cards cards-student m-2"><div class="btn-content">Total Quiz  <span class="icon"><i class='fa fa-exclamation-circle'></i></span></div></a>
+                        <a  onClick={()=>setCurr("view_quiz")} class="cards cards-student m-2"><div class="btn-content">Total Quiz  <span class="icon"><i class='fa fa-exclamation-circle'></i></span></div></a>
                         <a onClick={()=>setCurr("scorecard")} class="cards cards-student m-2"><div class="btn-content">Scorecard <span class="icon"><i class='fa fa-question'></i></span></div></a>
                         <a onClick={()=>setCurr("notice")} class="cards cards-student m-2"><div class="btn-content">Notice By Teacher <span class="icon"><i class='fa fa-question'></i></span></div></a>
                     </div>
                 </section>:
-                curr==="quiz"?
+                curr==="view_quiz"?
                 <section class="main-content">
-                    <div class="card-box">
-                        <a href="" class="cards cards-studentexams"><div class="btn-content">Quiz  <span class="icon"><i class='fa fa-tasks'></i></span></div></a>
-                    </div>
-                </section>
+                <div class="card-box m-3">
+                    {quiz!=null && quiz.map((item,pos)=>item.quiz.filter((a,b)=>a.branch===user.branch&&a.graduationYear===user.graduationYear).map((ele,ind)=> <QuizList key={ele._id} name={quiz[pos].name} ind={ind} list={ele} />))} 
+               </div>
+            </section> 
                 :curr==="scorecard"?
                 <section class="main-content">
                 <div class="card-box">
-                    <a href="" class="cards cards-studentmarks">
+                    <a  class="cards cards-studentmarks">
                         <div class="btn-content">Scorecard <span class="icon">
                         <i class='fas fa-sort-numeric-down'></i></span></div>
                     </a>
@@ -102,10 +110,12 @@ export default function Student() {
                     <th scope="col">Notice</th>
                     <th scope="col">By</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Year</th>
                     </tr>
                 </thead>
                 <tbody>
-                     {teacherNotice!=null && teacherNotice.map((item,pos)=>item.notice.map((ele,ind)=> <NoticeList key={ele._id} name={teacherNotice[pos].name} ind={ind} list={ele} />))} 
+                     {teacherNotice!=null && teacherNotice.map((item,pos)=>item.notice.filter((a,b)=>a.branch===user.branch&&a.year===user.graduationYear).map((ele,ind)=> <NoticeList key={ele._id} name={teacherNotice[pos].name} ind={ind} list={ele} />))} 
                  </tbody>
                 </table>
             :""}

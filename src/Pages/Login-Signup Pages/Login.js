@@ -39,7 +39,7 @@ export default function Login({update}) {
                     if(data.role==="admin") history.push("/admin");
                     
                 }else{
-                    alert("Invalid Input");
+                    alert(res.meassage);
                 }
         
     }
