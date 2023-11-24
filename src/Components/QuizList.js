@@ -15,7 +15,7 @@ export default function QuizList({list,ind,name}) {
               {list.description}
             </h6>
             <p className="card-text " style={{ color: "red" }}>
-              {list.totalMarks}
+              Marks :{list.totalMarks}
             </p>
             <h6
               className="card-subtitle mb-2 text-muted"
@@ -27,7 +27,7 @@ export default function QuizList({list,ind,name}) {
               className="card-subtitle mb-2 text-muted"
               style={{ color: "black" }}
             >
-              {list.duration}
+              {list.duration} min
             </h6>
             <h5 className="card-title" style={{ color: "black" }}>
               {list.branch},{list.graduationYear}

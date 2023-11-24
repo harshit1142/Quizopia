@@ -113,7 +113,7 @@ useEffect(()=>{
                 <div className="quiz-heading">QUIZOPIA</div>
                 {/* <!-- <div className="button-bar"><button>bar</button></div> --> */}
             </div>
-           <a > <div className="logout-btn" onClick={handleLogout}>Logout  <i className='fas fa-user-cog logout-icon'></i></div> </a>
+           <a > <div className="logout-btn text-light" onClick={handleLogout}>Logout  <i className='fas fa-user-cog logout-icon'></i></div> </a>
         </nav>
         <div className="page-content">
             <div className="sidebar">

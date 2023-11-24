@@ -9,7 +9,7 @@ import TeacherNoticeList from '../../Components/TeacherNoticeList';
 import QuizList from '../../Components/QuizList';
 
 export default function Teacher() {
-    const userId=JSON.parse(localStorage.getItem("user"))._id;
+    const user=JSON.parse(localStorage.getItem("user"));
     const history=useHistory();
     const [curr,setCurr]=useState("dash");
     const [notice,setNotice]=useState({
@@ -43,14 +43,18 @@ export default function Teacher() {
   
 
     const fetchStudent=async ()=>{
-          const response= await fetch("http://localhost:4000/student");
-                        const res=await response.json();
-                        setStudent(res.data);                  
-    }
+            const response= await fetch("http://localhost:4000/student");
+                          const res=await response.json();
+                          setStudent(res.data);                  
+        }
+    
     const fetchNotice=async ()=>{
-          const response= await fetch(`http://localhost:4000/teacher/notice/${userId}`);
-                        const res=await response.json();
-                        setAllNotice(res.data);                  
+          const response = await fetch(
+            `http://localhost:4000/teacher/notice/${user._id}`
+          );
+          const res = await response.json();
+          setAllNotice(res.data);
+        
     }
     const fetchAdminNotice=async ()=>{
           const response= await fetch(`http://localhost:4000/admin/notice`);
@@ -58,7 +62,7 @@ export default function Teacher() {
                         setAdminNotice(res.data);                  
     }
     const fetchQuiz=async ()=>{
-          const response= await fetch(`http://localhost:4000/quiz/teacher/${userId}`);
+          const response= await fetch(`http://localhost:4000/quiz/teacher/${user._id}`);
                         const res=await response.json();
                         setQuiz(res.data);
                                       
@@ -84,7 +88,7 @@ useEffect(()=>{
 //  ))
 
    async function handleNotice(){
-     const response= await fetch(`http://localhost:4000/teacher/notice/${userId}`,{
+     const response= await fetch(`http://localhost:4000/teacher/notice/${user._id}`,{
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -107,7 +111,7 @@ useEffect(()=>{
   }
    async function handleQuiz(){
      const response = await fetch(
-       `http://localhost:4000/quiz/teacher/${userId}`,
+       `http://localhost:4000/quiz/teacher/${user._id}`,
        {
          method: "POST",
          headers: {
@@ -144,8 +148,9 @@ useEffect(()=>{
                 <div class="quiz-heading">QUIZOPIA</div>
                 {/* <!-- <div class="button-bar"><button>bar</button></div> --> */}
             </div>
-           <a onClick={handleLogout}> <div class="logout-btn">Logout  <i class='fas fa-user-cog logout-icon'></i></div></a>
+           <a onClick={handleLogout}> <div class="logout-btn text-light">Logout  <i class='fas fa-user-cog logout-icon'></i></div></a>
         </nav>
+        {user.accepted?
         <div class="page-content">
             <div class="sidebar">
                 <div class="pic-headbox">
@@ -358,8 +363,17 @@ useEffect(()=>{
             </section> 
             :""}
           </div>
-        </div>
 
+        :<section class="main-content">
+                <div class="card-box">
+                
+                        <div class="btn-content">Your request yet not accepted by Admin</div>
+                    
+                    </div>
+                    </section>
+                    }
+        </div>
+        
     </>
   )
 }

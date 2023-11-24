@@ -44,7 +44,7 @@ export default function Student() {
                     <div class="quiz-heading">QUIZOPIA</div>
                     {/* <!-- <div class="button-bar"><button>bar</button></div> --> */}
                 </div>
-              <a onClick={handleLogout}>  <div class="logout-btn">Logout  <i class='fas fa-user-cog logout-icon'></i></div> </a>
+              <a onClick={handleLogout}>  <div class="logout-btn text-light">Logout  <i class='fas fa-user-cog logout-icon'></i></div> </a>
             </nav>
             <div class="page-content">
                 <div class="sidebar">
