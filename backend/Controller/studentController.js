@@ -2,27 +2,38 @@ const studentModel =require("../Model/studentModel")
 
 async function getStudent(req,res)
 {
-    // const token=req.cookies.isAdmin;
-    // if(token || req.cookies.isTeacher)
-    // {
-    const data=await studentModel.find({}).exec();
-    res.json({
-        message:"Students",
-        data:data
-    })
-// }else{
-//         res.send({message:"Invalid Auth"});
-//     }
+    try {
+        const data=await studentModel.find({}).exec();
+        res.json({
+            message:"Students",
+            data:data
+        })
+        
+    } catch (error) {
+       res.json({
+         message: error,
+         data: [],
+       }); 
+    }
+
 }
 
 async function postStudent(req,res){
-    const body=req.body;
-    const add=await studentModel.create(body);
-    res.status(201).json({
-        status:201,
-        message:"Successfully Done",
-        data:add
-    })
+    try {
+        const body=req.body;
+        const add=await studentModel.create(body);
+        res.status(201).json({
+            status:201,
+            message:"Successfully Done",
+            data:add
+        })
+        
+    } catch (error) {
+        res.json({
+          message: error,
+          data: [],
+        });
+    }
 }
 
 async function patchStudent(req,res){

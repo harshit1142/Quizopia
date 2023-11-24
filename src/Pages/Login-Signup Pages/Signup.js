@@ -2,6 +2,7 @@ import React from 'react'
 import "./styles.css"
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
 
 
 
@@ -214,7 +215,7 @@ export default function Signup() {
        <div className="wrapper">
         <div className="container">
             <h2 className="register-heading">Register</h2>
-            <span className=" icon close-icon" id="cross" ><ion-icon name="close"></ion-icon></span>
+           <Link to="/"> <span className=" icon close-icon" id="cross" ><ion-icon name="close"></ion-icon></span></Link>
             <div className="choosebar">
                 <button className="tabs "  id="admin" onClick={()=>setRole("admin")} >Admin</button>
                 <button className="tabs " id="student" onClick={()=>setRole("student")}>Student</button>

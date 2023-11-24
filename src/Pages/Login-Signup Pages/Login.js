@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 import './styles.css'
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function Login({update}) {
    const history=useHistory();
@@ -49,7 +49,7 @@ export default function Login({update}) {
       <div className="wrapper">
         <div className="container-login">
             <h2 className="login-heading">Login</h2>
-            <span className="icon close-icon" id="cross"><ion-icon name="close"></ion-icon></span>
+           <Link to="/"><span className="icon close-icon" id="cross"><ion-icon name="close"></ion-icon></span> </Link>
 
             <div className="formbox">
                 <form action="#" className="formcontent">

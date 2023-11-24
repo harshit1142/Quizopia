@@ -2,21 +2,37 @@ const adminModel =require("../Model/adminModel")
 
 async function getadmin(req,res)
 {
-    const data=await adminModel.find({}).exec();
-    res.json({
-        message:"All Admin",
-        data:data
-    })
+    try {
+        const data = await adminModel.find({}).exec();
+        res.json({
+          message: "All Admin",
+          data: data,
+        });
+    } catch (error) {
+        res.json({
+            message:error,
+            data:[]
+        })
+    }
+    
 }
 
 async function postadmin(req,res){
-    const body=req.body;
-    const add=await adminModel.create(body);
-    res.json({
-        status:201,
-        message:"Successfully Done",
-        data:add
-    })
+    try {
+         const body = req.body;
+         const add = await adminModel.create(body);
+         res.json({
+           status: 201,
+           message: "Successfully Done",
+           data: add,
+         });
+    } catch (error) {
+        res.json({
+            message:error,
+            data:[]
+        })
+    }
+   
 }
 
 async function patchadmin(req,res){

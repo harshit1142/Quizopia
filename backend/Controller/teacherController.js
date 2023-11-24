@@ -2,12 +2,7 @@ const teacherModel =require("../Model/teacherModel")
 
 async function getTeacher(req,res)
 {
-    // const token=req.cookies.isAdmin;
-    // console.log(req.cookies);
-    // if(token)
-    // {
-        // console.log(req);
-        // console.log(localStorage.getItem("user"));
+    
         try {
                 const data=await teacherModel.find({}).exec();
                 res.json({
@@ -16,12 +11,12 @@ async function getTeacher(req,res)
                 })
                 
             } catch (error) {
-                console.log(error);
-                res.json({message:error});
+                res.json({
+                  message: error,
+                  data: [],
+                });
             }
-    // }else{
-    //     res.send({message:"Invalid Auth"});
-    // }
+
     
 }
 
@@ -36,8 +31,10 @@ async function postTeacher(req,res){
         })
         
     } catch (error) {
-        console.log(error);
-        res.send({message:error});
+      res.json({
+        message: error,
+        data: [],
+      });
     }
 }
 async function addTeacher(req,res){
@@ -51,8 +48,10 @@ async function addTeacher(req,res){
         })
         
     } catch (error) {
-        console.log(error);
-        res.send({message:error});
+        res.json({
+          message: error,
+          data: [],
+        });
     }
 }
 async function removeTeacher(req,res){
@@ -66,8 +65,10 @@ async function removeTeacher(req,res){
         })
         
     } catch (error) {
-        console.log(error);
-        res.send({message:error});
+       res.json({
+         message: error,
+         data: [],
+       });
     }
 }
 async function deleteTeacher(req,res){
@@ -89,7 +90,10 @@ async function deleteTeacher(req,res){
         
         
     } catch (error) {
-        console.log(error);
+    res.json({
+      message: error,
+      data: [],
+    });
         
     }
 }

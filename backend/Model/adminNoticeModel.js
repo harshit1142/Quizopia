@@ -5,8 +5,7 @@ const adminNoticeSchema= new mongoose.Schema({
         type:String
     },
     date:{
-        type:Date,
-        default:new Date().getDate()
+        type:String
     }
 })
 

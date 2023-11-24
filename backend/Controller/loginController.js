@@ -64,29 +64,37 @@ async function loginUser(req,res){
     }
     else if(role==="admin")
     {
-        const user3=await adminModel.findOne({email:email}).exec();
-        if(user3)
-        {
-        const match = await bcrypt.compare(password, user3.password);
-        if(match){
-            const id=user3['_id']
-           const token=jwt.sign({payload:id},jwtKey);
-           const expirationTime =(new Date()+ 6000000);
-           res.cookie("isAdmin",token,{httpOnly:true,expire:expirationTime});
-            // localStorage.setItem("role", "Admin");
+        try {
+            
+            const user3=await adminModel.findOne({email:email}).exec();
+            if(user3)
+            {
+            const match = await bcrypt.compare(password, user3.password);
+            if(match){
+                const id=user3['_id']
+               const token=jwt.sign({payload:id},jwtKey);
+               const expirationTime =(new Date()+ 6000000);
+               res.cookie("isAdmin",token,{httpOnly:true,expire:expirationTime});
+                // localStorage.setItem("role", "Admin");
+                res.json({
+                    cookie:token,
+                    status:200,
+                    meassage:"Login successfully",
+                    data:user3
+                })
+            }
+            else{
+                 res.json({meassage:"Invalid Password"});
+            }
+           }else{
+             res.json({meassage:"Invalid Email"});
+           }
+        } catch (error) {
             res.json({
-                cookie:token,
-                status:200,
-                meassage:"Login successfully",
-                data:user3
-            })
+              message: error,
+              data: [],
+            });
         }
-        else{
-             res.json({meassage:"Invalid Password"});
-        }
-       }else{
-         res.json({meassage:"Invalid Email"});
-       }
     }
     else{
          res.json({meassage:"Invalid Input"});
