@@ -49,8 +49,8 @@ const quizSchema= new mongoose.Schema({
 
 quizSchema.pre("save",async function(){
     var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' ,hour:'numeric',minute:'numeric',second:'numeric'};
-    var today=this.date;
-    this.date=today.toLocaleString("en-US",options);
+    var today=new Date(this.date);
+    this.date=today.toLocaleString("en-US");
     
 })
 

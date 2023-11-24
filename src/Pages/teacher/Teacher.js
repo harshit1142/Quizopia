@@ -21,11 +21,24 @@ export default function Teacher() {
     const [allNotice,setAllNotice]=useState([]);
     const [adminNotice,setAdminNotice]=useState([]);
     const [quiz,setQuiz]=useState([]);
+    const [addQuiz,setAddQuiz]=useState({
+        title:"",
+        description:"",
+        branch:"",
+        graduationYear:"",
+        date:"",
+        duration:"",
+        totalMarks:""
+    })
 
   const [student,setStudent]=useState([]);
 
    function handleChange(e){
         setNotice({...notice,[e.target.name]:e.target.value});
+    }
+
+   function handleQuizChange(e){
+        setAddQuiz({...addQuiz,[e.target.name]:e.target.value});
     }
   
 
@@ -47,7 +60,8 @@ export default function Teacher() {
     const fetchQuiz=async ()=>{
           const response= await fetch(`http://localhost:4000/quiz/teacher/${userId}`);
                         const res=await response.json();
-                        setQuiz(res.data);                  
+                        setQuiz(res.data);
+                                      
     }
 
 useEffect(()=>{
@@ -83,6 +97,36 @@ useEffect(()=>{
                 })
                 const res= await response.json();
                 if(res.status===201)
+                {
+                    alert("Added Successfully!!");
+                    setFetch(!isfetch);
+                    setCurr("dash");
+                }else{
+                    alert("Error Occured");
+                }
+  }
+   async function handleQuiz(){
+     const response = await fetch(
+       `http://localhost:4000/quiz/teacher/${userId}`,
+       {
+         method: "POST",
+         headers: {
+           "content-type": "application/json",
+         },
+         body: JSON.stringify({
+           title: addQuiz.title,
+           year: addQuiz.year,
+           branch: addQuiz.branch,
+           graduationYear: addQuiz.graduationYear,
+           date: addQuiz.date,
+           duration: addQuiz.duration,
+           totalMarks: addQuiz.totalMarks,
+           description: addQuiz.description,
+         }),
+       }
+     );
+                const res= await response.json();
+                if(res.status===200)
                 {
                     alert("Added Successfully!!");
                     setFetch(!isfetch);
@@ -223,8 +267,57 @@ useEffect(()=>{
                  </tbody>
                 </table>
             :""}
-            {curr==="add_notice"?
+            {curr==="add_quiz"?
               <section className="main-content">
+                <div className="addquestion-container">
+                    <div className="heading-addquestion item">Add Quiz</div>
+                    <div className="question-box">
+                        <div className="item" id="item4">
+                           <div className="inp-box m-1"><textarea  type="text" name="title" value={addQuiz.title} onChange={handleQuizChange} className="input-bar"
+                                    placeholder="Enter Title Here!!" /></div>
+                           <div className="inp-box m-1"><textarea  type="text" name="description" value={addQuiz.description} onChange={handleQuizChange} className="input-bar"
+                                    placeholder="Enter Description Here!!" /></div>
+                           <div id="item5" className="item">
+                        {/* <!-- <label htmlFor="name">Confirm Password:</label> --> */}
+                        <select name="branch" id="selectbranch" className="inputbar"  onChange={handleQuizChange} value={addQuiz.branch} required>
+                            <option value="selectbr">Select Branch</option>
+                            <option value="biotech">Biotechnology</option>
+                            <option value="ch">Chemical engineering</option>
+                            <option value="ce">Civil engineering</option>
+                            <option value="cse">Computer science and engineering</option>
+                            <option value="ee">Electrical engineering</option>
+                            <option value="ece">Electronics and communication engineering</option>
+                            <option value="me">Mechanical engineering</option>                           
+                            <option value="pie">Production and industrial engineering</option>
+                        </select>
+
+                    </div>
+                           <div className="inp-box m-1"><input  type="text" name="graduationYear" value={addQuiz.graduationYear} onChange={handleQuizChange} className="input-bar"
+                                    placeholder="Enter Graduation Year!!" /></div>
+                           <div className="inp-box m-1"><input value={addQuiz.date} onChange={handleQuizChange}
+                                                            type="datetime-local"
+                                                            id="meeting-time"
+                                                            name="date"
+                                                            
+                                                            min="2018-06-07T00:00"
+                                                            max="2040-06-14T00:00" /></div>
+                           
+                           <div className="inp-box m-1"><input  type="text" name="totalMarks" value={addQuiz.totalMarks} onChange={handleQuizChange} className="input-bar"
+                                    placeholder="Enter Total Marks !!" /></div>
+                           <div className="inp-box m-1"><input  type="text" name="duration" value={addQuiz.duration} onChange={handleQuizChange} className="input-bar"
+                                    placeholder="Enter Duration in Minutes !!" /></div>
+                           
+                        <div className="item" id="item8">
+                            <a onClick={()=>handleQuiz()} className="btn-pink">ADD</a>
+                        </div>
+                    </div>
+                    </div>
+
+               </div>
+            </section> 
+            :""}
+            {curr==="add_notice"?
+               <section className="main-content">
                 <div className="addquestion-container">
                     <div className="heading-addquestion item">Add Notice</div>
                     <div className="question-box">
@@ -257,10 +350,9 @@ useEffect(()=>{
 
                </div>
             </section> 
-            :""}
-            {curr==="add_quiz"?"":curr==="view_quiz"?
+            :curr==="view_quiz"?
             <section class="main-content">
-                <div class="card-box m-3">
+                <div class="card-box m-3 d-flex flex-wrap">
               {quiz!=null && quiz[0].quiz.map((item,pos)=> <QuizList list={item} ind={pos} key={item._id} name={quiz[0].name}/>) }
                </div>
             </section> 

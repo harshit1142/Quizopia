@@ -89,7 +89,7 @@ export default function Student() {
                 </section>:
                 curr==="view_quiz"?
                 <section class="main-content">
-                <div class="card-box m-3">
+                <div class="card-box m-3 d-flex flex-wrap">
                     {quiz!=null && quiz.map((item,pos)=>item.quiz.filter((a,b)=>a.branch===user.branch&&a.graduationYear===user.graduationYear).map((ele,ind)=> <QuizList key={ele._id} name={quiz[pos].name} ind={ind} list={ele} />))} 
                </div>
             </section> 

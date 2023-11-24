@@ -56,9 +56,10 @@ async function postquiz(req,res){
         }
     })
     res.json({
-        message:"Quiz added",
-        data:quiz
-    })
+      status: 200,
+      message: "Quiz added",
+      data: quiz,
+    });
 }
 
 // async function patchquiz(req,res){
