@@ -65,12 +65,12 @@ export default function Student() {
                                 <div class="options">Quiz</div>
                             </div>
                         </a>
-                        <a onClick={()=>setCurr("scorecard")} class="icon-link">
+                        {/* <a onClick={()=>setCurr("scorecard")} class="icon-link">
                             <div class="option-iconbox">
                                 <span class="icon-sidebar"><i class='fas fa-sort-numeric-down'></i></span>
                                 <div class="options">Scorecard</div>
                             </div>
-                        </a>
+                        </a> */}
                         <a onClick={()=>setCurr("notice")} class="icon-link">
                             <div class="option-iconbox">
                                 <span class="icon-sidebar"><i class='fas fa-sort-numeric-down'></i></span>
@@ -83,7 +83,7 @@ export default function Student() {
                 <section class="main-content">
                     <div class="card-box">
                         <a  onClick={()=>setCurr("view_quiz")} class="cards cards-student m-2"><div class="btn-content">Total Quiz  <span class="icon"><i class='fa fa-exclamation-circle'></i></span></div></a>
-                        <a onClick={()=>setCurr("scorecard")} class="cards cards-student m-2"><div class="btn-content">Scorecard <span class="icon"><i class='fa fa-question'></i></span></div></a>
+                        {/* <a onClick={()=>setCurr("scorecard")} class="cards cards-student m-2"><div class="btn-content">Scorecard <span class="icon"><i class='fa fa-question'></i></span></div></a> */}
                         <a onClick={()=>setCurr("notice")} class="cards cards-student m-2"><div class="btn-content">Notice By Teacher <span class="icon"><i class='fa fa-question'></i></span></div></a>
                     </div>
                 </section>:
