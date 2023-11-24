@@ -7,47 +7,83 @@ const studentModel = require("../Model/studentModel");
 //  TEACHER QUIZ 
 
 async function getquiz(req,res){
-    const id= req.params.id;
-    const data=await teacherModel.find({_id:id}).populate({path:'quiz',model:'quizModel'});
-    res.json({
-        message:"All quizes ",
-        data:data
-    })
+    try {
+        const id= req.params.id;
+        const data=await teacherModel.find({_id:id}).populate({path:'quiz',model:'quizModel'});
+        res.json({
+            message:"All quizes ",
+            data:data
+        })
+        
+    } catch (error) {
+        res.json({
+          message: error,
+          data: [],
+        });
+    }
 }
 
-async function postquiz(req,res){
-    const id=req.params.id;
-    const {title,description,branch,graduationYear,date,duration,question}=req.body;
-    const quiz=await quizModel.create({
-        title:title,
-        description:description,
-        branch:branch,
-        graduationYear:graduationYear,
-        date:date,
-        duration:duration,
-        question:question
-    })
-    const quizId=new mongoose.Types.ObjectId(quiz.id);
-    await teacherModel.updateOne({
-        _id:id
-    },{
-        $push:{
-            quiz:quizId
-        }
+async function getAllquiz(req,res){
+    try {
+        const data=await teacherModel.find({}).populate({path:'quiz',model:'quizModel'});
+        res.json({
+            message:"All quizes ",
+            data:data
+        })
+        
+    } catch (error) {
+        res.json({
+          message: error,
+          data: []
+        });
     }
-    )
-    await studentModel.updateMany({
-        branch:branch,
-        graduationYear:graduationYear
-    },{
-         $push:{
-            quiz:quizId
+}
+
+
+
+async function postquiz(req,res){
+    try {
+        
+        const id=req.params.id;
+        const {title,description,branch,graduationYear,date,duration,question,totalMarks}=req.body;
+        const quiz=await quizModel.create({
+            title:title,
+            description:description,
+            branch:branch,
+            graduationYear:graduationYear,
+            date:date,
+            duration:duration,
+            question:question,
+            totalMarks:totalMarks
+        })
+        const quizId=new mongoose.Types.ObjectId(quiz.id);
+        await teacherModel.updateOne({
+            _id:id
+        },{
+            $push:{
+                quiz:quizId
+            }
         }
-    })
-    res.json({
-        message:"Quiz added",
-        data:quiz
-    })
+        )
+        await studentModel.updateMany({
+            branch:branch,
+            graduationYear:graduationYear
+        },{
+             $push:{
+                quiz:quizId
+            }
+        })
+        res.json({
+          status: 200,
+          message: "Quiz added",
+          data: quiz,
+        });
+    } catch (error) {
+        res.json({
+          message: error,
+          data: [],
+        });
+    }
 }
 
 // async function patchquiz(req,res){
@@ -83,4 +119,4 @@ async function getStudentQuiz(req,res)
     })
 }
 
-module.exports={getquiz,postquiz,deletequiz,getStudentQuiz};
+module.exports={getquiz,postquiz,deletequiz,getStudentQuiz,getAllquiz};

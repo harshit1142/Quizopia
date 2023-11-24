@@ -2,21 +2,38 @@ const studentModel =require("../Model/studentModel")
 
 async function getStudent(req,res)
 {
-    const data=await studentModel.find({}).exec();
-    res.json({
-        message:"Students",
-        data:data
-    })
+    try {
+        const data=await studentModel.find({}).exec();
+        res.json({
+            message:"Students",
+            data:data
+        })
+        
+    } catch (error) {
+       res.json({
+         message: error,
+         data: [],
+       }); 
+    }
+
 }
 
 async function postStudent(req,res){
-    const body=req.body;
-    const add=await studentModel.create(body);
-    res.status(201).json({
-        status:201,
-        message:"Successfully Done",
-        data:add
-    })
+    try {
+        const body=req.body;
+        const add=await studentModel.create(body);
+        res.status(201).json({
+            status:201,
+            message:"Successfully Done",
+            data:add
+        })
+        
+    } catch (error) {
+        res.json({
+          message: error,
+          data: [],
+        });
+    }
 }
 
 async function patchStudent(req,res){

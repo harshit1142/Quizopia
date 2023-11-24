@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react'
 import './styles.css'
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-export default function Login() {
+export default function Login({update}) {
    const history=useHistory();
     const [data,setData]=useState({
         role:"",
@@ -22,6 +22,7 @@ export default function Login() {
             headers: {
                         "content-type": "application/json"
                     },
+                    withCredentials:true,
                     body: JSON.stringify({
                         role:data.role,
                         email:data.email,
@@ -32,12 +33,13 @@ export default function Login() {
                 if(res.status===200)
                 {
                     alert("Logined Successfully!!");
+                    update(res.data);
                     if(data.role==="student") history.push("/student");
                     else if(data.role==="teacher") history.push("/teacher");
                     if(data.role==="admin") history.push("/admin");
                     
                 }else{
-                    alert("Invalid Input");
+                    alert(res.meassage);
                 }
         
     }
@@ -47,7 +49,7 @@ export default function Login() {
       <div className="wrapper">
         <div className="container-login">
             <h2 className="login-heading">Login</h2>
-            <span className="icon close-icon" id="cross"><ion-icon name="close"></ion-icon></span>
+           <Link to="/"><span className="icon close-icon" id="cross"><ion-icon name="close"></ion-icon></span> </Link>
 
             <div className="formbox">
                 <form action="#" className="formcontent">

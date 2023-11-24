@@ -3,17 +3,25 @@ const app=express();
 const DB=require('./db');
 app.use(express.json());
 const cookies = require("cookie-parser");
+const cors =require('cors');
+
+app.use(cors({
+    origin:"http://localhost:3000",
+    credentials:true
+}))
 
 app.use((req,res,next)=>{
     res.setHeader("Access-Control-Allow-Origin","http://localhost:3000");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-})
+        );
+        next();
+    })
+    app.use(cookies());
+    
 
-app.use(cookies());
+
 
 app.listen(4000,()=>{
     console.log("App Started on port 4000");
@@ -67,7 +75,8 @@ async function protectTeacher(req,res,next){
 
 async function protectAdmin(req,res,next){
     try {
-        const token=req.cookies.isAdmin;
+      const token=req.cookies.isAdmin;
+      console.log(token);
         if(token){
            next();
         }else{
@@ -75,6 +84,6 @@ async function protectAdmin(req,res,next){
         }
         
     } catch (error) {
-        res.send(message=error.message);
+        res.send(message=error);
     }
 }

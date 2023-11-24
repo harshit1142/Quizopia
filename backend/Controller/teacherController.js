@@ -2,11 +2,22 @@ const teacherModel =require("../Model/teacherModel")
 
 async function getTeacher(req,res)
 {
-    const data=await teacherModel.find({}).exec();
-    res.json({
-        message:"Students",
-        data:data
-    })
+    
+        try {
+                const data=await teacherModel.find({}).exec();
+                res.json({
+                    message:"Teacher",
+                    data:data
+                })
+                
+            } catch (error) {
+                res.json({
+                  message: error,
+                  data: [],
+                });
+            }
+
+    
 }
 
 async function postTeacher(req,res){
@@ -20,8 +31,70 @@ async function postTeacher(req,res){
         })
         
     } catch (error) {
-        console.log(error);
-        res.send({message:error});
+      res.json({
+        message: error,
+        data: [],
+      });
+    }
+}
+async function addTeacher(req,res){
+    try {
+        const id=req.params.id;
+        const add=await teacherModel.findOneAndUpdate({_id:id},{accepted:true});
+        res.json({
+            status:201,
+            message:"Teacher Added !!!",
+            data:add
+        })
+        
+    } catch (error) {
+        res.json({
+          message: error,
+          data: [],
+        });
+    }
+}
+async function removeTeacher(req,res){
+    try {
+        const id=req.params.id;
+        const add=await teacherModel.findByIdAndUpdate({_id:id},{accepted:false});
+        res.json({
+            status:201,
+            message:"Teacher Removed !!!",
+            data:add
+        })
+        
+    } catch (error) {
+       res.json({
+         message: error,
+         data: [],
+       });
+    }
+}
+async function deleteTeacher(req,res){
+    try {
+        const id=req.params.id.toString();
+         teacherModel.findByIdAndRemove({_id:id}, (err)=>{
+            if(err)
+            {
+                res.send({message:err});
+
+            }else{
+                res.json({
+                status:201,
+                message:"Teacher Deleted !!!",
+                data:add
+                })
+            }
+         });
+        
+        
+    } catch (error) {
+    res.json({
+      message: error,
+      data: [],
+    });
+        
     }
 }
 
@@ -47,4 +120,4 @@ async function deleteTeacher(req,res){
 
 
 
-module.exports={getTeacher,postTeacher,patchTeacher,deleteTeacher};
+module.exports={getTeacher,postTeacher,patchTeacher,deleteTeacher,addTeacher,removeTeacher,deleteTeacher};

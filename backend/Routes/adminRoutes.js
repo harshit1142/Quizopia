@@ -1,6 +1,7 @@
 const express=require("express");
 
-const {getadmin,postadmin,patchadmin,deleteadmin}=require("../Controller/adminController")
+const {getadmin,postadmin,patchadmin,deleteadmin}=require("../Controller/adminController");
+const { getNotice, postNotice, getAllNotice } = require("../Controller/adminNoticeController");
 
 const adminRouter=express.Router();
 
@@ -13,6 +14,14 @@ adminRouter
 .patch(patchadmin)
 .delete(deleteadmin);
 
+adminRouter
+.route("/notice/:id")
+.get(getNotice)
+.post(postNotice)
+
+adminRouter
+.route("/notice")
+.get(getAllNotice)
 
 
 
