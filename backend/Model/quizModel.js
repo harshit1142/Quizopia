@@ -31,7 +31,8 @@ const quizSchema= new mongoose.Schema({
         },
         score:{
             type:Number
-        }
+        },
+        questionType:String
     }],
     attempt:{
       type:Boolean,

@@ -7,9 +7,10 @@ import NoticeList from '../../Components/NoticeList';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import TeacherNoticeList from '../../Components/TeacherNoticeList';
 import QuizList from '../../Components/QuizList';
+import { useSelector } from 'react-redux';
 
 export default function Teacher() {
-    const user=JSON.parse(localStorage.getItem("user"));
+    const user = useSelector(state => state.user);
     const history=useHistory();
     const [curr,setCurr]=useState("dash");
     const [notice,setNotice]=useState({

@@ -5,9 +5,10 @@ import NoticeList from '../../Components/NoticeList';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import QuizList from '../../Components/QuizList';
+import {  useSelector } from 'react-redux';
 
 export default function Student() {
-    const user=JSON.parse(localStorage.getItem("user"));
+    const user = useSelector(state => state.user);
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
   const [teacherNotice,setTeacherNotice]=useState([]);

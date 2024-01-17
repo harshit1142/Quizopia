@@ -7,11 +7,13 @@ import AdminList from '../../Components/AdminList';
 import StudentList from '../../Components/StudentList';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import NoticeList from '../../Components/NoticeList';
+import { useSelector } from 'react-redux';
+
 
 
 
 export default function Admin() {
-    const user=JSON.parse(localStorage.getItem("user"));
+    const user=useSelector(state => state.user);
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
  const [isfetch,setFetch]=useState(false);

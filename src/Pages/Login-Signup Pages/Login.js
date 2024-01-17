@@ -2,8 +2,11 @@
 import React, { useState } from 'react'
 import './styles.css'
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import {  useDispatch } from 'react-redux';
+import { setUser } from '../../Redux/UserRedux';
 
-export default function Login({update}) {
+export default function Login() {
+    const dispatch=useDispatch();
    const history=useHistory();
     const [data,setData]=useState({
         role:"",
@@ -33,7 +36,8 @@ export default function Login({update}) {
                 if(res.status===200)
                 {
                     alert("Logined Successfully!!");
-                    update(res.data);
+                    localStorage.setItem('user',res.data);
+                    dispatch(setUser(res.data));
                     if(data.role==="student") history.push("/student");
                     else if(data.role==="teacher") history.push("/teacher");
                     if(data.role==="admin") history.push("/admin");
@@ -72,7 +76,7 @@ export default function Login({update}) {
                     </div>
                     <div id="item3" className="item">
                         {/* <!-- <label htmlFor="name">Password:</label> --> */}
-                        <input type="text" placeholder="Password" id="password" className="inputbar" name='password' value={data.password} onChange={handleChange} required />
+                        <input type="password" placeholder="Password" id="password" className="inputbar" name='password' value={data.password} onChange={handleChange} required />
                         <span className="icon"><ion-icon name="lock-closed"></ion-icon></span>
                     </div>
                     <div id="item12" className="item">

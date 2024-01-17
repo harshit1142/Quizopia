@@ -6,9 +6,6 @@ import Student from "./Pages/Student/Student";
 import Admin from "./Pages/Admin/Admin";
 import PageNotFound from "./Pages/404/PageNotFound";
 import "./App.css"
-import ProtectedAdmin from "./ProtectedRoutes/ProtectAdmin";
-import ProtectedStudent from "./ProtectedRoutes/ProtectStudent";
-import ProtectedTeacher from "./ProtectedRoutes/ProtectTeacher";
 
 
 import {
@@ -19,20 +16,22 @@ import {
 import Teacher from "./Pages/teacher/Teacher";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "./Redux/UserRedux";
 
 
 function App() {
- 
-  const [user,setUser]=useState({})
-
+   const dispatch=useDispatch();
+  const [user, setUserState] = useState({ role: "", email: "", password: "" })
+  
+  dispatch(setUser(user));
+  
   useEffect(()=>{
-    setUser(JSON.parse(localStorage.getItem("user")));
+    if(localStorage.getItem('user')){
+      setUserState(JSON.parse(localStorage.getItem("user")));
+    }
   },[])
 
-  const updateUser=(user)=>{
-    localStorage.setItem("user",JSON.stringify(user));
-    setUser(user);
-  }
 
   return (
     
@@ -40,11 +39,11 @@ function App() {
     <BrowserRouter>
       <Switch>
        <Route exact path="/" component={Home} />
-       <Route path="/login" > <Login update={updateUser} /> </Route> 
+       <Route path="/login" > <Login /> </Route> 
        <Route path="/signup" component={Signup} />
-       <ProtectedStudent path="/student" component={Student} user={user} />
-       <ProtectedAdmin path="/admin" component={Admin} user={user} />
-       <ProtectedTeacher path="/teacher" component={Teacher} user={user} />
+       <Route path="/student" component={Student} />
+       <Route path="/admin" component={Admin} />
+       <Route path="/teacher" component={Teacher} />
        <Route path="*" component={PageNotFound} />
       </Switch>
     </BrowserRouter>
