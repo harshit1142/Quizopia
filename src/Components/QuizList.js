@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
+import AddQuestion from './AddQuestion';
 
 export default function QuizList({list,ind,name}) {
 
+  async function handeldelete(){
+    const response = await fetch(`http://localhost:4000/quiz/teacher/deleteQuiz/${list._id}`);
+    const res = await response.json();
+    if(res.status===200){
+      alert("Deleted");
+    }
+  }
+      
+    const [control,setControl]=useState("");
+     if(control==="add"){
       return (
+        <AddQuestion id={list._id} />
+      )
+     }
+
+
+      return (
+        
         <div className="card" style={{ margin: "2px" }}>
           <div className="card-body" style={{backgroundColor:"pink"}}>
             <h5 className="card-title" style={{ color: "black" }}>
@@ -40,8 +58,8 @@ export default function QuizList({list,ind,name}) {
             </h6>
             <div className="d-flex flex-column">
               {/* {style==="green"?<h1>Upcoming Quiz</h1>:<h1>Quiz Completed</h1>} */}
-              {/* <a  className="card-link" style={{color:"green"}}>Open</a>
-            <a  className="card-link" style={{color:"red"}}>Delete</a> */}
+              <button onClick={(e) => setControl("add")} className="card-link" style={{color:"green"}}>Add Question</button>
+            <button  className="card-link" style={{color:"red"}} onClick={handeldelete}>Delete</button>
             </div>
           </div>
         </div>

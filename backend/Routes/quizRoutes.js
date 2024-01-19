@@ -1,6 +1,6 @@
 const express=require("express");
 
-const {getquiz,postquiz,deletequiz, getStudentQuiz, getAllquiz}=require("../Controller/quizController")
+const {getquiz,postquiz,deletequiz, getStudentQuiz, getAllquiz, addQuestion}=require("../Controller/quizController")
 
 
 const quizRoute=express.Router();
@@ -12,7 +12,6 @@ quizRoute
 .route("/teacher/:id")
 .get(getquiz)
 .post(postquiz)
-.delete(deletequiz);
 
 quizRoute
 .route("/student/:id")
@@ -21,5 +20,13 @@ quizRoute
 quizRoute
 .route("/teacher")
 .get(getAllquiz)
+
+quizRoute
+.route("/teacher/addQuestion/:id")
+.post(addQuestion)
+
+quizRoute
+.route("/teacher/deleteQuiz/:id")
+.get(deletequiz)
 
 module.exports=quizRoute;

@@ -3,22 +3,24 @@ const app=express();
 const DB=require('./db');
 app.use(express.json());
 const cookies = require("cookie-parser");
-const cors =require('cors');
+const cors = require("cors");
 
+app.use(cookies());
 app.use(cors({
-    origin:"http://localhost:3000",
-    credentials:true
-}))
+    origin: 'http://localhost:3000',
+    credentials: true,
+}));
+
+
 
 app.use((req,res,next)=>{
-    res.setHeader("Access-Control-Allow-Origin","http://localhost:3000");
+    res.setHeader("Access-Control-Allow-Origin","*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
         );
         next();
     })
-    app.use(cookies());
     
 
 

@@ -97,9 +97,10 @@ async function postquiz(req,res){
 // }
 
 async function deletequiz(req,res){ // to work later
-     const params=req.params.id;
-     const userData=await quizModel.find({_id:id}).populate({path:'quiz',model:'quizModel'}).deleteOne({_id:quesID});
+     const id=req.params.id;
+     const userData=await quizModel.deleteOne({_id:id});
      res.json({
+        status:200,
         message:"Deleted",
         data:userData
      })
@@ -119,4 +120,31 @@ async function getStudentQuiz(req,res)
     })
 }
 
-module.exports={getquiz,postquiz,deletequiz,getStudentQuiz,getAllquiz};
+async function addQuestion(req,res){
+    const id = req.params.id;
+    const { ques, option1, option2, option3, option4, answer, score, questionType} = req.body;
+    const question={
+           ques:ques,
+           option1:option1,
+           option2:option2,
+           option3:option3,
+           option4:option4,
+           answer:answer,
+           score:score,
+           questionType:questionType
+    }
+    await quizModel.updateOne({
+        _id:id
+    }, {
+        $push: {
+            question:question
+        }
+    })
+    res.json({
+        status: 200,
+        message: "Question added",
+        data: question,
+    });
+}
+
+module.exports={getquiz,postquiz,deletequiz,getStudentQuiz,getAllquiz,addQuestion};

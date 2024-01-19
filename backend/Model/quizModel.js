@@ -25,7 +25,10 @@ const quizSchema= new mongoose.Schema({
         ques:{
             type:String
         },
-        option:[String],
+        option1:String,
+        option2:String,
+        option3:String,
+        option4:String,
         answer:{
             type:String
         },

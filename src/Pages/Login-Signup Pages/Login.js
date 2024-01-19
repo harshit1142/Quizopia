@@ -23,7 +23,7 @@ export default function Login() {
         const response=await fetch("http://localhost:4000/login",{
             method:"POST",
             headers: {
-                        "content-type": "application/json"
+                        "content-type": "application/json",
                     },
                     withCredentials:true,
                     body: JSON.stringify({

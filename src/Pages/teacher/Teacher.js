@@ -18,6 +18,7 @@ export default function Teacher() {
         year:"",
         branch:""
     });
+   
     const [isfetch,setFetch]=useState(false);
     const [allNotice,setAllNotice]=useState([]);
     const [adminNotice,setAdminNotice]=useState([]);
@@ -347,7 +348,7 @@ useEffect(()=>{
                     </div>
                            <div className="inp-box m-1"><input  type="text" name="year" value={notice.year} onChange={handleChange} className="input-bar"
                                     placeholder="Enter Graduation Year!!" /></div>
-                  
+                            
                         <div className="item" id="item8">
                             <a onClick={()=>handleNotice()} className="btn-pink">ADD</a>
                         </div>
