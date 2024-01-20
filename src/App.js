@@ -18,17 +18,18 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "./Redux/UserRedux";
+import QuizWindow from "./Pages/QuizWindow/QuizWindow";
 
 
 function App() {
    const dispatch=useDispatch();
   const [user, setUserState] = useState({ role: "", email: "", password: "" })
   
-  dispatch(setUser(user));
   
   useEffect(()=>{
     if(localStorage.getItem('user')){
-      setUserState(JSON.parse(localStorage.getItem("user")));
+      dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
+      // setUserState(JSON.parse(localStorage.getItem("user")));
     }
   },[])
 
@@ -44,6 +45,7 @@ function App() {
        <Route path="/student" component={Student} />
        <Route path="/admin" component={Admin} />
        <Route path="/teacher" component={Teacher} />
+       <Route path="/quiz" component={QuizWindow} />
        <Route path="*" component={PageNotFound} />
       </Switch>
     </BrowserRouter>

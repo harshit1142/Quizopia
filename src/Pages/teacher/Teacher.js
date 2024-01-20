@@ -9,8 +9,11 @@ import TeacherNoticeList from '../../Components/TeacherNoticeList';
 import QuizList from '../../Components/QuizList';
 import { useSelector } from 'react-redux';
 
+const selectUser = (state) => state.rootReducer.UserReducer.user;
+const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
+
 export default function Teacher() {
-    const user = useSelector(state => state.user);
+    const user = useSelector(selectUser);
     const history=useHistory();
     const [curr,setCurr]=useState("dash");
     const [notice,setNotice]=useState({

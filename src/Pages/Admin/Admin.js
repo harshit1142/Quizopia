@@ -9,11 +9,12 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import NoticeList from '../../Components/NoticeList';
 import { useSelector } from 'react-redux';
 
-
+const selectUser = (state) => state.rootReducer.UserReducer.user;
+const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
 
 
 export default function Admin() {
-    const user=useSelector(state => state.user);
+    const user=useSelector(selectUser);
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
  const [isfetch,setFetch]=useState(false);

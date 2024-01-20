@@ -6,9 +6,14 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import QuizList from '../../Components/QuizList';
 import {  useSelector } from 'react-redux';
+import QuizList_Student from '../../Components/QuizList_Student';
+
+const selectUser = (state) => state.rootReducer.UserReducer.user;
+const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
+
 
 export default function Student() {
-    const user = useSelector(state => state.user);
+    const user = useSelector(selectUser);
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
   const [teacherNotice,setTeacherNotice]=useState([]);
@@ -91,7 +96,7 @@ export default function Student() {
                 curr==="view_quiz"?
                 <section class="main-content">
                 <div class="card-box m-3 d-flex flex-wrap">
-                    {quiz!=null && quiz.map((item,pos)=>item.quiz.filter((a,b)=>a.branch===user.branch&&a.graduationYear===user.graduationYear).map((ele,ind)=> <QuizList key={ele._id} name={quiz[pos].name} ind={ind} list={ele} />))} 
+                    {quiz!=null && quiz.map((item,pos)=>item.quiz.filter((a,b)=>a.branch===user.branch&&a.graduationYear===user.graduationYear).map((ele,ind)=> <QuizList_Student key={ele._id} name={quiz[pos].name} ind={ind} list={ele} />))} 
                </div>
             </section> 
                 :curr==="scorecard"?
