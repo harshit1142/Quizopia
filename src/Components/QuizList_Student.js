@@ -51,11 +51,11 @@ export default function QuizList_Student({ list, ind, name }) {
                     className="card-subtitle mb-2 text-muted"
                     style={{ color: "black" }}
                 >
-                    Teacher : {name}
+                    Teacher : {list.name}
                 </h6>
                 <div className="d-flex flex-column">
                     {/* {style==="green"?<h1>Upcoming Quiz</h1>:<h1>Quiz Completed</h1>} */}
-                    <button  className="card-link" onClick={handleStart} style={{ color: "green" }}>Start</button>
+                    <button  className="btn btn-primary" onClick={handleStart} >Start</button>
                 </div>
             </div>
         </div>

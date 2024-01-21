@@ -8,6 +8,8 @@ export default function QuizList({list,ind,name}) {
     const res = await response.json();
     if(res.status===200){
       alert("Deleted");
+    } else {
+      alert("Error Occured");
     }
   }
       
@@ -56,10 +58,9 @@ export default function QuizList({list,ind,name}) {
             >
               Teacher : {name}
             </h6>
-            <div className="d-flex flex-column">
-              {/* {style==="green"?<h1>Upcoming Quiz</h1>:<h1>Quiz Completed</h1>} */}
-              <button onClick={(e) => setControl("add")} className="card-link" style={{color:"green"}}>Add Question</button>
-            <button  className="card-link" style={{color:"red"}} onClick={handeldelete}>Delete</button>
+            <div className="d-flex flex-row flex-wrap">
+              <button onClick={(e) => setControl("add")} className="btn" style={{color:"green"}}>Add Ques</button>
+            <button  className="btn" style={{color:"red"}} onClick={handeldelete}>Delete</button>
             </div>
           </div>
         </div>

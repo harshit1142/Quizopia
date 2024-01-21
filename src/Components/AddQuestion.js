@@ -30,7 +30,7 @@ export default function AddQuestion({id}) {
            option3:ques.option3,
            option4:ques.option4,
            answer:ques.answer,
-           marks:ques.marks
+           score: ques.score
          }),
        }
      );
@@ -45,7 +45,7 @@ export default function AddQuestion({id}) {
                       option3:"",
                       option4:"",
                       answer:"",
-                      marks:""
+                      score:""
                     })
                   
                 }else{
@@ -66,7 +66,7 @@ export default function AddQuestion({id}) {
             <option value="3">3 Option</option>
             <option value="4">4 Option</option>
           </select>
-          <input type="text" placeholder='Marks' name='marks' value={ques.marks}  onChange={handelChange}/>
+      <input type="text" placeholder='Marks' name='score' value={ques.score}  onChange={handelChange}/>
           <button  className="card-link" style={{color:"green"}} onClick={handelAdd} >Add</button>
     </div>
   )

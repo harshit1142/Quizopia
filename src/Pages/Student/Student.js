@@ -5,11 +5,13 @@ import NoticeList from '../../Components/NoticeList';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import QuizList from '../../Components/QuizList';
-import {  useSelector } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import QuizList_Student from '../../Components/QuizList_Student';
+import { setAllQuiz } from '../../Redux/AllQuizRedux';
 
 const selectUser = (state) => state.rootReducer.UserReducer.user;
 const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
+const selectAllQuiz = (state) => state.rootReducer.AllQuizReducer.allQuiz;
 
 
 export default function Student() {
@@ -17,11 +19,16 @@ export default function Student() {
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
   const [teacherNotice,setTeacherNotice]=useState([]);
-  const [quiz,setQuiz]=useState([]);
-  
+    const quiz = useSelector(selectAllQuiz)
+  const dispatch=useDispatch();
+
+//   setQuiz(useSelector(selectAllQuiz));
+
   function handleLogout(){
     alert("Logout Successfully !!!")
        localStorage.removeItem("user");
+       localStorage.removeItem("quiz");
+       localStorage.removeItem("allQuiz");
        history.push("/");
   }
  
@@ -31,9 +38,11 @@ export default function Student() {
                         setTeacherNotice(res.data);                  
     }
     const fetchQuiz=async ()=>{
-          const response= await fetch(`http://localhost:4000/quiz/teacher`);
+          const response= await fetch(`http://localhost:4000/quiz/student/${user._id}`);
                         const res=await response.json();
-                        setQuiz(res.data);                  
+                        if(!localStorage.getItem("allQuiz"))
+                           dispatch(setAllQuiz(res.data));
+                        
     }
    
 

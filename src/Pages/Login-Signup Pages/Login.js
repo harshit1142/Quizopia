@@ -20,32 +20,36 @@ export default function Login() {
 
     async function handelSubmit(event){
         event.preventDefault();
-        const response=await fetch("http://localhost:4000/login",{
-            method:"POST",
-            headers: {
-                        "content-type": "application/json",
-                    },
-                    withCredentials:true,
-                    body: JSON.stringify({
-                        role:data.role,
-                        email:data.email,
-                        password:data.password,
+        try {
+            const response=await fetch("http://localhost:4000/login",{
+                method:"POST",
+                headers: {
+                            "content-type": "application/json",
+                        },
+                        withCredentials:true,
+                        body: JSON.stringify({
+                            role:data.role,
+                            email:data.email,
+                            password:data.password,
+                        })
                     })
-                })
-                const res= await response.json();
-                if(res.status===200)
-                {
-                    alert("Logined Successfully!!");
-                    localStorage.setItem('user',res.data);
-                    dispatch(setUser(res.data));
-                    if(data.role==="student") history.push("/student");
-                    else if(data.role==="teacher") history.push("/teacher");
-                    if(data.role==="admin") history.push("/admin");
-                    
-                }else{
-                    alert(res.meassage);
-                }
-        
+                    const res= await response.json();
+                    if(res.status===200)
+                    {
+                        alert("Logined Successfully!!");
+                        localStorage.setItem('user',res.data);
+                        dispatch(setUser(res.data));
+                        if(data.role==="student") history.push("/student");
+                        else if(data.role==="teacher") history.push("/teacher");
+                        if(data.role==="admin") history.push("/admin");
+                       
+                    }else{
+                        alert(res.meassage);
+                    }
+            
+        } catch (error) {
+            alert(error)
+        }    
     }
 
   return (

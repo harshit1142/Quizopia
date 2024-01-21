@@ -7,12 +7,15 @@ import NoticeList from '../../Components/NoticeList';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import TeacherNoticeList from '../../Components/TeacherNoticeList';
 import QuizList from '../../Components/QuizList';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAllQuiz } from '../../Redux/AllQuizRedux';
 
 const selectUser = (state) => state.rootReducer.UserReducer.user;
 const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
+const selectAllQuiz = (state) => state.rootReducer.AllQuizReducer.allQuiz;
 
 export default function Teacher() {
+    const dispatch=useDispatch();
     const user = useSelector(selectUser);
     const history=useHistory();
     const [curr,setCurr]=useState("dash");
@@ -25,7 +28,7 @@ export default function Teacher() {
     const [isfetch,setFetch]=useState(false);
     const [allNotice,setAllNotice]=useState([]);
     const [adminNotice,setAdminNotice]=useState([]);
-    const [quiz,setQuiz]=useState([]);
+    const quiz = useSelector(selectAllQuiz)
     const [addQuiz,setAddQuiz]=useState({
         title:"",
         description:"",
@@ -33,7 +36,8 @@ export default function Teacher() {
         graduationYear:"",
         date:"",
         duration:"",
-        totalMarks:""
+        totalMarks:"",
+        name:""
     })
 
   const [student,setStudent]=useState([]);
@@ -69,7 +73,8 @@ export default function Teacher() {
     const fetchQuiz=async ()=>{
           const response= await fetch(`http://localhost:4000/quiz/teacher/${user._id}`);
                         const res=await response.json();
-                        setQuiz(res.data);
+                        if (!localStorage.getItem("allQuiz"))
+                            dispatch(setAllQuiz(res.data));
                                       
     }
 
@@ -83,6 +88,8 @@ useEffect(()=>{
    function handleLogout(){
     alert("Logout Successfully !!!")
        localStorage.removeItem("user");
+       localStorage.removeItem("quiz");
+       localStorage.removeItem("allQuiz");
        history.push("/");
   }
 //  adminNotice.map((elee,pos)=>elee.notice.map((ele,ind)=>
@@ -131,6 +138,7 @@ useEffect(()=>{
            duration: addQuiz.duration,
            totalMarks: addQuiz.totalMarks,
            description: addQuiz.description,
+           name:user.name
          }),
        }
      );
@@ -243,7 +251,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                    {student.map((ele,ind)=><StudentList list={ele} ind={ind} key={ele._id} />)}
+                                  {student != null && student.map((ele,ind)=><StudentList list={ele} ind={ind} key={ele._id} />)}
                 </tbody>
                 </table>
             :curr==="your_notice"?
@@ -259,7 +267,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                     {allNotice!=null && allNotice[0].notice.map((ele,ind)=> <TeacherNoticeList key={ele._id} name={allNotice[0].name} ind={ind} list={ele} />)} 
+                     {allNotice[0]!=null && allNotice[0].notice.map((ele,ind)=> <TeacherNoticeList key={ele._id} name={allNotice[0].name} ind={ind} list={ele} />)} 
                  </tbody>
                 </table>
             :curr==="admin_notice"?

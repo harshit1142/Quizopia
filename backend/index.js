@@ -35,6 +35,7 @@ const teacherRoutes=require('./Routes/teacherRoutes');
 const adminRoutes=require('./Routes/adminRoutes');
 const loginRoutes=require('./Routes/loginRoutes');
 const quizRoute = require("./Routes/quizRoutes");
+const leaderBoardRoute = require("./Routes/leaderBoardRoutes");
 
 
 app.use("/login",loginRoutes);
@@ -42,6 +43,7 @@ app.use("/student",studentRouter);
 app.use("/teacher",teacherRoutes);
 app.use("/admin",adminRoutes);
 app.use("/quiz",quizRoute);
+app.use("/leaderBoard",leaderBoardRoute);
 
 
 

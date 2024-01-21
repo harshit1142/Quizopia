@@ -47,6 +47,9 @@ const quizSchema= new mongoose.Schema({
     marks:{
       type:Number,
       default:0
+    },
+    name:{
+      type:String
     }
     
 })

@@ -19,6 +19,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "./Redux/UserRedux";
 import QuizWindow from "./Pages/QuizWindow/QuizWindow";
+import { setQuiz } from "./Redux/QuizRedux";
+import { setAllQuiz } from "./Redux/AllQuizRedux";
 
 
 function App() {
@@ -29,8 +31,14 @@ function App() {
   useEffect(()=>{
     if(localStorage.getItem('user')){
       dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
-      // setUserState(JSON.parse(localStorage.getItem("user")));
     }
+    if(localStorage.getItem('quiz')){
+      dispatch(setQuiz(JSON.parse(localStorage.getItem("quiz"))));
+    }
+    if(localStorage.getItem('allQuiz')){
+      dispatch(setAllQuiz(JSON.parse(localStorage.getItem("allQuiz"))));
+    }
+    
   },[])
 
 
