@@ -15,7 +15,7 @@ export const QuesRedux = createSlice({
             state.ques=[...state.ques,action.payload];
         },
         removeQues: (state, action) => {
-            state.ques = {}
+            state.ques = []
         },
         updateQues:(state,action)=>{
             const ind=state.ques.findIndex(ele=>ele.ind===action.payload.ind);

@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import AddQuestion from './AddQuestion';
+import { setRanking } from '../Redux/RankingRedux';
+import { setQuiz } from '../Redux/QuizRedux';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function QuizList({list,ind,name}) {
+  const dispatch=useDispatch();
+  const history=useHistory();
 
   async function handeldelete(){
     const response = await fetch(`http://localhost:4000/quiz/teacher/deleteQuiz/${list._id}`);
@@ -19,6 +25,14 @@ export default function QuizList({list,ind,name}) {
         <AddQuestion id={list._id} />
       )
      }
+  async function handleRanking() {
+    const response = await fetch(`http://localhost:4000/leaderBoard/quiz/${list._id}`);
+    const res = await response.json();
+    dispatch(setRanking(res.data))
+    dispatch(setQuiz(list));
+    alert("LeaderBoard Loaded !!")
+    history.push("/ranking");
+  }
 
 
       return (
@@ -61,6 +75,7 @@ export default function QuizList({list,ind,name}) {
             <div className="d-flex flex-row flex-wrap">
               <button onClick={(e) => setControl("add")} className="btn" style={{color:"green"}}>Add Ques</button>
             <button  className="btn" style={{color:"red"}} onClick={handeldelete}>Delete</button>
+            <button  className="btn" style={{color:"black"}} onClick={handleRanking}>Ranking</button>
             </div>
           </div>
         </div>

@@ -29,6 +29,7 @@ export default function Student() {
        localStorage.removeItem("user");
        localStorage.removeItem("quiz");
        localStorage.removeItem("allQuiz");
+       localStorage.removeItem("ranking");
        history.push("/");
   }
  
@@ -38,7 +39,7 @@ export default function Student() {
                         setTeacherNotice(res.data);                  
     }
     const fetchQuiz=async ()=>{
-          const response= await fetch(`http://localhost:4000/quiz/student/${user._id}`);
+        const response = await fetch(`http://localhost:4000/quiz/teacher`);
                         const res=await response.json();
                         if(!localStorage.getItem("allQuiz"))
                            dispatch(setAllQuiz(res.data));

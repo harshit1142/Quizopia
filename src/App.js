@@ -21,42 +21,48 @@ import { setUser } from "./Redux/UserRedux";
 import QuizWindow from "./Pages/QuizWindow/QuizWindow";
 import { setQuiz } from "./Redux/QuizRedux";
 import { setAllQuiz } from "./Redux/AllQuizRedux";
+import LeaderBoard from "./Pages/Ranking/LeaderBoard";
+import { setRanking } from "./Redux/RankingRedux";
 
 
 function App() {
-   const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const [user, setUserState] = useState({ role: "", email: "", password: "" })
-  
-  
-  useEffect(()=>{
-    if(localStorage.getItem('user')){
+
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
       dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
     }
-    if(localStorage.getItem('quiz')){
+    if (localStorage.getItem('quiz')) {
       dispatch(setQuiz(JSON.parse(localStorage.getItem("quiz"))));
     }
-    if(localStorage.getItem('allQuiz')){
+    if (localStorage.getItem('allQuiz')) {
       dispatch(setAllQuiz(JSON.parse(localStorage.getItem("allQuiz"))));
     }
-    
-  },[])
+    if (localStorage.getItem('ranking')) {
+      dispatch(setRanking(JSON.parse(localStorage.getItem("ranking"))));
+    }
+
+  }, [])
 
 
   return (
-    
+
     <>
-    <BrowserRouter>
-      <Switch>
-       <Route exact path="/" component={Home} />
-       <Route path="/login" > <Login /> </Route> 
-       <Route path="/signup" component={Signup} />
-       <Route path="/student" component={Student} />
-       <Route path="/admin" component={Admin} />
-       <Route path="/teacher" component={Teacher} />
-       <Route path="/quiz" component={QuizWindow} />
-       <Route path="*" component={PageNotFound} />
-      </Switch>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" > <Login /> </Route>
+          <Route path="/signup" component={Signup} />
+          <Route path="/student" component={Student} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/teacher" component={Teacher} />
+          <Route path="/quiz" component={QuizWindow} />
+          <Route path="/ranking" component={LeaderBoard} />
+          <Route path="*" component={PageNotFound} />
+        </Switch>
+      </BrowserRouter>
 
     </>
   );

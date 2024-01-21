@@ -147,7 +147,18 @@ useEffect(()=>{
                 {
                     alert("Added Successfully!!");
                     setFetch(!isfetch);
+                    localStorage.removeItem("allQuiz");
                     setCurr("dash");
+                    setAddQuiz({
+                        title: "",
+                        description: "",
+                        branch: "",
+                        graduationYear: "",
+                        date: "",
+                        duration: "",
+                        totalMarks: "",
+                        name: ""
+                       })
                 }else{
                     alert("Error Occured");
                 }
