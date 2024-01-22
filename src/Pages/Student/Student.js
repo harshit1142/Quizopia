@@ -8,6 +8,7 @@ import QuizList from '../../Components/QuizList';
 import {  useDispatch, useSelector } from 'react-redux';
 import QuizList_Student from '../../Components/QuizList_Student';
 import { setAllQuiz } from '../../Redux/AllQuizRedux';
+import { setRanking } from '../../Redux/RankingRedux';
 
 const selectUser = (state) => state.rootReducer.UserReducer.user;
 const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
@@ -45,11 +46,17 @@ export default function Student() {
                            dispatch(setAllQuiz(res.data));
                         
     }
+    const fetchLeaderBoard=async ()=>{
+        const response = await fetch(`http://localhost:4000/leaderBoard/quiz`);
+        const res = await response.json();
+        dispatch(setRanking(res.data))
+    }
    
 
     useEffect(()=>{
      fetchNotice();
       fetchQuiz();
+      fetchLeaderBoard();
 },[])
 
   return (

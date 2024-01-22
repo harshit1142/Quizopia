@@ -29,4 +29,6 @@ quizRoute
 .route("/teacher/deleteQuiz/:id")
 .get(deletequiz)
 
+
+
 module.exports=quizRoute;

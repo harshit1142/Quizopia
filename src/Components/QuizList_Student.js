@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { setQuiz } from '../Redux/QuizRedux';
 import { setRanking } from '../Redux/RankingRedux';
@@ -10,13 +10,19 @@ export default function QuizList_Student({ list, ind, name }) {
   const dispatch=useDispatch();
     const selectUser = (state) => state.rootReducer.UserReducer.user;
     const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
+    const selectRank = (state) => state.rootReducer.RankingReducer.rank;
+    const ranking=useSelector(selectRank);
+    const user=useSelector(selectUser);
+    const quiz=useSelector(selectQuiz);
 
+    const attempt=ranking.filter((ele,ind)=>ele.studentId===user._id && ele.quizId===list._id);
+    var isAttempt=(attempt.length>=1)?true:false; 
+ 
   function handleStart(){
        dispatch(setQuiz(list));
        alert("Quiz Started !!")
        history.push("/quiz");
     }
-    console.log(list._id);
     async function handleRank(){
         const response = await fetch(`http://localhost:4000/leaderBoard/quiz/${list._id}`);
         const res = await response.json();
@@ -65,8 +71,9 @@ export default function QuizList_Student({ list, ind, name }) {
                 </h6>
                 <div className="d-flex flex-column">
                     {/* {style==="green"?<h1>Upcoming Quiz</h1>:<h1>Quiz Completed</h1>} */}
-                    <button  className="btn btn-primary m-2" onClick={handleStart} >Start</button>
-                    <button  className="btn btn-warning m-2" onClick={handleRank} >Ranking</button>
+                    {isAttempt ? <button className="btn btn-warning m-2" onClick={handleRank} >Ranking</button> : <button className="btn btn-primary m-2" onClick={handleStart} >Start</button>}
+                    
+                    
                 </div>
             </div>
         </div>

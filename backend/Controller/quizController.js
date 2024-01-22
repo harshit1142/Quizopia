@@ -181,6 +181,24 @@ async function addQuestion(req,res){
     }
 }
 
+// async function setAttemptQuiz(req,res){
+//     try {
+        
+//         const {studentId,quizId} = req.body;
+//         var quiz=await quizModel.find({_id:quizId});
+//         quiz[0].attempt=true;
+//         const data = await studentModel.findByIdAndDelete({ _id: studentId },{quiz:quiz._id})
+//         res.json({
+//             message: "Attempted",
+//             data: data,quiz
+//         })
+//     } catch (error) {
+//         res.json({
+//             message: error
+//         })
+        
+//     }
+// }
 
 
 

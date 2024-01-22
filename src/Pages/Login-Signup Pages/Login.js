@@ -75,7 +75,7 @@ export default function Login() {
 
                     <div id="item2 item2forlogin" className="item">
                         {/* <!-- <label htmlFor="email">Email:</label> --> */}
-                        <input type="email" placeholder="Email" id="email" className="inputbar" name='email' value={data.email} onChange={handleChange} required />
+                              <input type="email" placeholder="Email" id="email" className="inputbar" name='email' autocomplete="off" value={data.email} onChange={handleChange} required />
                         <span className="icon"><ion-icon name="mail"></ion-icon></span>
                     </div>
                     <div id="item3" className="item">
