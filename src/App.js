@@ -16,19 +16,21 @@ import {
 import Teacher from "./Pages/teacher/Teacher";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./Redux/UserRedux";
 import QuizWindow from "./Pages/QuizWindow/QuizWindow";
 import { setQuiz } from "./Redux/QuizRedux";
 import { setAllQuiz } from "./Redux/AllQuizRedux";
 import LeaderBoard from "./Pages/Ranking/LeaderBoard";
 import { setRanking } from "./Redux/RankingRedux";
+import { setChange } from "./Redux/ReloadRedux";
 
 
 function App() {
   const dispatch = useDispatch();
+  const selectChange = (state) => state.rootReducer.ReloadReducer.change;
   const [user, setUserState] = useState({ role: "", email: "", password: "" })
-
+   var change=useSelector(selectChange)
 
   useEffect(() => {
     if (localStorage.getItem('user')) {

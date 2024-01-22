@@ -9,13 +9,16 @@ import TeacherNoticeList from '../../Components/TeacherNoticeList';
 import QuizList from '../../Components/QuizList';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAllQuiz } from '../../Redux/AllQuizRedux';
+import { setChange } from '../../Redux/ReloadRedux';
 
 const selectUser = (state) => state.rootReducer.UserReducer.user;
 const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
 const selectAllQuiz = (state) => state.rootReducer.AllQuizReducer.allQuiz;
+const selectChange = (state) => state.rootReducer.ReloadReducer.change;
 
 export default function Teacher() {
     const dispatch=useDispatch();
+    var change=useSelector(selectChange)
     const user = useSelector(selectUser);
     const history=useHistory();
     const [curr,setCurr]=useState("dash");
@@ -44,6 +47,7 @@ export default function Teacher() {
 
    function handleChange(e){
         setNotice({...notice,[e.target.name]:e.target.value});
+        
     }
 
    function handleQuizChange(e){
@@ -73,7 +77,7 @@ export default function Teacher() {
     const fetchQuiz=async ()=>{
           const response= await fetch(`http://localhost:4000/quiz/teacher/${user._id}`);
                         const res=await response.json();
-                        if (!localStorage.getItem("allQuiz"))
+                        // if (!localStorage.getItem("allQuiz"))
                             dispatch(setAllQuiz(res.data));
                                       
     }
@@ -83,7 +87,7 @@ useEffect(()=>{
      fetchNotice();
      fetchAdminNotice();
      fetchQuiz();
-},[isfetch])
+},[change])
 
    function handleLogout(){
     alert("Logout Successfully !!!")
@@ -100,6 +104,12 @@ useEffect(()=>{
 //  ))
 
    async function handleNotice(){
+
+    if(notice.title==="" || notice.year==="" || notice.branch===""){
+        alert("Invalid Input")
+        return
+    }
+
      const response= await fetch(`http://localhost:4000/teacher/notice/${user._id}`,{
                     method: "POST",
                     headers: {
@@ -117,11 +127,18 @@ useEffect(()=>{
                     alert("Added Successfully!!");
                     setFetch(!isfetch);
                     setCurr("dash");
+                    dispatch(setChange(true))
                 }else{
                     alert("Error Occured");
                 }
   }
    async function handleQuiz(){
+
+       if (addQuiz.branch === "" || addQuiz.date === "" || addQuiz.duration === "" || addQuiz.title === "" || addQuiz.graduationYear===""){
+        alert("Invalid Input")
+        return
+       }
+
      const response = await fetch(
        `http://localhost:4000/quiz/teacher/${user._id}`,
        {
@@ -149,6 +166,7 @@ useEffect(()=>{
                     setFetch(!isfetch);
                     localStorage.removeItem("allQuiz");
                     setCurr("dash");
+                    dispatch(setChange(true))
                     setAddQuiz({
                         title: "",
                         description: "",
@@ -382,7 +400,7 @@ useEffect(()=>{
             :curr==="view_quiz"?
             <section class="main-content">
                 <div class="card-box m-3 d-flex flex-wrap">
-              {quiz!=null && quiz[0].quiz.map((item,pos)=> <QuizList list={item} ind={pos} key={item._id} name={quiz[0].name}/>) }
+              {quiz[0]!=null && quiz[0].quiz.map((item,pos)=> <QuizList list={item} ind={pos} key={item._id} name={quiz[0].name}/>) }
                </div>
             </section> 
             :""}

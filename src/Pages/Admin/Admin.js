@@ -7,14 +7,17 @@ import AdminList from '../../Components/AdminList';
 import StudentList from '../../Components/StudentList';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import NoticeList from '../../Components/NoticeList';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setChange } from '../../Redux/ReloadRedux';
 
 const selectUser = (state) => state.rootReducer.UserReducer.user;
 const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
-
+const selectChange = (state) => state.rootReducer.ReloadReducer.change;
 
 export default function Admin() {
+    const dispatch=useDispatch();
     const user=useSelector(selectUser);
+    var change = useSelector(selectChange)
     const history=useHistory();
   const [curr,setCurr]=useState("dash");
  const [isfetch,setFetch]=useState(false);
@@ -44,7 +47,7 @@ useEffect(()=>{
      fetchTeacher();
      fetchStudent();
      fetchNotice();
-},[isfetch])
+},[change])
  
   function handleLogout(){
     alert("Logout Successfully !!!")
@@ -68,6 +71,7 @@ useEffect(()=>{
                     alert("Added Successfully!!");
                     setFetch(!isfetch);
                     setCurr("dash");
+                    dispatch(setChange(true))
                     
                 }else{
                     alert("Error Occured");
@@ -79,6 +83,7 @@ useEffect(()=>{
                         if(res.status===201){
                           alert("Removed!!");
                           setFetch(!isfetch);
+                          dispatch(setChange(true))
                         }
                         else{
                           alert("Error Occured");
@@ -90,6 +95,7 @@ useEffect(()=>{
                         if(res.status===201){
                           alert("Accepted!!");
                           setFetch(!isfetch);
+                            dispatch(setChange(true))
                         }
                         else{
                           alert("Error Occured");
@@ -101,6 +107,7 @@ useEffect(()=>{
                         if(res.status===201){
                           alert("Deleted!!");
                           setFetch(!isfetch);
+                            dispatch(setChange(true))
                         }
                         else{
                           alert("Error Occured");

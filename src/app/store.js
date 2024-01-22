@@ -5,7 +5,8 @@ import { QuesReducer } from "../Redux/QuesRedux";
 import { combineReducers } from "@reduxjs/toolkit";
 import { AllQuizReducer } from "../Redux/AllQuizRedux";
 import { RankingReducer } from "../Redux/RankingRedux";
-const rootReducer = combineReducers({ UserReducer, QuizReducer, QuesReducer, AllQuizReducer, RankingReducer })
+import { ReloadReducer } from "../Redux/ReloadRedux";
+const rootReducer = combineReducers({ UserReducer, QuizReducer, QuesReducer, AllQuizReducer, RankingReducer, ReloadReducer })
 
 export const store = configureStore({
     reducer:{rootReducer}

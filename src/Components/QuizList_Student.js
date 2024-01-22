@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { setQuiz } from '../Redux/QuizRedux';
@@ -14,9 +14,53 @@ export default function QuizList_Student({ list, ind, name }) {
     const ranking=useSelector(selectRank);
     const user=useSelector(selectUser);
     const quiz=useSelector(selectQuiz);
-
+    const quizDate = new Date(list.date);
+    var [isIdeal,setIdeal]=useState("left");
+    var [bg,setbg]=useState("pink");
     const attempt=ranking.filter((ele,ind)=>ele.studentId===user._id && ele.quizId===list._id);
     var isAttempt=(attempt.length>=1)?true:false; 
+    var last=new Date(quizDate.getTime() + list.duration * 60000);
+
+    function setShow(){
+        var today=new Date();
+        if (today.getDate() === quizDate.getDate() && today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()){
+            if (today.getTime() >= quizDate.getTime() && today.getTime() <= (quizDate.getTime() + (list.duration*60))){
+                setIdeal("start");
+                setbg("green");
+            }
+            else if (today.getTime() > last.getTime()){
+                setIdeal("over");
+                setbg("red")
+            }
+        }
+        else if (today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()){
+            if(today.getDate()>quizDate.getDate()){
+                setIdeal("over");
+                setbg("red")
+            }
+        }
+        else if (today.getFullYear() === quizDate.getFullYear()){
+            if (today.getMonth() >quizDate.getMonth()){
+                setIdeal("over");
+                setbg("red")
+            }
+        } else if (today.getFullYear() > quizDate.getFullYear()){
+            setIdeal("over");
+            setbg("red")
+        }
+        
+    }
+    useEffect(()=>{
+        const timer1 = setInterval(() => setShow(),1000);
+        
+        return () => {
+            clearTimeout(timer1);
+        };
+        
+        
+    },[])
+
+
  
   function handleStart(){
        dispatch(setQuiz(list));
@@ -35,7 +79,7 @@ export default function QuizList_Student({ list, ind, name }) {
     return (
 
         <div className="card" style={{ margin: "2px" }}>
-            <div className="card-body" style={{ backgroundColor: "pink" }}>
+            <div className="card-body" style={{ backgroundColor: bg }}>
                 <h5 className="card-title" style={{ color: "black" }}>
                     {list.title}
                 </h5>
@@ -71,8 +115,9 @@ export default function QuizList_Student({ list, ind, name }) {
                 </h6>
                 <div className="d-flex flex-column">
                     {/* {style==="green"?<h1>Upcoming Quiz</h1>:<h1>Quiz Completed</h1>} */}
-                    {isAttempt ? <button className="btn btn-warning m-2" onClick={handleRank} >Ranking</button> : <button className="btn btn-primary m-2" onClick={handleStart} >Start</button>}
-                    
+                    {isIdeal==="start" && isAttempt === false ? <button className="btn btn-primary m-2" onClick={handleStart} >Start</button> :""}
+                    {isIdeal==="over" && isAttempt ? <button className="btn btn-warning m-2" onClick={handleRank}>Ranking</button>:""}
+                    {isIdeal === "left" ? <button className="btn btn-warning m-2 p-2" disabled >Pending</button>:"" }
                     
                 </div>
             </div>

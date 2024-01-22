@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { setChange } from '../Redux/ReloadRedux';
+
 
 export default function AddQuestion({id}) {
-   
+  const dispatch=useDispatch();
+ 
     const [ques,setQues]=useState({
         ques:"",
         option1:"",
@@ -51,6 +55,7 @@ export default function AddQuestion({id}) {
                       answer:"",
                       score:""
                     })
+                    dispatch(setChange(true))
                   
                 }else{
                     alert("Error Occured");

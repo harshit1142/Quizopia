@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddQuestion from './AddQuestion';
 import { setRanking } from '../Redux/RankingRedux';
 import { setQuiz } from '../Redux/QuizRedux';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { setChange } from '../Redux/ReloadRedux';
 
 export default function QuizList({list,ind,name}) {
   const dispatch=useDispatch();
@@ -14,10 +15,55 @@ export default function QuizList({list,ind,name}) {
     const res = await response.json();
     if(res.status===200){
       alert("Deleted");
+      dispatch(setChange(true))
     } else {
       alert("Error Occured");
     }
   }
+
+  const quizDate = new Date(list.date);
+  var [isIdeal, setIdeal] = useState("left");
+  var [bg, setbg] = useState("pink");
+  var last = new Date(quizDate.getTime() + list.duration * 60000);
+ console.log(quizDate);
+  function setShow() {
+    var today = new Date();
+    if (today.getDate() === quizDate.getDate() && today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()) {
+      if (today.getTime() >= quizDate.getTime() && today.getTime() <= (quizDate.getTime() + (list.duration * 60))) {
+        setIdeal("start");
+        setbg("green");
+      }
+      else if (today.getTime() > last.getTime()) {
+        setIdeal("over");
+        setbg("red")
+      }
+    }
+    else if (today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()) {
+      if (today.getDate() > quizDate.getDate()) {
+        setIdeal("over");
+        setbg("red")
+      }
+    }
+    else if (today.getFullYear() === quizDate.getFullYear()) {
+      if (today.getMonth() > quizDate.getMonth()) {
+        setIdeal("over");
+        setbg("red")
+      }
+    } else if (today.getFullYear() > quizDate.getFullYear()) {
+      setIdeal("over");
+      setbg("red")
+    }
+
+  }
+  useEffect(() => {
+    const timer1 = setInterval(() => setShow(), 1000);
+
+    return () => {
+      clearTimeout(timer1);
+    };
+
+
+  }, [])
       
     const [control,setControl]=useState("");
      if(control==="add"){
@@ -38,7 +84,7 @@ export default function QuizList({list,ind,name}) {
       return (
         
         <div className="card" style={{ margin: "2px" }}>
-          <div className="card-body" style={{backgroundColor:"pink"}}>
+          <div className="card-body" style={{backgroundColor:bg}}>
             <h5 className="card-title" style={{ color: "black" }}>
               {list.title}
             </h5>
@@ -73,9 +119,9 @@ export default function QuizList({list,ind,name}) {
               Teacher : {name}
             </h6>
             <div className="d-flex flex-row flex-wrap">
-              <button onClick={(e) => setControl("add")} className="btn" style={{color:"green"}}>Add Ques</button>
-            <button  className="btn" style={{color:"red"}} onClick={handeldelete}>Delete</button>
-            <button  className="btn" style={{color:"black"}} onClick={handleRanking}>Ranking</button>
+              {isIdeal === "left" ? <button onClick={(e) => setControl("add")} className="btn" style={{ color: "green" }}>Add Ques</button> :""}
+              {isIdeal === "left" ? <button className="btn" style={{ color: "red" }} onClick={handeldelete}>Delete</button> :""}
+              {isIdeal !== "left" ? <button className="btn" style={{ color: "black", background: "yellow" }} onClick={handleRanking}>Ranking</button> :""}
             </div>
           </div>
         </div>
