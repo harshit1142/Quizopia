@@ -20,7 +20,7 @@ export default function AddQuestion({id}) {
     }
     async function handelAdd(e){
       e.preventDefault();
-      if(ques.ques==="" || ques.answer==="" || ques.score==="" ){
+      if (ques.ques === "" || ques.answer === "0" || ques.score === "" || ques.answer === "" ){
         alert("Invalid Input")
         return 
       }
@@ -70,6 +70,7 @@ export default function AddQuestion({id}) {
           <textarea type="text" value={ques.option3} name='option3'  onChange={handelChange} placeholder='Option 3' required/>
           <textarea type="text" value={ques.option4}  name='option4' onChange={handelChange} placeholder='Option 4' required/>
           <select name="answer" id="answer" value={ques.answer} onChange={handelChange} placeholder='Correct Option' required>
+            <option value="0">Select Answer</option>
             <option value="1">1 Option</option>
             <option value="2">2 Option</option>
             <option value="3">3 Option</option>
