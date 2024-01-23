@@ -233,19 +233,19 @@ export default function Signup() {
                     </div>
                     <div id="item1" className="item">
                         {/* <!-- <label htmlFor="name">Name:</label> --> */}
-                        <input type="text" placeholder="Name" name='name' id="name" onChange={studentChange} value={student.name} className="inputbar" required />
+                                  <input type="text" placeholder="Name" name='name' id="name" onChange={studentChange} value={student.name} autocomplete="off" className="inputbar" required />
                     </div>
                     <div id="item10" className="item">
                         <p id="messagename"></p>
                     </div>
                     <div id="item2" className="item">
                         {/* <!-- <label htmlFor="email">Email:</label> --> */}
-                        <input type="email" placeholder="Email" id="email" name='email' onChange={studentChange} value={student.email} className="inputbar" required />
+                                  <input type="email" placeholder="Email" id="email" name='email' onChange={studentChange} value={student.email} autocomplete="off" className="inputbar" required />
                         <span className="icon"><ion-icon name="mail"></ion-icon></span>
                     </div>
                     <div id="item3" className="item">
                         {/* <!-- <label htmlFor="name">Password:</label> --> */}
-                        <input type="password" placeholder="Password" id="password" name='password' onChange={studentChange} value={student.password} className="inputbar" required />
+                        <input type="password" placeholder="Password" id="password"  name='password' onChange={studentChange} value={student.password} className="inputbar" required />
                         <span className="icon"><ion-icon name="lock-closed"></ion-icon></span>
                     </div>
                     <div id="item11" className="item">

@@ -2,8 +2,11 @@
 import React, { useState } from 'react'
 import './styles.css'
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import {  useDispatch } from 'react-redux';
+import { setUser } from '../../Redux/UserRedux';
 
-export default function Login({update}) {
+export default function Login() {
+    const dispatch=useDispatch();
    const history=useHistory();
     const [data,setData]=useState({
         role:"",
@@ -17,31 +20,36 @@ export default function Login({update}) {
 
     async function handelSubmit(event){
         event.preventDefault();
-        const response=await fetch("http://localhost:4000/login",{
-            method:"POST",
-            headers: {
-                        "content-type": "application/json"
-                    },
-                    withCredentials:true,
-                    body: JSON.stringify({
-                        role:data.role,
-                        email:data.email,
-                        password:data.password,
+        try {
+            const response=await fetch("http://localhost:4000/login",{
+                method:"POST",
+                headers: {
+                            "content-type": "application/json",
+                        },
+                        withCredentials:true,
+                        body: JSON.stringify({
+                            role:data.role,
+                            email:data.email,
+                            password:data.password,
+                        })
                     })
-                })
-                const res= await response.json();
-                if(res.status===200)
-                {
-                    alert("Logined Successfully!!");
-                    update(res.data);
-                    if(data.role==="student") history.push("/student");
-                    else if(data.role==="teacher") history.push("/teacher");
-                    if(data.role==="admin") history.push("/admin");
-                    
-                }else{
-                    alert(res.meassage);
-                }
-        
+                    const res= await response.json();
+                    if(res.status===200)
+                    {
+                        alert("Logined Successfully!!");
+                        localStorage.setItem('user',res.data);
+                        dispatch(setUser(res.data));
+                        if(data.role==="student") history.push("/student");
+                        else if(data.role==="teacher") history.push("/teacher");
+                        if(data.role==="admin") history.push("/admin");
+                       
+                    }else{
+                        alert(res.meassage);
+                    }
+            
+        } catch (error) {
+            alert(error)
+        }    
     }
 
   return (
@@ -67,12 +75,12 @@ export default function Login({update}) {
 
                     <div id="item2 item2forlogin" className="item">
                         {/* <!-- <label htmlFor="email">Email:</label> --> */}
-                        <input type="email" placeholder="Email" id="email" className="inputbar" name='email' value={data.email} onChange={handleChange} required />
+                              <input type="email" placeholder="Email" id="email" className="inputbar" name='email' autocomplete="off" value={data.email} onChange={handleChange} required />
                         <span className="icon"><ion-icon name="mail"></ion-icon></span>
                     </div>
                     <div id="item3" className="item">
                         {/* <!-- <label htmlFor="name">Password:</label> --> */}
-                        <input type="text" placeholder="Password" id="password" className="inputbar" name='password' value={data.password} onChange={handleChange} required />
+                        <input type="password" placeholder="Password" id="password" className="inputbar" name='password' value={data.password} onChange={handleChange} required />
                         <span className="icon"><ion-icon name="lock-closed"></ion-icon></span>
                     </div>
                     <div id="item12" className="item">

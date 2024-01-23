@@ -45,7 +45,7 @@ async function postquiz(req,res){
     try {
         
         const id=req.params.id;
-        const {title,description,branch,graduationYear,date,duration,question,totalMarks}=req.body;
+        const {title,description,branch,graduationYear,date,duration,question,totalMarks,name}=req.body;
         const quiz=await quizModel.create({
             title:title,
             description:description,
@@ -54,7 +54,8 @@ async function postquiz(req,res){
             date:date,
             duration:duration,
             question:question,
-            totalMarks:totalMarks
+            totalMarks:totalMarks,
+            name:name
         })
         const quizId=new mongoose.Types.ObjectId(quiz.id);
         await teacherModel.updateOne({
@@ -72,6 +73,7 @@ async function postquiz(req,res){
              $push:{
                 quiz:quizId
             }
+            
         })
         res.json({
           status: 200,
@@ -97,12 +99,31 @@ async function postquiz(req,res){
 // }
 
 async function deletequiz(req,res){ // to work later
-     const params=req.params.id;
-     const userData=await quizModel.find({_id:id}).populate({path:'quiz',model:'quizModel'}).deleteOne({_id:quesID});
-     res.json({
-        message:"Deleted",
-        data:userData
-     })
+    try {
+        
+        const id=req.params.id;
+       const quizId = new mongoose.Types.ObjectId(id);
+        const userData=await quizModel.deleteOne({_id:id});
+        const studentQuiz=await studentModel.updateMany({},{
+           $pull:{
+               quiz:quizId
+           }
+        });
+        const teacherQuiz=await teacherModel.updateMany({},{
+           $pull:{
+               quiz:quizId
+           }
+        });
+        res.json({
+           status:200,
+           message:"Deleted",
+           data:userData,studentQuiz,teacherQuiz
+        })
+    } catch (error) {
+        res.json({
+            message: error
+        })
+    }
 }
 
 
@@ -111,12 +132,74 @@ async function deletequiz(req,res){ // to work later
 
 async function getStudentQuiz(req,res)
 {
-    const id=req.params.id;
-    const data=await studentModel.find({_id:id}).populate({path:'quiz',model:'quizModel'});
-    res.json({
-        message:"All quizes ",
-        data:data
-    })
+    try {
+        
+        const id=req.params.id;
+        const data=await studentModel.find({_id:id}).populate({path:'quiz',model:'quizModel'});
+        res.json({
+            message:"All quizes ",
+            data:data
+        })
+    } catch (error) {
+        res.json({
+            message: error
+        })
+    }
 }
 
-module.exports={getquiz,postquiz,deletequiz,getStudentQuiz,getAllquiz};
+async function addQuestion(req,res){
+    try {
+        const id = req.params.id;
+        const { ques, option1, option2, option3, option4, answer, score, questionType} = req.body;
+        const question={
+               ques:ques,
+               option1:option1,
+               option2:option2,
+               option3:option3,
+               option4:option4,
+               answer:answer,
+               score:score,
+               questionType:questionType
+        }
+        await quizModel.updateOne({
+            _id:id
+        }, {
+            $push: {
+                question:question
+            }
+        })
+        res.json({
+            status: 200,
+            message: "Question added",
+            data: question,
+        });
+        
+    } catch (error) {
+        res.json({
+            message: error
+        })
+    }
+}
+
+// async function setAttemptQuiz(req,res){
+//     try {
+        
+//         const {studentId,quizId} = req.body;
+//         var quiz=await quizModel.find({_id:quizId});
+//         quiz[0].attempt=true;
+//         const data = await studentModel.findByIdAndDelete({ _id: studentId },{quiz:quiz._id})
+//         res.json({
+//             message: "Attempted",
+//             data: data,quiz
+//         })
+//     } catch (error) {
+//         res.json({
+//             message: error
+//         })
+        
+//     }
+// }
+
+
+
+module.exports={getquiz,postquiz,deletequiz,getStudentQuiz,getAllquiz,addQuestion};

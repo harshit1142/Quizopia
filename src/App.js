@@ -6,9 +6,6 @@ import Student from "./Pages/Student/Student";
 import Admin from "./Pages/Admin/Admin";
 import PageNotFound from "./Pages/404/PageNotFound";
 import "./App.css"
-import ProtectedAdmin from "./ProtectedRoutes/ProtectAdmin";
-import ProtectedStudent from "./ProtectedRoutes/ProtectStudent";
-import ProtectedTeacher from "./ProtectedRoutes/ProtectTeacher";
 
 
 import {
@@ -19,35 +16,55 @@ import {
 import Teacher from "./Pages/teacher/Teacher";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "./Redux/UserRedux";
+import QuizWindow from "./Pages/QuizWindow/QuizWindow";
+import { setQuiz } from "./Redux/QuizRedux";
+import { setAllQuiz } from "./Redux/AllQuizRedux";
+import LeaderBoard from "./Pages/Ranking/LeaderBoard";
+import { setRanking } from "./Redux/RankingRedux";
+import { setChange } from "./Redux/ReloadRedux";
 
 
 function App() {
- 
-  const [user,setUser]=useState({})
+  const dispatch = useDispatch();
+  const selectChange = (state) => state.rootReducer.ReloadReducer.change;
+  const [user, setUserState] = useState({ role: "", email: "", password: "" })
+   var change=useSelector(selectChange)
 
-  useEffect(()=>{
-    setUser(JSON.parse(localStorage.getItem("user")));
-  },[])
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
+    }
+    if (localStorage.getItem('quiz')) {
+      dispatch(setQuiz(JSON.parse(localStorage.getItem("quiz"))));
+    }
+    if (localStorage.getItem('allQuiz')) {
+      dispatch(setAllQuiz(JSON.parse(localStorage.getItem("allQuiz"))));
+    }
+    if (localStorage.getItem('ranking')) {
+      dispatch(setRanking(JSON.parse(localStorage.getItem("ranking"))));
+    }
 
-  const updateUser=(user)=>{
-    localStorage.setItem("user",JSON.stringify(user));
-    setUser(user);
-  }
+  }, [])
+
 
   return (
-    
+
     <>
-    <BrowserRouter>
-      <Switch>
-       <Route exact path="/" component={Home} />
-       <Route path="/login" > <Login update={updateUser} /> </Route> 
-       <Route path="/signup" component={Signup} />
-       <ProtectedStudent path="/student" component={Student} user={user} />
-       <ProtectedAdmin path="/admin" component={Admin} user={user} />
-       <ProtectedTeacher path="/teacher" component={Teacher} user={user} />
-       <Route path="*" component={PageNotFound} />
-      </Switch>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" > <Login /> </Route>
+          <Route path="/signup" component={Signup} />
+          <Route path="/student" component={Student} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/teacher" component={Teacher} />
+          <Route path="/quiz" component={QuizWindow} />
+          <Route path="/ranking" component={LeaderBoard} />
+          <Route path="*" component={PageNotFound} />
+        </Switch>
+      </BrowserRouter>
 
     </>
   );
