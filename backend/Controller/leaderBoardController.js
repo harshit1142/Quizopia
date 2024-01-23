@@ -37,12 +37,20 @@ async function getAllLeaderboard(req,res){
 async function postLeaderboard(req,res){
     try {
         const body=req.body;
-        const data=await leaderBoardModel.create(body);
-        res.json({
-         status:200,
-         message:"Selected Quiz LeaderBoard",
-         data:data
-     })
+        const userFound=await leaderBoardModel.find({studentId:body.studentId,quizId:body.quizId})
+        if(userFound.length===0){
+            const data=await leaderBoardModel.create(body);
+            res.json({
+             status:200,
+             message:"Selected Quiz LeaderBoard",
+             data:data
+         })
+        }else{
+            res.json({
+                status:200,
+                message:"Already Added"
+            })
+        }
         
     } catch (error) {
         res.json({

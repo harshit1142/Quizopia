@@ -29,7 +29,7 @@ export default function QuizList({list,ind,name}) {
   function setShow() {
     var today = new Date();
     if (today.getDate() === quizDate.getDate() && today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()) {
-      if (today.getTime() >= quizDate.getTime() && today.getTime() <= (quizDate.getTime() + (list.duration * 60))) {
+      if (today.getTime() >= quizDate.getTime() && today.getTime() <= last.getTime()) {
         setIdeal("start");
         setbg("green");
       }
@@ -120,8 +120,8 @@ export default function QuizList({list,ind,name}) {
             </h6>
             <div className="d-flex flex-row flex-wrap">
               {isIdeal === "left" ? <button onClick={(e) => setControl("add")} className="btn" style={{ color: "green" }}>Add Ques</button> :""}
-              {isIdeal === "left" ? <button className="btn" style={{ color: "red" }} onClick={handeldelete}>Delete</button> :""}
-              {isIdeal !== "left" ? <button className="btn" style={{ color: "black", background: "yellow" }} onClick={handleRanking}>Ranking</button> :""}
+              {isIdeal !== "start" ? <button className="btn" style={{ color: "red", background: "black" }} onClick={handeldelete}>Delete</button> :""}  
+              {isIdeal === "over" ? <button className="btn" style={{ color: "black", background: "yellow" }} onClick={handleRanking}>Ranking</button> :""}
             </div>
           </div>
         </div>

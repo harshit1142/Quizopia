@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const InitialValue = {
-    quiz: {title:"",question:""}
+    quiz: {_id:"",title:"",question:""}
 }
 
 

@@ -14,23 +14,25 @@ export default function QuizList_Student({ list, ind, name }) {
     const ranking=useSelector(selectRank);
     const user=useSelector(selectUser);
     const quiz=useSelector(selectQuiz);
-    const quizDate = new Date(list.date);
+    
     var [isIdeal,setIdeal]=useState("left");
     var [bg,setbg]=useState("pink");
     const attempt=ranking.filter((ele,ind)=>ele.studentId===user._id && ele.quizId===list._id);
     var isAttempt=(attempt.length>=1)?true:false; 
+    console.log(attempt);
+    const quizDate = new Date(list.date);
     var last=new Date(quizDate.getTime() + list.duration * 60000);
 
     function setShow(){
         var today=new Date();
         if (today.getDate() === quizDate.getDate() && today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()){
-            if (today.getTime() >= quizDate.getTime() && today.getTime() <= (quizDate.getTime() + (list.duration*60))){
+            if (today.getTime() >= quizDate.getTime() && today.getTime() <= last.getTime()){
                 setIdeal("start");
                 setbg("green");
             }
             else if (today.getTime() > last.getTime()){
                 setIdeal("over");
-                setbg("red")
+                setbg("red");
             }
         }
         else if (today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()){
@@ -52,6 +54,7 @@ export default function QuizList_Student({ list, ind, name }) {
     }
     useEffect(()=>{
         const timer1 = setInterval(() => setShow(),1000);
+        console.log(ind+" "+isIdeal+" "+isAttempt);
         
         return () => {
             clearTimeout(timer1);
