@@ -15,23 +15,43 @@ Quizopia is a MERN website for Three(3) Profile Types Admin, Teacher, and Studen
 
   
 * <h4>Teacher:-</h1>
+- Add/Delete Quiz (according to their Branch and Graduation Year)
+- Add Question, Date and Time and Duration
+- View Ranking after the Quiz End
 - Add/View Notice for Student (according to their Branch and Graduation Year)
-- Add/View Quiz Details (according to their Branch and Graduation Year)
 - View Admin Notice (with Date and Time)
 - View All Student
 ![1](https://github.com/harshit1142/Quizopia/assets/112557145/1c62b80d-2e51-4738-94fd-8a8ecc188f84)
-![2](https://github.com/harshit1142/Quizopia/assets/112557145/c67d5161-c40e-43b3-9ac4-8d2b601eaa4b)
-![3](https://github.com/harshit1142/Quizopia/assets/112557145/1a510c8a-0640-44c3-a39c-646286a37ac5)
-![4](https://github.com/harshit1142/Quizopia/assets/112557145/3815509b-c0a6-489b-b3f9-9216fb4ba50a)
-![5](https://github.com/harshit1142/Quizopia/assets/112557145/f622182e-40ad-42ea-9517-df2f9c100231)
+![2](https://github.com/harshit1142/Quizopia/assets/112557145/3815509b-c0a6-489b-b3f9-9216fb4ba50a)
+![3](https://github.com/harshit1142/Quizopia/assets/112557145/f622182e-40ad-42ea-9517-df2f9c100231)
+![4](https://github.com/harshit1142/Quizopia/assets/112557145/c67d5161-c40e-43b3-9ac4-8d2b601eaa4b)
+![5](https://github.com/harshit1142/Quizopia/assets/112557145/a4b63650-4979-47bf-bf2c-3096e0c55531)
+![6](https://github.com/harshit1142/Quizopia/assets/112557145/1ad66383-860c-43e1-8c95-2c533645037f)
+
 
   
 * <h4>Student:-</h1>
-- View All Teacher Quiz Details (according to each student Branch and Graduation Year)
+- View All Teacher Quiz  (according to each student Branch and Graduation Year)
+- Take Part in Quiz as per the quiz date and Time
+- View Quiz Ranking (if participated in that quiz)
 - View All Teacher Notices (with Date and Time)
 ![1](https://github.com/harshit1142/Quizopia/assets/112557145/b2bdb90e-9a86-4016-8e97-2042c5848a98)
-![2](https://github.com/harshit1142/Quizopia/assets/112557145/57bd4f6c-24ee-41c1-bb5a-5e4f58190825)
-![3](https://github.com/harshit1142/Quizopia/assets/112557145/e22ce1fc-bf31-4f48-a21d-3be6935c6ec5)
+![2](https://github.com/harshit1142/Quizopia/assets/112557145/e22ce1fc-bf31-4f48-a21d-3be6935c6ec5)
+![3](https://github.com/harshit1142/Quizopia/assets/112557145/8ad3b47c-8ed3-4100-8ace-6252be871c8c)
+
+* <h4>Quiz Window:-</h1>
+- Quiz Timer and Progress Bar
+- Auto Submission of quiz
+- Question Details 
+![11](https://github.com/harshit1142/Quizopia/assets/112557145/7635425e-8fba-44a8-9db5-19923308ae0d)
+![2](https://github.com/harshit1142/Quizopia/assets/112557145/4d545b01-fac4-4ba8-aa47-25d61277b6d4)
+
+
+* <h4>LeaderBoard:-</h1>
+- Quiz Details
+- Ranking are sorted according to the marks 
+![1](https://github.com/harshit1142/Quizopia/assets/112557145/83f9765c-8122-4b12-9eff-8f1d1f0583ee)
+
 
 
 ## Extra Features of Application :
@@ -48,6 +68,7 @@ Quizopia is a MERN website for Three(3) Profile Types Admin, Teacher, and Studen
 - HTML/CSS/JS
 - React Js
 - Bootstrap 5
+- Redux/Redux toolkit
 
 ### BackEnd Part :
 - Node js
