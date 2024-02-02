@@ -1,5 +1,9 @@
 # Quizopia
-Quizopia is a MERN website for Three(3) Profile Types Admin, Teacher, and Student
+- This platform is designed to empower educators by providing a clear and user-friendly interface for sharing conducting
+quizzes and various class activities. 
+- Features: Generating quizzes with designated time and date, incorporating multiple-choice questions, automatic quiz
+submission, and displaying a leaderboard.
+- Admin control lies with the ability to grant or deny teachers access to the platform.
  * <h4>Admin:-</h1>
 - Accept/Remove the Teacher's request to work on it.
 - Add/View Notice for All Teachers (with Date and Time)
