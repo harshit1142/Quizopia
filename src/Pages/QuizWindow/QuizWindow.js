@@ -54,11 +54,11 @@ export default function QuizWindow() {
 
   useEffect(() => {
     var interval;
-    if (!(hours===0  && minutes===0 && seconds===5)) {
+    if (!(hours===0  && minutes===0 && seconds===1)) {
      interval = setInterval(() => getTime(), 1000);
     }
 
-    if (hours === 0 && minutes === 0 && seconds === 5) {
+    if (hours === 0 && minutes === 0 && seconds === 1) {
       alert("Time Over !!!");
       handelSubmit();
       return () => clearInterval(interval);

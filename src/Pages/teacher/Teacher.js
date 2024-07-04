@@ -68,8 +68,8 @@ export default function Teacher() {
           );
           const res = await response.json();
           setAllNotice(res.data);
-        
-    }
+          
+        }
     const fetchAdminNotice=async ()=>{
           const response= await fetch(`http://localhost:4000/admin/notice`);
                         const res=await response.json();
@@ -88,7 +88,7 @@ useEffect(()=>{
      fetchNotice();
      fetchAdminNotice();
      fetchQuiz();
-},[change])
+},[])
 
    function handleLogout(){
     alert("Logout Successfully !!!")
@@ -152,7 +152,7 @@ useEffect(()=>{
                     socket.emit('noticeAdded');
                     setFetch(!isfetch);
                     setCurr("dash");
-                    dispatch(setChange(true))
+                    
                 }else{
                     alert("Error Occured");
                 }

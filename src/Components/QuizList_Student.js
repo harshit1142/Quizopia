@@ -20,10 +20,10 @@ export default function QuizList_Student({ list, ind, name }) {
     var [bg,setbg]=useState("pink");
     const attempt=ranking.filter((ele,ind)=>ele.studentId===user._id && ele.quizId===list._id);
     var isAttempt=(attempt.length>=1)?true:false; 
-    console.log(attempt);
+    // console.log(attempt);
     const quizDate = new Date(list.date);
     var last=new Date(quizDate.getTime() + list.duration * 60000);
-   console.log(ranking);
+//    console.log(ranking);
     function setShow(){
         var today=new Date();
         if (today.getDate() === quizDate.getDate() && today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()){
@@ -54,8 +54,8 @@ export default function QuizList_Student({ list, ind, name }) {
         
     }
     useEffect(()=>{
-        const timer1 = setInterval(() => setShow(),7000);
-        console.log(ind+" "+isIdeal+" "+isAttempt);
+        const timer1 = setInterval(() => setShow(),1000);
+        // console.log(ind+" "+isIdeal+" "+isAttempt);
        
         return () => {
             clearTimeout(timer1);

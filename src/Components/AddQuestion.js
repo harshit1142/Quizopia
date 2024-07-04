@@ -57,7 +57,6 @@ export default function AddQuestion({id}) {
                     score:""
                   })
                   socket.emit('quizAdded');
-                    dispatch(setChange(true))
                   
                 }else{
                     alert("Error Occured");

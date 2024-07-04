@@ -17,7 +17,6 @@ export default function QuizList({list,ind,name}) {
     if(res.status===200){
       socket.emit('quizAdded');
       alert("Deleted");
-      dispatch(setChange(true))
     } else {
       alert("Error Occured");
     }
@@ -27,7 +26,7 @@ export default function QuizList({list,ind,name}) {
   var [isIdeal, setIdeal] = useState("left");
   var [bg, setbg] = useState("pink");
   var last = new Date(quizDate.getTime() + list.duration * 60000);
- console.log(quizDate);
+//  console.log(quizDate);
   function setShow() {
     var today = new Date();
     if (today.getDate() === quizDate.getDate() && today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()) {
