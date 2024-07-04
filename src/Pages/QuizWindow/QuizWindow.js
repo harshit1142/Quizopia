@@ -5,6 +5,7 @@ import Question from '../../Components/Question';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { removeQues } from '../../Redux/QuesRedux';
 import { removeQuiz } from '../../Redux/QuizRedux';
+import { socket } from '../../App';
 
 
 
@@ -53,11 +54,11 @@ export default function QuizWindow() {
 
   useEffect(() => {
     var interval;
-    if (!(hours===0  && minutes===0 && seconds===5)) {
+    if (!(hours===0  && minutes===0 && seconds===1)) {
      interval = setInterval(() => getTime(), 1000);
     }
 
-    if (hours === 0 && minutes === 0 && seconds === 5) {
+    if (hours === 0 && minutes === 0 && seconds === 1) {
       alert("Time Over !!!");
       handelSubmit();
       return () => clearInterval(interval);
@@ -102,8 +103,8 @@ export default function QuizWindow() {
       if (res.status === 200) {
         dispatch(removeQues({}))
         dispatch(removeQuiz({}))
-        alert("Quiz Submitted Successfully !!")
         history.push("/student");
+        alert("Quiz Submitted Successfully !!")
       } else {
         alert("Error Occured");
       }

@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import NoticeList from '../../Components/NoticeList';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChange } from '../../Redux/ReloadRedux';
+import { socket } from '../../App';
 
 const selectUser = (state) => state.rootReducer.UserReducer.user;
 const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
@@ -43,6 +44,18 @@ export default function Admin() {
                         setAllNotice(res.data);                  
     }
 
+    //socket 
+    socket.on('refreshAdminNotice', () => {
+        fetchNotice();
+    })
+    socket.on('refreshUser', () => {
+        fetchTeacher();
+        fetchStudent();
+    })
+    socket.on('refreshAdminAction', () => {
+        fetchTeacher();
+    })
+
 useEffect(()=>{
      fetchTeacher();
      fetchStudent();
@@ -69,9 +82,10 @@ useEffect(()=>{
                 if(res.status===201)
                 {
                     alert("Added Successfully!!");
+                    socket.emit('addedAdminNotice')
                     setFetch(!isfetch);
                     setCurr("dash");
-                    dispatch(setChange(true))
+                    
                     
                 }else{
                     alert("Error Occured");
@@ -82,8 +96,9 @@ useEffect(()=>{
                         const res=await response.json();
                         if(res.status===201){
                           alert("Removed!!");
+                          socket.emit('adminAction');
                           setFetch(!isfetch);
-                          dispatch(setChange(true))
+                         
                         }
                         else{
                           alert("Error Occured");
@@ -94,8 +109,9 @@ useEffect(()=>{
                         const res=await response.json();
                         if(res.status===201){
                           alert("Accepted!!");
+                            socket.emit('adminAction');
                           setFetch(!isfetch);
-                            dispatch(setChange(true))
+                    
                         }
                         else{
                           alert("Error Occured");
@@ -106,8 +122,9 @@ useEffect(()=>{
                         const res=await response.json();
                         if(res.status===201){
                           alert("Deleted!!");
+                            socket.emit('adminAction');
                           setFetch(!isfetch);
-                            dispatch(setChange(true))
+                           
                         }
                         else{
                           alert("Error Occured");
@@ -132,28 +149,28 @@ useEffect(()=>{
                     <div className="admin-head">{user.name}</div>
                 </div>
                 <div className="option-bar">
-                    <a  className="icon-link">
+                          <a onClick={() => setCurr("dash")} className="icon-link">
                         <div className="option-iconbox">
                             <span className="icon-sidebar"><ion-icon name="mail"></ion-icon></span>
-                            <div className="options" onClick={()=>setCurr("dash")}>Dashboard </div>
+                            <div className="options" >Dashboard </div>
                         </div>
                     </a>
-                    <a  className="icon-link">
+                          <a onClick={() => setCurr("teacher")} className="icon-link">
                         <div className="option-iconbox">
                             <span className="icon-sidebar"><i className='fas fa-chalkboard-teacher'></i></span>
-                            <div className="options" onClick={()=>setCurr("teacher")}>Teacher</div>
+                            <div className="options" >Teacher</div>
                         </div>
                     </a>
-                    <a  className="icon-link">
+                          <a onClick={() => setCurr("student")} className="icon-link">
                         <div className="option-iconbox">
                             <span className="icon-sidebar"><i className='fas fa-user-graduate'></i></span>
-                            <div className="options" onClick={()=>setCurr("student")}>Student</div>
+                            <div className="options">Student</div>
                         </div>
                     </a>
-                    <a  className="icon-link">
+                          <a onClick={() => setCurr("notice")} className="icon-link">
                         <div className="option-iconbox">
                             <span className="icon-sidebar"><i className='fa fa-tasks'></i></span>
-                            <div className="options" onClick={()=>setCurr("notice")}>Notice</div>
+                            <div className="options" >Notice</div>
                         </div>
                     </a>
                 </div>
@@ -161,7 +178,7 @@ useEffect(()=>{
             { curr==="dash"?
               <section className="main-content">
                 <div className="card-box">
-                    <a onClick={()=>setCurr("total_teacher")} className="cards cards-admin">
+                              <a onClick={() => setCurr("teacher")} className="cards cards-admin">
                         <div className="btn-content">Total Teacher <span className="icon"><i
                                     className='fas fa-chalkboard-teacher'></i></span>
                         </div>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { setQuiz } from '../Redux/QuizRedux';
 import { setRanking } from '../Redux/RankingRedux';
+import { socket } from '../App';
 
 
 export default function QuizList_Student({ list, ind, name }) {
@@ -19,10 +20,10 @@ export default function QuizList_Student({ list, ind, name }) {
     var [bg,setbg]=useState("pink");
     const attempt=ranking.filter((ele,ind)=>ele.studentId===user._id && ele.quizId===list._id);
     var isAttempt=(attempt.length>=1)?true:false; 
-    console.log(attempt);
+    // console.log(attempt);
     const quizDate = new Date(list.date);
     var last=new Date(quizDate.getTime() + list.duration * 60000);
-
+//    console.log(ranking);
     function setShow(){
         var today=new Date();
         if (today.getDate() === quizDate.getDate() && today.getMonth() === quizDate.getMonth() && today.getFullYear() === quizDate.getFullYear()){
@@ -54,8 +55,8 @@ export default function QuizList_Student({ list, ind, name }) {
     }
     useEffect(()=>{
         const timer1 = setInterval(() => setShow(),1000);
-        console.log(ind+" "+isIdeal+" "+isAttempt);
-        
+        // console.log(ind+" "+isIdeal+" "+isAttempt);
+       
         return () => {
             clearTimeout(timer1);
         };
@@ -75,9 +76,9 @@ export default function QuizList_Student({ list, ind, name }) {
         const res = await response.json();
         dispatch(setRanking(res.data))
         dispatch(setQuiz(list));
-        alert("LeaderBoard Loaded !!")
         history.push("/ranking");
   }
+
     
     return (
 
