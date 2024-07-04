@@ -1,4 +1,7 @@
 # Quizopia
+
+Live : https://quizopia.vercel.app/
+
 Developed a comprehensive platform designed to empower educators by providing a clear and user-friendly interface for sharing and conducting quizzes and various class activities.
 
 Key Features:
