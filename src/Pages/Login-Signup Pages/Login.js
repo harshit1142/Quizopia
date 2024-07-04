@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './styles.css'
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import {  useDispatch } from 'react-redux';
@@ -17,6 +17,12 @@ export default function Login() {
     function handleChange(e){
         setData({...data,[e.target.name]:e.target.value});
     }
+   
+    useEffect(() => {
+        if (localStorage.getItem('user')) {
+            history.push(JSON.parse(localStorage.getItem('user')).role);
+        }
+    })
 
     async function handelSubmit(event){
         event.preventDefault();

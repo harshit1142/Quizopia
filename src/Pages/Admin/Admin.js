@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import NoticeList from '../../Components/NoticeList';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChange } from '../../Redux/ReloadRedux';
+import { socket } from '../../App';
 
 const selectUser = (state) => state.rootReducer.UserReducer.user;
 const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
@@ -43,6 +44,15 @@ export default function Admin() {
                         setAllNotice(res.data);                  
     }
 
+    //socket 
+    socket.on('refreshAdminNotice', () => {
+        fetchNotice();
+    })
+    socket.on('refreshUser', () => {
+        fetchTeacher();
+        fetchStudent();
+    })
+
 useEffect(()=>{
      fetchTeacher();
      fetchStudent();
@@ -69,6 +79,7 @@ useEffect(()=>{
                 if(res.status===201)
                 {
                     alert("Added Successfully!!");
+                    socket.emit('addedAdminNotice')
                     setFetch(!isfetch);
                     setCurr("dash");
                     dispatch(setChange(true))
@@ -82,6 +93,7 @@ useEffect(()=>{
                         const res=await response.json();
                         if(res.status===201){
                           alert("Removed!!");
+                          socket.emit('adminAction');
                           setFetch(!isfetch);
                           dispatch(setChange(true))
                         }
@@ -94,6 +106,7 @@ useEffect(()=>{
                         const res=await response.json();
                         if(res.status===201){
                           alert("Accepted!!");
+                            socket.emit('adminAction');
                           setFetch(!isfetch);
                             dispatch(setChange(true))
                         }
@@ -106,6 +119,7 @@ useEffect(()=>{
                         const res=await response.json();
                         if(res.status===201){
                           alert("Deleted!!");
+                            socket.emit('adminAction');
                           setFetch(!isfetch);
                             dispatch(setChange(true))
                         }

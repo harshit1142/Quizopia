@@ -51,6 +51,26 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected ' + socket.id);
     });
+    socket.on('noticeAdded',()=>{
+        io.emit('refreshNotice');
+    })
+    socket.on('quizAdded',()=>{
+        io.emit('refreshQuiz');
+    })
+    socket.on('addedAdminNotice',()=>{
+        io.emit('refreshAdminNotice');
+    })
+    socket.on('newUser',()=>{
+        io.emit('refreshUser');
+    })
+    socket.on('updateLeaderboard',()=>{
+        io.emit('refreshLeaderboard');
+    })
+    socket.on('adminAction',()=>{
+        io.emit('refreshAdminAction');
+    })
+
+
 });
 
 

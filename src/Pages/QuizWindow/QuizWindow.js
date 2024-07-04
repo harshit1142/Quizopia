@@ -5,6 +5,7 @@ import Question from '../../Components/Question';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { removeQues } from '../../Redux/QuesRedux';
 import { removeQuiz } from '../../Redux/QuizRedux';
+import { socket } from '../../App';
 
 
 
@@ -102,8 +103,8 @@ export default function QuizWindow() {
       if (res.status === 200) {
         dispatch(removeQues({}))
         dispatch(removeQuiz({}))
-        alert("Quiz Submitted Successfully !!")
         history.push("/student");
+        alert("Quiz Submitted Successfully !!")
       } else {
         alert("Error Occured");
       }

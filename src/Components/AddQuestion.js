@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setChange } from '../Redux/ReloadRedux';
+import { socket } from '../App';
 
 
 export default function AddQuestion({id}) {
@@ -45,16 +46,17 @@ export default function AddQuestion({id}) {
                 const res= await response.json();
                 if(res.status===200)
                 {
-                    alert("Added Successfully!!");
-                    setQues({
-                      ques:"",
-                      option1:"",
-                      option2:"",
-                      option3:"",
-                      option4:"",
-                      answer:"",
-                      score:""
-                    })
+                  alert("Added Successfully!!");
+                  setQues({
+                    ques:"",
+                    option1:"",
+                    option2:"",
+                    option3:"",
+                    option4:"",
+                    answer:"",
+                    score:""
+                  })
+                  socket.emit('quizAdded');
                     dispatch(setChange(true))
                   
                 }else{

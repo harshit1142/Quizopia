@@ -10,6 +10,7 @@ import QuizList from '../../Components/QuizList';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAllQuiz } from '../../Redux/AllQuizRedux';
 import { setChange } from '../../Redux/ReloadRedux';
+import { socket } from '../../App';
 
 const selectUser = (state) => state.rootReducer.UserReducer.user;
 const selectQuiz = (state) => state.rootReducer.QuizReducer.quiz;
@@ -96,6 +97,29 @@ useEffect(()=>{
        localStorage.removeItem("allQuiz");
        history.push("/");
   }
+
+
+  //Socket code 
+    socket.on('refreshNotice',()=>{
+    fetchNotice();
+  })
+    socket.on('refreshQuiz',()=>{
+    fetchQuiz();
+  })
+    socket.on('refreshAdminNotice',()=>{
+    fetchAdminNotice();
+  })
+    socket.on('refreshUser', () => {
+        fetchStudent();
+    })
+    socket.on('refreshAdminAction', () => {
+        window.location.reload();
+    })
+   
+
+
+
+
 //  adminNotice.map((elee,pos)=>elee.notice.map((ele,ind)=>
 //  console.log(adminNotice[pos].name)
  
@@ -125,6 +149,7 @@ useEffect(()=>{
                 if(res.status===201)
                 {
                     alert("Added Successfully!!");
+                    socket.emit('noticeAdded');
                     setFetch(!isfetch);
                     setCurr("dash");
                     dispatch(setChange(true))
@@ -163,10 +188,11 @@ useEffect(()=>{
                 if(res.status===200)
                 {
                     alert("Added Successfully!!");
+                    socket.emit('quizAdded');
                     setFetch(!isfetch);
                     localStorage.removeItem("allQuiz");
                     setCurr("dash");
-                    dispatch(setChange(true))
+               
                     setAddQuiz({
                         title: "",
                         description: "",

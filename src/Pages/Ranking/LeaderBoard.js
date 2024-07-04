@@ -11,7 +11,7 @@ export default function LeaderBoard() {
     var quiz=useSelector(selectQuiz)
    
     ranking = ranking.slice().sort((a, b) => b.score - a.score)
-
+    
     return (
         <div className='container-fluid bg-dark text-light vh-100'>
             <div className='container-fluid d-flex flex-column align-items-center text-warning text-bold'>

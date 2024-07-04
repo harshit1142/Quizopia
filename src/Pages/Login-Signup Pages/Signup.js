@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./styles.css"
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { Link } from 'react-router-dom/cjs/react-router-dom';
+import { socket } from '../../App';
 
 
 
@@ -44,6 +45,12 @@ export default function Signup() {
        setAdmin({...admin,[ e.target.name]:e.target.value});
     }
 
+   
+    useEffect(() => {
+        if (localStorage.getItem('user')) {
+            history.push(JSON.parse(localStorage.getItem('user')).role);
+        }
+    })
 
    var correct=true;
     async function check(event){
@@ -75,6 +82,7 @@ export default function Signup() {
                 if(res.status===201)
                 {
                     alert("Registered Successfully!!");
+                    socket.emit('newUser');
                     history.push("/login");
                     
                 }else{
@@ -101,6 +109,7 @@ export default function Signup() {
                 if(res.status===201)
                 {
                     alert("Registered Successfully!!");
+                    socket.emit('newUser');
                      history.push("/login");
                 }else{
                     alert("Error Occured");
@@ -122,6 +131,7 @@ export default function Signup() {
                 if(res.status===201)
                 {
                     alert("Registered Successfully!!");
+                    socket.emit('newUser');
                      history.push("/login");
                 }else{
                     alert("Error Occured");

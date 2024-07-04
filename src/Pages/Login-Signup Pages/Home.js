@@ -1,9 +1,15 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import './home.css'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function Home() {
+  const history=useHistory();
+  useEffect(()=>{
+    if(localStorage.getItem('user')){
+      history.push(JSON.parse(localStorage.getItem('user')).role);
+    }
+  })
   return (
     <>
       <header>

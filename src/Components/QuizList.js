@@ -5,6 +5,7 @@ import { setQuiz } from '../Redux/QuizRedux';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { setChange } from '../Redux/ReloadRedux';
+import { socket } from '../App';
 
 export default function QuizList({list,ind,name}) {
   const dispatch=useDispatch();
@@ -14,6 +15,7 @@ export default function QuizList({list,ind,name}) {
     const response = await fetch(`http://localhost:4000/quiz/teacher/deleteQuiz/${list._id}`);
     const res = await response.json();
     if(res.status===200){
+      socket.emit('quizAdded');
       alert("Deleted");
       dispatch(setChange(true))
     } else {
@@ -76,10 +78,8 @@ export default function QuizList({list,ind,name}) {
     const res = await response.json();
     dispatch(setRanking(res.data))
     dispatch(setQuiz(list));
-    alert("LeaderBoard Loaded !!")
     history.push("/ranking");
   }
-
 
       return (
         
