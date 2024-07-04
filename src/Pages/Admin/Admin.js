@@ -209,14 +209,14 @@ useEffect(()=>{
                 </div>
             </section>
             :curr==="notice"?
-             <section class="main-content">
-                <div class="card-box">
-                    <a onClick={()=>setCurr("add_notice")} class="cards cards-teacherquestion">
-                        <div class="btn-content">Add Notice <span class="icon"><i class='fa fa-plus'></i></span>
+             <section className="main-content">
+                <div className="card-box">
+                    <a onClick={()=>setCurr("add_notice")} className="cards cards-teacherquestion">
+                        <div className="btn-content">Add Notice <span className="icon"><i className='fa fa-plus'></i></span>
                         </div>
                     </a>
-                    <a onClick={()=>setCurr("your_notice")}  class="cards cards-teacherquestion">
-                        <div class="btn-content">Your Notice <span class="icon"><i class='fa fa-plus'></i></span>
+                    <a onClick={()=>setCurr("your_notice")}  className="cards cards-teacherquestion">
+                        <div className="btn-content">Your Notice <span className="icon"><i className='fa fa-plus'></i></span>
                         </div>
                     </a>
                 </div>

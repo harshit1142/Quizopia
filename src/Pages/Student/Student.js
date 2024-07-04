@@ -62,67 +62,67 @@ export default function Student() {
 
     return (
         <>
-            <div class="wrapper">
-                <nav class="navbar">
-                    <div class="left-navbar">
-                        <div class="quiz-heading">QUIZOPIA</div>
-                        {/* <!-- <div class="button-bar"><button>bar</button></div> --> */}
+            <div className="wrapper">
+                <nav className="navbar">
+                    <div className="left-navbar">
+                        <div className="quiz-heading">QUIZOPIA</div>
+                        {/* <!-- <div className="button-bar"><button>bar</button></div> --> */}
                     </div>
-                    <a onClick={handleLogout}>  <div class="logout-btn text-light">Logout  <i class='fas fa-user-cog logout-icon'></i></div> </a>
+                    <a onClick={handleLogout}>  <div className="logout-btn text-light">Logout  <i className='fas fa-user-cog logout-icon'></i></div> </a>
                 </nav>
-                <div class="page-content">
-                    <div class="sidebar">
-                        <div class="pic-headbox">
-                            <div class="pic"><img src={img} alt="" height="70px" width="70px" /></div>
-                            <div class="admin-head">{user.name}</div>
+                <div className="page-content">
+                    <div className="sidebar">
+                        <div className="pic-headbox">
+                            <div className="pic"><img src={img} alt="" height="70px" width="70px" /></div>
+                            <div className="admin-head">{user.name}</div>
                         </div>
-                        <div class="option-bar">
-                            <a onClick={() => setCurr("dash")} class="icon-link">
-                                <div class="option-iconbox">
-                                    <span class="icon-sidebar"><ion-icon name="mail"></ion-icon></span>
-                                    <div class="options">Dashboard </div>
+                        <div className="option-bar">
+                            <a onClick={() => setCurr("dash")} className="icon-link">
+                                <div className="option-iconbox">
+                                    <span className="icon-sidebar"><ion-icon name="mail"></ion-icon></span>
+                                    <div className="options">Dashboard </div>
                                 </div>
                             </a>
-                            <a onClick={() => setCurr("view_quiz")} class="icon-link">
-                                <div class="option-iconbox">
-                                    <span class="icon-sidebar"><i class='fa fa-exclamation-circle'></i></span>
-                                    <div class="options">Quiz</div>
+                            <a onClick={() => setCurr("view_quiz")} className="icon-link">
+                                <div className="option-iconbox">
+                                    <span className="icon-sidebar"><i className='fa fa-exclamation-circle'></i></span>
+                                    <div className="options">Quiz</div>
                                 </div>
                             </a>
-                            {/* <a onClick={()=>setCurr("scorecard")} class="icon-link">
-                            <div class="option-iconbox">
-                                <span class="icon-sidebar"><i class='fas fa-sort-numeric-down'></i></span>
-                                <div class="options">Scorecard</div>
+                            {/* <a onClick={()=>setCurr("scorecard")} className="icon-link">
+                            <div className="option-iconbox">
+                                <span className="icon-sidebar"><i className='fas fa-sort-numeric-down'></i></span>
+                                <div className="options">Scorecard</div>
                             </div>
                         </a> */}
-                            <a onClick={() => setCurr("notice")} class="icon-link">
-                                <div class="option-iconbox">
-                                    <span class="icon-sidebar"><i class='fas fa-sort-numeric-down'></i></span>
-                                    <div class="options">Notice</div>
+                            <a onClick={() => setCurr("notice")} className="icon-link">
+                                <div className="option-iconbox">
+                                    <span className="icon-sidebar"><i className='fas fa-sort-numeric-down'></i></span>
+                                    <div className="options">Notice</div>
                                 </div>
                             </a>
                         </div>
                     </div>
                     {curr === "dash" ?
-                        <section class="main-content">
-                            <div class="card-box">
-                                <a onClick={() => setCurr("view_quiz")} class="cards cards-student m-2"><div class="btn-content">Total Quiz  <span class="icon"><i class='fa fa-exclamation-circle'></i></span></div></a>
-                                {/* <a onClick={()=>setCurr("scorecard")} class="cards cards-student m-2"><div class="btn-content">Scorecard <span class="icon"><i class='fa fa-question'></i></span></div></a> */}
-                                <a onClick={() => setCurr("notice")} class="cards cards-student m-2"><div class="btn-content">Notice By Teacher <span class="icon"><i class='fa fa-question'></i></span></div></a>
+                        <section className="main-content">
+                            <div className="card-box">
+                                <a onClick={() => setCurr("view_quiz")} className="cards cards-student m-2"><div className="btn-content">Total Quiz  <span className="icon"><i className='fa fa-exclamation-circle'></i></span></div></a>
+                                {/* <a onClick={()=>setCurr("scorecard")} className="cards cards-student m-2"><div className="btn-content">Scorecard <span className="icon"><i className='fa fa-question'></i></span></div></a> */}
+                                <a onClick={() => setCurr("notice")} className="cards cards-student m-2"><div className="btn-content">Notice By Teacher <span className="icon"><i className='fa fa-question'></i></span></div></a>
                             </div>
                         </section> :
                         curr === "view_quiz" ?
-                            <section class="main-content">
-                                <div class="card-box m-3 d-flex flex-wrap">
+                            <section className="main-content">
+                                <div className="card-box m-3 d-flex flex-wrap">
                                     {quiz != null && quiz.map((item, pos) => item.quiz.filter((a, b) => a.branch === user.branch && a.graduationYear === user.graduationYear).map((ele, ind) => <QuizList_Student key={ele._id} name={quiz[pos].name} ind={ind} list={ele} />))}
                                 </div>
                             </section>
                             : curr === "scorecard" ?
-                                <section class="main-content">
-                                    <div class="card-box">
-                                        <a class="cards cards-studentmarks">
-                                            <div class="btn-content">Scorecard <span class="icon">
-                                                <i class='fas fa-sort-numeric-down'></i></span></div>
+                                <section className="main-content">
+                                    <div className="card-box">
+                                        <a className="cards cards-studentmarks">
+                                            <div className="btn-content">Scorecard <span className="icon">
+                                                <i className='fas fa-sort-numeric-down'></i></span></div>
                                         </a>
                                     </div>
                                 </section>

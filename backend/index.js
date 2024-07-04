@@ -7,7 +7,7 @@ const cors = require("cors");
 
 app.use(cookies());
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: '*',
     credentials: true,
 }));
 

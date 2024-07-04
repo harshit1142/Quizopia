@@ -184,92 +184,92 @@ useEffect(()=>{
 
   return (
     <>
-      <div class="wrapper">
-        <nav class="navbar">
-            <div class="left-navbar">
-                <div class="quiz-heading">QUIZOPIA</div>
-                {/* <!-- <div class="button-bar"><button>bar</button></div> --> */}
+      <div className="wrapper">
+        <nav className="navbar">
+            <div className="left-navbar">
+                <div className="quiz-heading">QUIZOPIA</div>
+                {/* <!-- <div className="button-bar"><button>bar</button></div> --> */}
             </div>
-           <a onClick={handleLogout}> <div class="logout-btn text-light">Logout  <i class='fas fa-user-cog logout-icon'></i></div></a>
+           <a onClick={handleLogout}> <div className="logout-btn text-light">Logout  <i className='fas fa-user-cog logout-icon'></i></div></a>
         </nav>
         {user.accepted?
-        <div class="page-content">
-            <div class="sidebar">
-                <div class="pic-headbox">
-                    <div class="pic"><img src={img} alt="" height="70px" width="70px" /></div>
-                    <div class="admin-head" >{user.name}</div>
+        <div className="page-content">
+            <div className="sidebar">
+                <div className="pic-headbox">
+                    <div className="pic"><img src={img} alt="" height="70px" width="70px" /></div>
+                    <div className="admin-head" >{user.name}</div>
                 </div>
-                <div class="option-bar">
-                    <a  onClick={()=>setCurr("dash")} class="icon-link">
-                        <div class="option-iconbox">
-                            <span class="icon-sidebar"><ion-icon name="mail"></ion-icon></span>
-                            <div class="options" >Dashboard </div>
+                <div className="option-bar">
+                    <a  onClick={()=>setCurr("dash")} className="icon-link">
+                        <div className="option-iconbox">
+                            <span className="icon-sidebar"><ion-icon name="mail"></ion-icon></span>
+                            <div className="options" >Dashboard </div>
                         </div>
                     </a>
-                    <a  onClick={()=>setCurr("quiz")} class="icon-link">
-                        <div class="option-iconbox">
-                            <span class="icon-sidebar"><i class='fas fa-book-reader'></i></span>
-                            <div class="options" >Quiz</div>
+                    <a  onClick={()=>setCurr("quiz")} className="icon-link">
+                        <div className="option-iconbox">
+                            <span className="icon-sidebar"><i className='fas fa-book-reader'></i></span>
+                            <div className="options" >Quiz</div>
                         </div>
                     </a>
-                    <a onClick={()=>setCurr("notice")}  class="icon-link">
-                        <div  class="option-iconbox">
-                            <span class="icon-sidebar"><i class='fa fa-question'></i></span>
-                            <div class="options">Notice</div>
+                    <a onClick={()=>setCurr("notice")}  className="icon-link">
+                        <div  className="option-iconbox">
+                            <span className="icon-sidebar"><i className='fa fa-question'></i></span>
+                            <div className="options">Notice</div>
                         </div>
                     </a>
                 </div>
             </div>
             { curr==="dash"?
-              <section class="main-content">
-                <div class="card-box">
-                    <a onClick={()=>setCurr("total_student")} class="cards cards-teacherdashboard">
-                        <div class="btn-content">Total Student <span class="icon"><i
-                            class='fas fa-user-graduate'></i></span>
+              <section className="main-content">
+                <div className="card-box">
+                    <a onClick={()=>setCurr("total_student")} className="cards cards-teacherdashboard">
+                        <div className="btn-content">Total Student <span className="icon"><i
+                            className='fas fa-user-graduate'></i></span>
                         </div>
                     </a>
-                    <a onClick={()=>setCurr("quiz")} class="cards cards-teacherdashboard">
-                        <div class="btn-content">Total Quiz <span class="icon"><i class='fas fa-book-reader'></i></span>
+                    <a onClick={()=>setCurr("quiz")} className="cards cards-teacherdashboard">
+                        <div className="btn-content">Total Quiz <span className="icon"><i className='fas fa-book-reader'></i></span>
                         </div>
                     </a>
-                    <a onClick={()=>setCurr("notice")} class="cards cards-teacherdashboard">
-                        <div class="btn-content">Notice<span class="icon"><i class='fa fa-question'></i></span>
+                    <a onClick={()=>setCurr("notice")} className="cards cards-teacherdashboard">
+                        <div className="btn-content">Notice<span className="icon"><i className='fa fa-question'></i></span>
                         </div>
                     </a>
                 </div>
             </section>:
              curr==="quiz"?
-             <section class="main-content">
-                <div class="card-box">
-                    <a onClick={()=>setCurr("add_quiz")} class="cards cards-teacherexam">
-                        <div class="btn-content">Add Quiz <span class="icon"><i class='fa fa-plus'></i></span>
+             <section className="main-content">
+                <div className="card-box">
+                    <a onClick={()=>setCurr("add_quiz")} className="cards cards-teacherexam">
+                        <div className="btn-content">Add Quiz <span className="icon"><i className='fa fa-plus'></i></span>
                         </div>
                     </a>
-                    <a onClick={()=>setCurr("view_quiz")} class="cards cards-teacherexam">
-                        <div class="btn-content">View Quiz <span class="icon"><i class='fa fa-eye'></i></span>
+                    <a onClick={()=>setCurr("view_quiz")} className="cards cards-teacherexam">
+                        <div className="btn-content">View Quiz <span className="icon"><i className='fa fa-eye'></i></span>
                         </div>
                     </a>
                 </div>
             </section>
             :curr==="notice"?
-            <section class="main-content">
-                <div class="card-box">
-                    <a onClick={()=>setCurr("add_notice")} class="cards cards-teacherquestion">
-                        <div class="btn-content">Add Notice <span class="icon"><i class='fa fa-plus'></i></span>
+            <section className="main-content">
+                <div className="card-box">
+                    <a onClick={()=>setCurr("add_notice")} className="cards cards-teacherquestion">
+                        <div className="btn-content">Add Notice <span className="icon"><i className='fa fa-plus'></i></span>
                         </div>
                     </a>
-                    <a onClick={()=>setCurr("your_notice")} class="cards cards-teacherquestion">
-                        <div class="btn-content">Your Notice <span class="icon"><i class='fa fa-plus'></i></span>
+                    <a onClick={()=>setCurr("your_notice")} className="cards cards-teacherquestion">
+                        <div className="btn-content">Your Notice <span className="icon"><i className='fa fa-plus'></i></span>
                         </div>
                     </a>
-                    <a onClick={()=>setCurr("admin_notice")}  class="cards cards-teacherquestion">
-                        <div class="btn-content">View Notice By Admin <span class="icon"><i class='fa fa-eye'></i></span>
+                    <a onClick={()=>setCurr("admin_notice")}  className="cards cards-teacherquestion">
+                        <div className="btn-content">View Notice By Admin <span className="icon"><i className='fa fa-eye'></i></span>
                         </div>
                     </a>
                 </div>
             </section>:null}
              {curr==="total_student"?
-             <table class="table">
+             <table className="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -398,18 +398,18 @@ useEffect(()=>{
                </div>
             </section> 
             :curr==="view_quiz"?
-            <section class="main-content">
-                <div class="card-box m-3 d-flex flex-wrap">
+            <section className="main-content">
+                <div className="card-box m-3 d-flex flex-wrap">
               {quiz[0]!=null && quiz[0].quiz.map((item,pos)=> <QuizList list={item} ind={pos} key={item._id} name={quiz[0].name}/>) }
                </div>
             </section> 
             :""}
           </div>
 
-        :<section class="main-content">
-                <div class="card-box">
+        :<section className="main-content">
+                <div className="card-box">
                 
-                        <div class="btn-content">Your request yet not accepted by Admin</div>
+                        <div className="btn-content">Your request yet not accepted by Admin</div>
                     
                     </div>
                     </section>
