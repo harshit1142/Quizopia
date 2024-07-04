@@ -1,9 +1,15 @@
 # Quizopia
-- This platform is designed to empower educators by providing a clear and user-friendly interface for sharing conducting
-quizzes and various class activities. 
-- Features: Generating quizzes with designated time and date, incorporating multiple-choice questions, automatic quiz
-submission, and displaying a leaderboard.
-- Admin control lies with the ability to grant or deny teachers access to the platform.
+Developed a comprehensive platform designed to empower educators by providing a clear and user-friendly interface for sharing and conducting quizzes and various class activities.
+
+Key Features:
+
+- Quiz Management: Enabled the creation and scheduling of quizzes with specific times and dates, including multiple-choice questions.
+- Real-Time Updates: Integrated socket.io for real-time updates and interactions.
+- Automatic Submission: Implemented automatic quiz submission upon time completion.
+- Leaderboard: Developed a dynamic leaderboard to display quiz results and rankings.
+- Admin Control: Provided admin functionalities to grant or deny teachers access to the platform, ensuring secure and controlled usage.
+
+
  * <h4>Admin:-</h1>
 - Accept/Remove the Teacher's request to work on it.
 - Add/View Notice for All Teachers (with Date and Time)
