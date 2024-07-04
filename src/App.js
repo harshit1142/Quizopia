@@ -24,6 +24,10 @@ import { setAllQuiz } from "./Redux/AllQuizRedux";
 import LeaderBoard from "./Pages/Ranking/LeaderBoard";
 import { setRanking } from "./Redux/RankingRedux";
 import { setChange } from "./Redux/ReloadRedux";
+import { io } from 'socket.io-client';
+
+const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:4000';
+export const socket = io(URL);
 
 
 function App() {
@@ -31,22 +35,44 @@ function App() {
   const selectChange = (state) => state.rootReducer.ReloadReducer.change;
   const [user, setUserState] = useState({ role: "", email: "", password: "" })
    var change=useSelector(selectChange)
-
+   
+   useEffect(() => {
+     if (localStorage.getItem('user')) {
+       dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
+      }
+      if (localStorage.getItem('quiz')) {
+        dispatch(setQuiz(JSON.parse(localStorage.getItem("quiz"))));
+      }
+      if (localStorage.getItem('allQuiz')) {
+        dispatch(setAllQuiz(JSON.parse(localStorage.getItem("allQuiz"))));
+      }
+      if (localStorage.getItem('ranking')) {
+        dispatch(setRanking(JSON.parse(localStorage.getItem("ranking"))));
+      }
+      
+    }, [])
+    
+    const [isConnected, setIsConnected] = useState(socket.connected);
+    
   useEffect(() => {
-    if (localStorage.getItem('user')) {
-      dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
-    }
-    if (localStorage.getItem('quiz')) {
-      dispatch(setQuiz(JSON.parse(localStorage.getItem("quiz"))));
-    }
-    if (localStorage.getItem('allQuiz')) {
-      dispatch(setAllQuiz(JSON.parse(localStorage.getItem("allQuiz"))));
-    }
-    if (localStorage.getItem('ranking')) {
-      dispatch(setRanking(JSON.parse(localStorage.getItem("ranking"))));
+    function onConnect() {
+      setIsConnected(true);
     }
 
-  }, [])
+    function onDisconnect() {
+      setIsConnected(false);
+    }
+
+    
+
+    socket.on('connect', onConnect);
+    socket.on('disconnect', onDisconnect);
+
+    return () => {
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+    };
+  }, []);
 
 
   return (
